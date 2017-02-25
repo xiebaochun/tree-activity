@@ -12,7 +12,6 @@ var app = express();
 var bodyParser = require('body-parser');
 var webRouter = require('./web_router');
 
-var attackEngine = require('./api/attack');
 app.use('/public',express.static(path.resolve(__dirname ,'public')));
 
 
@@ -53,6 +52,5 @@ app.use('/',webRouter);
 
 app.listen(port);
 
-attackEngine.init(function(){});
 
 console.log("app is running on " + port);

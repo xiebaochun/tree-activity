@@ -15,6 +15,6 @@ var router = express.Router();
 // home page
 //router.get('/', authMiddleWare.auth, site.index);
 router.get('/', site.index);
-router.post('/start', site.start);
+//router.post('/start', site.start);
 
 module.exports = router;
