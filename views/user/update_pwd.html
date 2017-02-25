@@ -1,0 +1,33 @@
+<style type="text/css">
+	.top-banner{display: none !important;}
+	.wrap{position: fixed;left:50%;top:50%; width: 500px;height:330px;margin-top: -165px;margin-left:-250px;padding:20px 0;background-color: #eee;border-radius: 5px;}
+	.wrap .field-wrap{padding:10px 0;}
+	.wrap .field-wrap input{width: 200px;}
+	.wrap form{padding-top:0px;}
+	.panel-title{padding: 10px 0 10px 20px; border-bottom: 1px solid #999;}
+	.wrap .field-wrap .submit-btn, .cancel-btn{width:100px;}
+</style>
+<div class="wrap">
+	<div class="panel-title fw700">更改密码</div>
+	<div class="text-danger" style="height:20px;margin: 10px;"><%= error? error:'' %></div>
+	<form class="tc" action="/update_pwd" method="post">
+		<div class="field-wrap">
+			<label>账户名：</label>
+			<input type="text" name="username">
+		</div>
+		<div class="field-wrap">
+			<label>原密码：</label>
+			<input type="password" name="origin_pwd">
+		</div>
+		<div class="field-wrap">
+			<label>新密码：</label>
+			<input type="password" name="new_pwd">
+		</div>
+		<div class="blank10"></div>
+		<div class="field-wrap">
+			<input class="btn btn-primary submit-btn" type="submit" value="确定">
+			&nbsp;&nbsp;&nbsp;
+			<a href="/setting" class="btn btn-default cancel-btn" role="button">取消</a>
+		</div>
+	</form>
+</div>

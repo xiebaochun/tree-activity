@@ -1,0 +1,17 @@
+<style type="text/css">
+	.top-banner{display: none !important;}
+	.wrap{position: fixed;left:50%;top:50%; width: 500px;height:180px;margin-top: -90px;margin-left:-250px;padding:50px 20px 80px 20px;background-color: #eee;border-radius: 5px;}
+	
+</style>
+<div class="wrap tc">
+	<h3 class="color-success tc">密码更改成功！</h3>
+	<div class="blank10"></div>
+	<div>请重新登陆，正在跳转至登陆页面...</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		setTimeout(function(){
+			window.location.href = '/signout';
+		}, 3000);
+	});
+</script>

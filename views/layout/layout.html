@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable:no"/>
+	<title>node website demo</title>
+	<meta name="keywords" content="demo">
+	<meta name="description" content="">
+	<meta name="referrer" content="always">
+	<!-- style -->
+	  <%- Loader('/public/css/base.css')
+	  .css('/public/css/base.css')
+	  .css('/public/css/common.css')
+	  .done()
+	  %>
+	  <!-- scripts -->
+	  <%- Loader('/public/index.min.js')
+	  .js('/public/js/libs/jquery.min.js')
+	  .js('/public/js/common.js')
+	  .done()
+	  %>
+</head>
+<body>
+	<div class='main'>
+	  <%- body %>
+	</div>
+	<div class="bottom-nav">
+	</div>
+</body>
+</html>
