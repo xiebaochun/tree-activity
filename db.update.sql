@@ -20,3 +20,13 @@ CREATE TABLE `msg-attack`.attack_list (
 
 
 ALTER TABLE `msg-attack`.attack_list add `start_time` varchar(20) DEFAULT '' COMMENT '开始时间' AFTER `start_attack_date` 
+
+
+CREATE TABLE ``.users (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `open_id` varchar(50) DEFAULT '',
+    `referrer` varchar(50) DEFAULT '',
+    `is_new` tinyint(1) unsigned default 1 COMMENT '0-old, 1-new',
+
+    PRIMARY KEY (`user_id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET=utf8;
