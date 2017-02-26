@@ -23,9 +23,10 @@ var config = {
         database: 'demo'
     },
     weixin: {
-      "wechatToken": "",
-      "appId": "wxd292d9e457d266a6",
-      "appSecret": "d78202186af52351564f5fa234a93220",
+        "wechatRedirectUrl": "http://localhost:3000/wechat/oauth-callback",
+        "wechatToken": "wechat_token",
+        "appId": "wxd292d9e457d266a6",
+        "appSecret": "d78202186af52351564f5fa234a93220",
     }
 }
 module.exports = config;

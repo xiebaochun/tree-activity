@@ -31,6 +31,17 @@ exports.user = function(req, res, next) {
 	    }
 	);
 }
+
+exports.oauth = function(req, res){
+	wx.oauth.getUserInfo(req.query.code)
+     .then(function(userProfile) {
+       console.log(userProfile)
+       res.render("index", {
+         wechatInfo: userProfile
+       });
+     });
+}
+
 exports.setting = function(req, res, next) {
 	res.render('setting', {});
 }
