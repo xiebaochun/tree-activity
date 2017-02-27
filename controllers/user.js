@@ -1,4 +1,8 @@
 var User         = require('../proxy').User;
+var wechatConfig = require('../config').weixin;
+var Wechat = require('wechat-jssdk');
+//wx.initialize(wechatConfig);
+const wx = new Wechat(wechatConfig);
 
 exports.user = function(req, res, next) {
 	console.log(req.session);
@@ -36,9 +40,10 @@ exports.oauth = function(req, res){
 	wx.oauth.getUserInfo(req.query.code)
      .then(function(userProfile) {
        console.log(userProfile)
-       res.render("index", {
-         wechatInfo: userProfile
-       });
+       // res.render("index", {
+       //   wechatInfo: userProfile
+       // });
+       res.redirect('/');
      });
 }
 

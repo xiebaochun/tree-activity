@@ -1,3 +1,3 @@
 exports.User         = require('./user');
 
-exports.Setting      = require('./setting');
+// exports.Setting      = require('./setting');

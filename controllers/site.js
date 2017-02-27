@@ -1,4 +1,4 @@
-var wechatConfig = require('../config').weixin;
+﻿var wechatConfig = require('../config').weixin;
 var Wechat = require('wechat-jssdk');
 //wx.initialize(wechatConfig);
 const wx = new Wechat(wechatConfig);
@@ -20,6 +20,15 @@ exports.index = function (req, res, next) {
  //        });
  //      });
 };
+
+exports.weixin_verify = function(req, res) {
+	console.log(req.query);
+    if (wx.jssdk.verifySignature(req.query)) {
+        res.send(req.query.echostr);
+        return;
+    }
+    res.send("error");
+}
 
 exports.get_tree = function(req, res, next) {
 	res.render('activity/get_tree', {});

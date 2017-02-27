@@ -26,6 +26,8 @@ router.get('receive-friend-gifts', site.receive_friend_gifts);
 router.get('verify-mobile', site.verify_mobile);
 
 router.get('/wechat/oauth-callback', user.oauth);
+
+router.get('/api/wechat', site.weixin_verify);
 //router.post('/start', site.start);
 
 module.exports = router;

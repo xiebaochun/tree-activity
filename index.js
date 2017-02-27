@@ -32,7 +32,7 @@ app.use(session({
   saveUninitialized: false,
 }));
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 80;
 
 var router = express.Router();
 
@@ -44,10 +44,11 @@ app.locals._layoutFile = 'layout/layout.html';
 _.extend(app.locals, {
 	Loader:Loader,
   current_nav:0,
-  username: ''
+  username: '',
+  signatureData:null
 });
 
-//app.use('/api', cors(), apiRouter);
+app.use('/api', cors(), apiRouter);
 app.use('/',webRouter);
 
 app.listen(port);

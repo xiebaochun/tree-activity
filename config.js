@@ -23,10 +23,12 @@ var config = {
         database: 'demo'
     },
     weixin: {
-        "wechatRedirectUrl": "http://localhost:3000/wechat/oauth-callback",
-        "wechatToken": "wechat_token",
-        "appId": "wxd292d9e457d266a6",
-        "appSecret": "d78202186af52351564f5fa234a93220",
+        "wechatRedirectUrl": "http://312activity.xiaoshushidai.com/wechat/oauth-callback",
+        "wechatToken": "312activity",
+        // "appId": "wxd292d9e457d266a6",
+        // "appSecret": "d78202186af52351564f5fa234a93220",
+        "appId": "wx949d74074b4ebc27",
+        "appSecret": "489155673c2f23977d14d3700419c048",
     }
 }
 module.exports = config;
