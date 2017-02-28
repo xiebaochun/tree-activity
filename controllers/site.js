@@ -10,8 +10,12 @@ exports.index = function (req, res, next) {
 	wx.jssdk.getSignature(requestedUrl).then(function(signatureData) {
 	      //res.json(signatureDate);
 	    console.log(signatureData);
-		res.render('index', {signatureData:signatureData});	
-	});  
+	});
+	  
+	var signatureData ={};
+	res.render('index', {signatureData:signatureData});	
+	//var signatureData ={};
+	//}
 	// wx.oauth.getUserInfo(req.query.code)
  //      .then(function(userProfile) {
  //        console.log(userProfile)

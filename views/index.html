@@ -1,11 +1,55 @@
 <style type="text/css">
-	
+	.game-wrap{position: relative;}
+	.planted-tree{position: absolute;width:64%;bottom:18%;left: 18%;}
+	.tab-wrap{font-size: 0;}
+	.tab-wrap .tab{line-height: 2rem; font-size: 1rem;}
+	.tab-wrap .tab.active{border-bottom: 1px solid #008710;color: #008710;}
+
+	.no-record{padding: 2rem 0;text-align: center;}
 </style>
-<div>
-	index
+<div class="game-wrap">
+	<img class="w-100" src="../public/img/main_bg.png">
+	<img class="planted-tree" src="../public/img/main_tree.png">
+</div>
+<div class="tab-wrap">
+	<div class="tab inline-block tc w-50 border-right-line border-bottom-line active" data-for="growth-log">
+		<span>成长记录</span>
+	</div>
+	<div class="tab inline-block tc w-50 border-bottom-line" data-for='my-gift'>
+		<span>我的礼品</span>
+	</div>
+</div>
+<div class="tab-content-wrap">
+	<div class="tab-content" id="growth-log">
+		<div class="no-record">
+			<span class="color-gray">暂无记录哦~</span>
+		</div>
+	</div>
+	<div class="tab-content none" id="my-gift">
+		<div class="no-record">
+			<span class="color-gray">暂无记录哦~</span>
+		</div>
+	</div>
 </div>
 <script type="text/javascript">
 	$(function(){
-		
+		function Game() {
+			this.init();
+		}
+		var p = Game.prototype;
+
+		p.$main = $('.main');
+
+		p.init = function() {
+			this.bindEvent();
+		}
+
+		p.bindEvent = function() {
+			this.$main.on('click', '.tab', function(){
+				$(this).addClass('active').siblings().removeClass('active');
+			});
+		}
+		// init Game
+		var game = new Game();
 	});
 </script>

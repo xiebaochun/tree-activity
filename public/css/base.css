@@ -541,6 +541,9 @@ ul > li{
   position: absolute;
 }
 
+.fl{float: left;}
+.fr{float: right;}
+
 .w-50{
   width:50%;
 }
@@ -628,8 +631,8 @@ ul > li{
 /*溢出省略*/
 .nowrap{display: block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 
-.crearfix:after{
-  content:'';
+.clearfix:after{
+  content:' ';
   display: none,
   visibility: none;
   clear:both;
