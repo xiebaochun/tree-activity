@@ -31,13 +31,14 @@ exports.isNewUser = function(req, res, next) {
 	res.send(result);
 }
 
+
 exports.register = function(req, res, next) {
 	req.body = {
-
+		
 	}
 
 	var result = {
-		
+
 	}
 }
 
