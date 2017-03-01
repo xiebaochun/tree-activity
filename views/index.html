@@ -1,22 +1,25 @@
 <style type="text/css">
 	.game-wrap{position: relative;}
-	.planted-tree{position: absolute;width:64%;bottom:18%;left: 18%;}
+	.planted-tree{position: absolute;width:70%;bottom:18%;left: 15%;}
 	.tab-wrap{font-size: 0;}
-	.tab-wrap .tab{line-height: 2rem; font-size: 1rem;}
+	.tab-wrap .tab{line-height: 2.5rem; font-size: 1rem;}
 	.tab-wrap .tab.active{border-bottom: 1px solid #008710;color: #008710;}
-
+	.activity-rule{display: inline-block; position: absolute;top:0; left:0;padding: 1rem;}
+	.tips{display: block; position: absolute;top:1rem; left:0;padding: 1rem;}
 	.no-record{padding: 2rem 0;text-align: center;}
 </style>
 <div class="game-wrap">
+	<a class="activity-rule color-fff f1" href="/rule">活动规则</a>
+	<span class="tips w-100 tc">果子尚未成熟~需要继续浇水哦</span>
 	<img class="w-100" src="../public/img/main_bg.png">
 	<img class="planted-tree" src="../public/img/main_tree.png">
 </div>
 <div class="tab-wrap">
 	<div class="tab inline-block tc w-50 border-right-line border-bottom-line active" data-for="growth-log">
-		<span>成长记录</span>
+		<span class="f2">成长记录</span>
 	</div>
 	<div class="tab inline-block tc w-50 border-bottom-line" data-for='my-gift'>
-		<span>我的礼品</span>
+		<span class="f2">我的礼品</span>
 	</div>
 </div>
 <div class="tab-content-wrap">

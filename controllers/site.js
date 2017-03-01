@@ -5,12 +5,12 @@ const wx = new Wechat(wechatConfig);
 //console.log(wx);
 
 exports.index = function (req, res, next) {
-	var requestedUrl = req.protocol + '://' + req.get('Host') + req.url;
-	console.log(requestedUrl);
-	wx.jssdk.getSignature(requestedUrl).then(function(signatureData) {
-	      //res.json(signatureDate);
-	    console.log(signatureData);
-	});
+	// var requestedUrl = req.protocol + '://' + req.get('Host') + req.url;
+	// console.log(requestedUrl);
+	// wx.jssdk.getSignature(requestedUrl).then(function(signatureData) {
+	//       //res.json(signatureDate);
+	//     console.log(signatureData);
+	// });
 	  
 	var signatureData ={};
 	res.render('index', {signatureData:signatureData});	

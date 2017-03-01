@@ -16,14 +16,14 @@ var router = express.Router();
 // home page
 //router.get('/', authMiddleWare.auth, site.index);
 router.get('/', site.index);
-router.get('get-tree', site.get_tree);
-router.get('rule', site.rule);
-router.get('get-tree', site.get_tree);
-router.get('gift-rule', site.gift_rule);
-router.get('my-gifts', site.my_gifts);
-router.get('my-tree', site.my_tree);
-router.get('receive-friend-gifts', site.receive_friend_gifts);
-router.get('verify-mobile', site.verify_mobile);
+router.get('/get-tree', site.get_tree);
+router.get('/rule', site.rule);
+router.get('/get-tree', site.get_tree);
+router.get('/gift-rule', site.gift_rule);
+router.get('/my-gifts', site.my_gifts);
+router.get('/my-tree', site.my_tree);
+router.get('/receive-friend-gifts', site.receive_friend_gifts);
+router.get('/verify-mobile', site.verify_mobile);
 
 router.get('/wechat/oauth-callback', user.oauth);
 
