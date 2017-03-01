@@ -2,8 +2,9 @@
 	.game-wrap{position: relative;}
 	.planted-tree{position: absolute;width:70%;bottom:18%;left: 15%;}
 	.tab-wrap{font-size: 0;}
-	.tab-wrap .tab{line-height: 2.5rem; font-size: 1rem;}
+	.tab-wrap .tab{position: relative; line-height: 2.5rem; font-size: 1rem;}
 	.tab-wrap .tab.active{border-bottom: 1px solid #008710;color: #008710;}
+	.nav-tips{display:block;position: absolute;right:25%;top:0.5rem; background-color: red;width: 0.5rem;height: 0.5rem;border-radius: 100%;}
 	.activity-rule{display: inline-block; position: absolute;top:0; left:0;padding: 1rem;}
 	.tips{display: block; position: absolute;top:1rem; left:0;padding: 1rem;}
 	.no-record{padding: 2rem 0;text-align: center;}
@@ -39,8 +40,15 @@
 
 	/*bottom-tool*/
 	.bottom-tool{position: absolute;right:0;bottom:0;padding: 0.5rem 1rem;}
-	.gift-box{width: 2.5rem;padding-right: 0.5rem;}
+	.gift-box{width: 2.5rem;padding-right: 0.8rem;}
 	.bottle-box{width:3rem;}
+	.bottle-info{position: absolute;width: 1rem;height: 1rem;line-height: 1rem;background-color: red; color:#fff;font-size: 0.5rem;border: 1px solid #fff;border-radius: 50%;right:0.8rem;top:-0.2rem;}
+
+
+	/*list*/
+	.list .item{padding: 0.5rem 0.5rem;line-height: 2.5rem;}
+	.list .item span{margin-left:0.5rem;}
+	.avator{width:2rem;height:2rem;border: 1px solid #209f20;border-radius: 50%;overflow: hidden;}
 </style>
 <div class="game-wrap">
 	<a class="activity-rule color-fff f1" href="/rule">活动规则</a>
@@ -100,28 +108,88 @@
 			<img class="w-100" src="../public/img/gift_box.png">
 		</div>
 		<div class="bottle-box inline-block">
+			<div class="bottle-info tc">1</div>
 			<img class="w-100" src="../public/img/water_bottle.png">
 		</div>
 	</div>
 </div>
 <div class="tab-wrap">
 	<div class="tab inline-block tc w-50 border-right-line border-bottom-line active" data-for="growth-log">
+		<span class="nav-tips"></span>
 		<span class="f2">成长记录</span>
 	</div>
 	<div class="tab inline-block tc w-50 border-bottom-line" data-for='my-gift'>
+		<span class="nav-tips"></span>
 		<span class="f2">我的礼品</span>
 	</div>
 </div>
 <div class="tab-content-wrap">
 	<div class="tab-content" id="growth-log">
-		<div class="no-record">
+		<div class="no-record none">
 			<span class="color-gray">暂无记录哦~</span>
 		</div>
+		<ul class="growth-list list">
+			<li class="item">
+				<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">
+					<!-- <img class="w-100" src="../public/img/fruit.png"> -->
+				</span>
+				<span class="vm nick-name">
+					阿尔伯特
+				</span>
+				<span class="log-info color-666">
+					成功浇水1次
+				</span>
+				<span class="create-time fr color-666">
+					3-11 23:59
+				</span>
+			</li>
+		</ul>
 	</div>
 	<div class="tab-content none" id="my-gift">
-		<div class="no-record">
+		<div class="no-record none">
 			<span class="color-gray">暂无记录哦~</span>
 		</div>
+		<ul class="growth-list list">
+			<li class="item">
+				<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">
+					<!-- <img class="w-100" src="../public/img/fruit.png"> -->
+				</span>
+				<!-- <span class="vm nick-name">
+					阿尔伯特
+				</span> -->
+				<span class="log-info color-666">
+					恭喜你获得0.5元现金红包
+				</span>
+				<a class="create-time fr color-link" href="">
+					查看详情
+				</a>
+			</li>
+			<li class="item">
+				<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">
+					<!-- <img class="w-100" src="../public/img/fruit.png"> -->
+				</span>
+				<span class="vm nick-name">
+					阿尔伯特
+				</span>
+				<span class="log-info color-666">
+					恭喜你获得0.5元现金红包
+				</span>
+				<a class="create-time fr color-link" href="">
+					已送出
+				</a>
+			</li>
+			<li class="item">
+				<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">
+					<!-- <img class="w-100" src="../public/img/fruit.png"> -->
+				</span>
+				<span class="log-info color-666">
+					恭喜你获得0.5元现金红包
+				</span>
+				<span class="create-time fr color-666">
+					已送出
+				</span>
+			</li>
+		</ul>
 	</div>
 </div>
 <script type="text/javascript">
@@ -143,6 +211,7 @@
 		p.bindEvent = function() {
 			this.$main.on('click', '.tab', function(){
 				$(this).addClass('active').siblings().removeClass('active');
+				$('#' + $(this).data('for')).removeClass('none').siblings().addClass('none');
 			});
 		}
 		// init Game
