@@ -94,5 +94,9 @@ exports.setting_pwd = function(req, res, next) {
 	res.render('user/setting_pwd', {});
 }
 
+exports.setting_pwd_success = function(req, res, next) {
+	res.render('user/setting_pwd_success', {});
+}
+
 //
 

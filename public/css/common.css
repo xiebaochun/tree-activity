@@ -19,5 +19,38 @@
 /* This is the element that we apply the animation to. */
 .shake {
 	-webkit-animation: shake;
-   animation: shake;
+    animation: shake;
+}
+
+.rotate{
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-timing-function: ease-in-out;
+	animation-timing-function: ease-in-out;
+	-webkit-animation-name: rotate;
+	animation-name: rotate;
+}
+
+@-webkit-keyframes rotate {
+	0% {
+		-webkit-transform: rotateZ(0deg);
+    	transform: rotateZ(0deg);
+	}
+	100% {
+		-webkit-transform: rotateZ(-30deg);
+    	transform: rotateZ(-30deg);	
+	}
+}
+
+@keyframes headShake{
+	0% {
+		-webkit-transform: rotateZ(0deg);
+    	transform: rotateZ(0deg);
+	}
+	100% {
+		-webkit-transform: rotateZ(-30deg);
+    	transform: rotateZ(-30deg);	
+	}
 }

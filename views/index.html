@@ -8,7 +8,9 @@
 	.nav-tips{display:block;position: absolute;right:25%;top:0.5rem; background-color: red;width: 0.5rem;height: 0.5rem;border-radius: 100%;}
 	.activity-rule{display: inline-block; position: absolute;top:0; left:0;padding: 1rem;}
 	.tips{display: block; position: absolute;top:2.2rem; left:0;padding: 0rem;}
-	.water{position: absolute;display: inline-block;left:70%;top:4rem;width:6rem;z-index: 2;}
+	.water{position: absolute;display: inline-block;left:70%;top:4rem;width:6rem;z-index: 2;0}
+	.water .bottle{position: absolute; right:0;width:3rem;}
+	.water .water-drops{position: absolute; width:2rem;top:2rem;left:1.8rem;_opacity: 0;}
 
 	.no-record{padding: 2rem 0;text-align: center;}
 
@@ -41,8 +43,6 @@
 	.hp-5{width: 4rem;}
 	.hp-5 span{width: 12.5%;}
 
-
-
 	/*bottom-tool*/
 	.bottom-tool{position: absolute;right:0;bottom:0;padding: 0.5rem 1rem;}
 	.gift-box{width: 2.5rem;padding-right: 0.8rem;}
@@ -74,9 +74,9 @@
 <div class="game-wrap">
 	<a class="activity-rule color-fff f1" href="/rule">活动规则</a>
 	<span class="tips w-100 tc none">果子尚未成熟~需要继续浇水哦</span>
-	<div class="water">
+	<div class="water none">
 		<img class="bottle" src="../public/img/bottle.png">
-		<img src="../public/img/water_drops.png">
+		<img class="water-drops animated flash none" src="../public/img/water_drops.png">
 	</div>
 	<img class="w-100" src="../public/img/main_bg.png">
 	<div class="planted-tree">
@@ -277,10 +277,18 @@
 			});
 
 			// bottom tools
-				// bottle
+			// water
+			this.bindClick('.bottle-box', function(){
+				self.water();
+			});
+			// bottle
 			this.bindClick('.gift-box', function(){
-				self.openPopBox(1, '恭喜你！');
+				//self.openPopBox(1, '恭喜你！');
 			});	
+
+			this.bindClick('.fruit', function(){
+				self.openPopBox(1, '恭喜你！');
+			});				
 
 			this.bindClick('.pop-box .operation .btn', function(){
 				self.closePopBox();
@@ -290,6 +298,19 @@
 
 		p.bindClick = function(className, callback){
 			this.$main.on('click', className, callback);
+		}
+
+		p.water = function() {
+			$('.water').removeClass('none').children('.bottle').addClass('rotate');
+
+			setTimeout(function(){
+				$('.water').children('.water-drops').removeClass('none').addClass('flash');
+			},1000);
+
+			setTimeout(function(){
+				$('.water').addClass('none').children('.bottle').removeClass('rotate');
+				$('.water').children('.water-drops').addClass('none').removeClass('flash');
+			},3000);
 		}
 
 		// open pop-box
