@@ -7,12 +7,102 @@
 	.activity-rule{display: inline-block; position: absolute;top:0; left:0;padding: 1rem;}
 	.tips{display: block; position: absolute;top:1rem; left:0;padding: 1rem;}
 	.no-record{padding: 2rem 0;text-align: center;}
+
+	/*fruit*/
+	.fruit{position: absolute; width: 2rem;}
+	.fruit-1{width: 1.5rem;}
+	.fruit-2{width: 2rem;}
+	.fruit-3{width: 2.5rem;}
+	.fruit-4{width: 3rem;}
+	.fruit-5{width: 3.5rem;}
+	.fruit-p1{left: 10.5rem;top: 1.6rem;}
+	.fruit-p2{left: 13rem;top: 3rem;}
+	.fruit-p3{left: 6.5rem;top: 5rem;}
+	.fruit-p4{left: 14rem;top: 8rem;}
+	.fruit-p5{left: 0.7rem;top: 9rem;}
+
+	.fruit-hp{position: absolute;left:1.5rem;top:-0.5rem;height:0.5rem;min-width:2rem;background-color: #fff;border: 1px solid #008710;border-radius: 0.8rem;overflow: hidden;font-size: 0;}
+	.fruit-hp .hp-value{display: inline-block;height: 100%;/*width:0.5rem;*/ background-color: #c1eaaa;font-size: 0;float:left;border-right:1px solid #fff;}
+	.fruit-hp .hp-value:last-child{border-right: none;}
+	.fruit-hp .hp-value.active{background-color: #4a8300;}
+	.hp-1 span{width: 100%;}
+	.hp-2{width: 3rem;}
+	.hp-2 span{width: 50%;}
+	.hp-3{width: 4rem;}
+	.hp-3 span{width: 25%;}
+	.hp-4{width: 4rem;}
+	.hp-4 span{width: 16.6666666666666%;}
+	.hp-5{width: 4rem;}
+	.hp-5 span{width: 12.5%;}
+
+
+
+	/*bottom-tool*/
+	.bottom-tool{position: absolute;right:0;bottom:0;padding: 0.5rem 1rem;}
+	.gift-box{width: 2.5rem;padding-right: 0.5rem;}
+	.bottle-box{width:3rem;}
 </style>
 <div class="game-wrap">
 	<a class="activity-rule color-fff f1" href="/rule">活动规则</a>
 	<span class="tips w-100 tc">果子尚未成熟~需要继续浇水哦</span>
 	<img class="w-100" src="../public/img/main_bg.png">
-	<img class="planted-tree" src="../public/img/main_tree.png">
+	<div class="planted-tree">
+		<img class="w-100 inline-block" src="../public/img/main_tree.png">
+		<div class="fruit fruit-1 fruit-p1">
+			<div class="fruit-hp hp-1">
+				<span class="hp-value active"></span>
+			</div>
+			<img class="w-100" src="../public/img/fruit.png">
+		</div>
+		<div class="fruit fruit-2 fruit-p2">
+		<div class="fruit-hp hp-2">
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+			</div>
+			<img class="w-100" src="../public/img/fruit.png">
+		</div>
+		<div class="fruit fruit-3 fruit-p3">
+			<div class="fruit-hp hp-3">
+				<span class="hp-value active"></span>
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+			</div>
+			<img class="w-100" src="../public/img/fruit.png">
+		</div>
+		<div class="fruit fruit-4 fruit-p4">
+			<div class="fruit-hp hp-4">
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+			</div>
+			<img class="w-100" src="../public/img/fruit.png">
+		</div>
+		<div class="fruit fruit-5 fruit-p5">
+			<div class="fruit-hp hp-5">
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+				<span class="hp-value"></span>
+			</div>
+			<img class="w-100" src="../public/img/fruit.png">
+		</div>
+	</div>
+	<div class="bottom-tool">
+		<div class="gift-box inline-block">
+			<img class="w-100" src="../public/img/gift_box.png">
+		</div>
+		<div class="bottle-box inline-block">
+			<img class="w-100" src="../public/img/water_bottle.png">
+		</div>
+	</div>
 </div>
 <div class="tab-wrap">
 	<div class="tab inline-block tc w-50 border-right-line border-bottom-line active" data-for="growth-log">
@@ -38,6 +128,9 @@
 	$(function(){
 		function Game() {
 			this.init();
+			setTimeout(function(){
+				window.location.reload();
+			},3000);
 		}
 		var p = Game.prototype;
 
