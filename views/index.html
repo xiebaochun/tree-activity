@@ -23,7 +23,7 @@
 	.fruit-p4{left: 14rem;top: 8rem;}
 	.fruit-p5{left: 0.7rem;top: 9rem;}
 
-	.grap-hand{position:absolute;width:2rem;top:1rem;left:01rem;z-index: 1;}
+	.grap-hand{display: none; position:absolute;width:2rem;top:1rem;left:01rem;z-index: 1;}
 
 	.fruit-hp{position: absolute;left:1.5rem;top:-0.5rem;height:0.5rem;min-width:2rem;background-color: #fff;border: 1px solid #008710;border-radius: 0.8rem;overflow: hidden;font-size: 0;}
 	.fruit-hp .hp-value{display: inline-block;height: 100%;/*width:0.5rem;*/ background-color: #c1eaaa;font-size: 0;float:left;border-right:1px solid #fff;}
@@ -68,9 +68,10 @@
 	.operation{position: absolute;bottom:0;left:0;width:100%;}
 	.operation .btn{width:6.5rem;margin:1rem 0.8rem;}
 </style>
+<img style="position:absolute;top:0;left:0; width:0" src="http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png">
 <div class="game-wrap">
 	<a class="activity-rule color-fff f1" href="/rule">活动规则</a>
-	<span class="tips w-100 tc">果子尚未成熟~需要继续浇水哦</span>
+	<span class="tips w-100 tc none">果子尚未成熟~需要继续浇水哦</span>
 	<img class="water none" src="../public/img/water.gif">
 	<img class="w-100" src="../public/img/main_bg.png">
 	<div class="planted-tree">
@@ -219,9 +220,9 @@
 		</ul>
 	</div>
 </div>
-<div class="pop-box">
-	<div class="body animated bounceIn">
-		<img class="w-100" src="../public/img/achieve_fruit_tips.png">
+<div class="pop-box none">
+	<div class="body _animated bounceIn">
+		<img class="w-100" src="../public/img/achieve_virtual_tips.png">
 		<div class="info">
 			<span>恭喜你获得xx虚拟礼品</span>
 		</div>
@@ -231,12 +232,12 @@
 		</div>
 	</div>
 </div>
-<div class="non">
-	<img src="../public/img/achieve_virtual_tips.png">
-	<img src="../public/img/achieve_money_tips.png">
-	<img src="../public/img/achieve_invest_tips.png">
-	<img src="../public/img/achieve_ticket_tips.png">
-	<img src="../public/img/achieve_water_count.png">
+<div class="none">
+	<img class="w-100" src="../public/img/achieve_virtual_tips.png">
+	<img class="w-100" src="../public/img/achieve_money_tips.png">
+	<img class="w-100" src="../public/img/achieve_invest_tips.png">
+	<img class="w-100" src="../public/img/achieve_ticket_tips.png">
+	<img class="w-100" src="../public/img/achieve_water_count.png">
 </div>
 <script type="text/javascript">
 	$(function(){
@@ -249,6 +250,7 @@
 		var p = Game.prototype;
 
 		p.$main = $('.main');
+		p.$pop = $('.pop-box');
 		p.pop_box_imgs = {
 			virtual_gift: '../public/img/achieve_virtual_tips.png',
 			money_gift: '../public/img/achieve_money_tips.png',
@@ -262,10 +264,39 @@
 		}
 
 		p.bindEvent = function() {
+			var self = this;
+			// nav 
 			this.$main.on('click', '.tab', function(){
 				$(this).addClass('active').siblings().removeClass('active');
 				$('#' + $(this).data('for')).removeClass('none').siblings().addClass('none');
 			});
+
+			// bottom tools
+				// bottle
+			this.bindClick('.gift-box', function(){
+				self.openPopBox(1, '恭喜你！');
+			});	
+
+			this.bindClick('.pop-box .operation .btn', function(){
+				self.closePopBox();
+			});
+
+		}
+
+		p.bindClick = function(className, callback){
+			this.$main.on('click', className, callback);
+		}
+
+		// open pop-box
+		p.openPopBox = function(type, content) {
+			this.$pop.removeClass('none').children('.body').addClass('animated');
+			this.$pop.find('.info span').text(content || '?????');
+
+		}
+
+		p.closePopBox = function() {
+			this.$pop.addClass('none').children('.body').removeClass('animated');
+			this.$pop.find('.info span').text('');
 		}
 		// init Game
 		var game = new Game();

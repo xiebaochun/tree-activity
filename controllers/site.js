@@ -25,6 +25,35 @@ exports.index = function (req, res, next) {
  //      });
 };
 
+exports.f_index = function (req, res, next) {
+	// var requestedUrl = req.protocol + '://' + req.get('Host') + req.url;
+	// console.log(requestedUrl);
+	// wx.jssdk.getSignature(requestedUrl).then(function(signatureData) {
+	//       //res.json(signatureDate);
+	//     console.log(signatureData);
+	// });
+	  
+	var signatureData ={};
+	res.render('f_index', {signatureData:signatureData});	
+	//var signatureData ={};
+	//}
+	// wx.oauth.getUserInfo(req.query.code)
+ //      .then(function(userProfile) {
+ //        console.log(userProfile)
+ //        res.render("index", {
+ //          wechatInfo: userProfile
+ //        });
+ //      });
+};
+
+exports.xs_ticket = function(req, res) {
+	res.render('activity/xs_ticket', {});
+}
+
+exports.gift_none = function(req, res) {
+	res.render('activity/gift_none', {});	
+}
+
 exports.weixin_verify = function(req, res) {
 	console.log(req.query);
     if (wx.jssdk.verifySignature(req.query)) {
@@ -46,7 +75,7 @@ exports.get_tree = function(req, res, next) {
 	res.render('get_tree', {});
 }
 exports.gift_rule = function(req, res, next) {
-	res.render('gift_rule', {});
+	res.render('activity/gift_rule', {});
 }
 exports.my_gifts = function(req, res, next) {
 	res.render('my_gifts', {});
@@ -58,7 +87,11 @@ exports.receive_friend_gifts = function(req, res, next) {
 	res.render('receive_friend_gifts', {});
 }
 exports.verify_mobile = function(req, res, next) {
-	res.render('verify_mobile', {});
+	res.render('user/verify_mobile', {});
+}
+
+exports.setting_pwd = function(req, res, next) {
+	res.render('user/setting_pwd', {});
 }
 
 //

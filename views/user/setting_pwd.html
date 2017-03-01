@@ -1,0 +1,63 @@
+<style type="text/css">
+	_html{background-color: #f4f4f4;}
+	.list-item{
+		position: relative;
+		padding: 0 1rem;
+		line-height: 4rem;
+		background-color: #fff;
+	}
+	.bottom-line:after{
+		content: ' ';
+		display: block;
+		position: absolute;
+		left:0;
+		bottom: 0;
+		height: 0.5px;
+		width: 100%;
+		background-color: #f4f4f4;
+	}
+	.list-item input{
+		_outline:none;
+		margin-left:2rem;
+		line-height: 3.5rem;
+		border:none;
+	}
+	.get-verify-btn{height: 100%;padding:0 1rem;margin-right: -1rem;}
+	.submit-btn{width:15rem;line-height: 3rem;border-radius:3px;}
+</style>
+<div class="_list-item color-999 bg-fff f1" style="padding:1rem;border-bottom:1rem solid #f4f4f4;">
+	亲爱的用户，您是我们小树时代的新客人，已自动为您注册小树账户，相关奖品将在活动结束后统一发放到您的小树账户。若有疑问，请联系客服~
+</div>
+<div class='list-item bottom-line'>
+	<label>设置密码</label>
+	<input type="password" name="mobile" id="pwd">
+</div>
+<div class='list-item bottom-line'>
+	<label>确认密码</label>
+	<input type="password" name="mobile" id="e-pwd">
+</div>
+<div class="tc" style="margin-top:5rem;">
+	<div class="inline-block bg-yellow submit-btn">
+		确认设置
+	</div>
+	<br>
+	<p style="height: 1rem;"></p>
+	<a class="color-red" href="">隐私条款</a>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$('.submit-btn').click(function(){
+			var pwd = $('#pwd').val();
+			var e_pwd = $('#e-pwd').val();
+
+			if(!pwd){
+				alert('请输入密码！');
+				return false;
+			}
+
+			if(pwd != e_pwd){
+				alert('两次输入的密码不一致！');
+			}
+		});
+	});
+</script>
