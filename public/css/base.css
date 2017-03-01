@@ -531,7 +531,7 @@ ul > li{
 .inline-block{display: inline-block !important;}
 .inline{display: inline !important;}
 
-.none{display: none;}
+.none{display: none !important;}
 
 .rl{
   position: relative;

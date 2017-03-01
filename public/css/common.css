@@ -8,3 +8,14 @@
 .f2{font-size: 1.2rem;}
 
 /*animation*/
+/* This is the animation code. */
+@-webkit-keyframes shake {
+   from { transform: scale(2.0); }
+   to   { transform: scale(1.0); }
+}
+
+/* This is the element that we apply the animation to. */
+.shake {
+	-webkit-animation: shake;
+   animation: shake;
+}
