@@ -1,5 +1,5 @@
-var CryptoJS = require('./aes.js');
-var CryptoJS = CryptoJS.default;
+var aes = require('./aes.js');
+var CryptoJS = aes.CryptoJS;
 
 function AES_encrypt(strData){
 	var keyStr = "FANWE5LMUQC43P2P";
@@ -26,7 +26,7 @@ function AES_decrypt(encryptedStr){
 	return decryptedStr;
 }
 
-var MD5 = CryptoJS.MD5;
+//var MD5 = CryptoJS.MD5;
 
 exports.AES_encrypt = AES_encrypt;
 

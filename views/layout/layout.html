@@ -16,6 +16,10 @@
 	  %>
 	  <!-- scripts -->
 	  <%- Loader('/public/index.min.js')
+	  .js('/public/js/libs/aes.js')
+	  .js('/public/js/libs/md5.js')
+	  .js('/public/js/libs/mode-ecb.js')
+	  .js('/public/js/libs/script.js')
 	  .js('/public/js/libs/jquery.min.js')
 	  .js('/public/js/libs/jweixin-1.0.0.js')
 	  .js('/public/js/rem.js')
