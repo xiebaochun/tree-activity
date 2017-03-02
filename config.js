@@ -29,6 +29,13 @@ var config = {
         // "appSecret": "d78202186af52351564f5fa234a93220",
         "appId": "wx949d74074b4ebc27",
         "appSecret": "489155673c2f23977d14d3700419c048",
-    }
+    },
+    weixin_sign:{
+        appId: 'wx949d74074b4ebc27',
+        appSecret: '489155673c2f23977d14d3700419c048',
+        appToken: '312activity',
+        cache_json_file:'/tmp'
+    },
+    weixin_auth_url: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx949d74074b4ebc27&redirect_uri=http://312activity.xiaoshushidai.com/wechat/oauth-callback&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect',
 }
 module.exports = config;

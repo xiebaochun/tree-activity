@@ -9,6 +9,46 @@
 .f1{font-size: 1rem;}
 .f2{font-size: 1.2rem;}
 
+
+.success-pop{
+    display: none;
+    position: fixed;
+    top:50%;
+    left: 50%;
+    margin-top:-90px;
+    margin-left: -90px;
+    height: 120px;
+    width:180px;
+    line-height: 20px;
+    background-color:rgba(0,0,0,0.8);
+    font-size: 14px;
+    color:#fff;
+    text-align: center;
+    border-radius:5px;
+    padding:45px 20px;
+    box-sizing: border-box;
+}
+.success-pop:before{
+    content:'';
+    position: fixed;
+    display: block;
+    top:-1000px;
+    left:-500px;
+    width: 1000px;
+    height: 2200px;
+    background-color:rgba(200,0,0,0);
+}
+.fadeIn{
+    display: block;
+    animation: fadeIn 0.5s forwards;
+}
+@keyframes fadeIn{
+    from{opacity: 0;transform: scale(0.2);}
+    20%{transform: scale(1.02);}
+    to{opacity: 1;transform: scale(1);}
+}
+
+
 /*animation*/
 /* This is the animation code. */
 @-webkit-keyframes shake {

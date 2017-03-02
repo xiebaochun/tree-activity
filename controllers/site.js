@@ -1,5 +1,7 @@
 ﻿var wechatConfig = require('../config').weixin;
+var wechat_sigin_config = require('../config').weixin_sign;
 var Wechat = require('wechat-jssdk');
+var signature = require('wx_jsapi_sign');
 //wx.initialize(wechatConfig);
 const wx = new Wechat(wechatConfig);
 //console.log(wx);
@@ -10,10 +12,27 @@ exports.index = function (req, res, next) {
 	// wx.jssdk.getSignature(requestedUrl).then(function(signatureData) {
 	//       //res.json(signatureDate);
 	//     console.log(signatureData);
+	//     res.render('index', {signatureData:signatureData});	
 	// });
-	  
-	var signatureData ={};
-	res.render('index', {signatureData:signatureData});	
+	 
+	var url = req.protocol + '://' + req.get('Host') + req.url;
+	signature.getSignature(wechat_sigin_config)(url, function(error, result) {
+        if (error) {
+            console.log(error);
+        } else {
+        	console.log(result);
+        	var open_id = result.open_id;
+        	// 检测是否已注册
+        	if(true){
+        		res.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx949d74074b4ebc27&redirect_uri=http://312activity.xiaoshushidai.com/wechat/oauth-callback&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
+        	}else{
+            	res.render('index', {signatureData:result});	
+        	}
+        }
+    });
+
+	// var signatureData ={};
+	// res.render('index', {signatureData:signatureData});	
 	//var signatureData ={};
 	//}
 	// wx.oauth.getUserInfo(req.query.code)
@@ -72,7 +91,7 @@ exports.rule = function(req, res, next) {
 }
 
 exports.get_tree = function(req, res, next) {
-	res.render('get_tree', {});
+	res.render('activity/get_tree', {});
 }
 exports.gift_rule = function(req, res, next) {
 	res.render('activity/gift_rule', {});

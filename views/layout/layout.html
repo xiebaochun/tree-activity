@@ -29,6 +29,7 @@
 	</div>
 	<div class="bottom-nav">
 	</div>
+	<div class="success-pop" id="success-pop">恭喜你已注册成功！</div>
 </body>
 <% if(signatureData) { %>
 <script type="text/javascript">
@@ -79,6 +80,32 @@
 	wx.ready(function(){
 		//alert('sd');
 	    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+	    // wx.onMenuShareQQ({
+	    //     title: '312植树节-小树时代', // 分享标题
+	    //     desc: '小树时代-植树节', // 分享描述
+	    //     link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx949d74074b4ebc27&redirect_uri=http://312activity.xiaoshushidai.com/wechat/oauth-callback&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect', // 分享链接
+	    //     imgUrl: 'http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png', // 分享图标
+	    //     success: function () { 
+	    //        // 用户确认分享后执行的回调函数
+	    //     },
+	    //     cancel: function () { 
+	    //        // 用户取消分享后执行的回调函数
+	    //     }
+	    // });
+	    wx.onMenuShareAppMessage({
+	        title: '312植树节-小树时代', // 分享标题
+	        desc: '小树时代-植树节', // 分享描述
+	        link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx949d74074b4ebc27&redirect_uri=http://312activity.xiaoshushidai.com/wechat/oauth-callback&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect', // 分享链接
+	        imgUrl: 'http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png', // 分享图标
+	        type: '', // 分享类型,music、video或link，不填默认为link
+	        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+	        success: function () { 
+	            // 用户确认分享后执行的回调函数
+	        },
+	        cancel: function () { 
+	            // 用户取消分享后执行的回调函数
+	        }
+	    });
 
 	});
 </script>
