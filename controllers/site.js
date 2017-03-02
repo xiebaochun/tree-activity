@@ -22,11 +22,14 @@ exports.index = function (req, res, next) {
         } else {
         	console.log(result);
         	var open_id = result.open_id;
+
+        	console.log('session');
+        	console.log(req.session);
         	// 检测是否已注册
-        	if(true){
-        		res.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx949d74074b4ebc27&redirect_uri=http://312activity.xiaoshushidai.com/wechat/oauth-callback&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
-        	}else{
+        	if(req.session.user){
             	res.render('index', {signatureData:result});	
+        	}else{
+        		res.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx949d74074b4ebc27&redirect_uri=http://312activity.xiaoshushidai.com/wechat/oauth-callback&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
         	}
         }
     });
@@ -97,10 +100,10 @@ exports.gift_rule = function(req, res, next) {
 	res.render('activity/gift_rule', {});
 }
 exports.my_gifts = function(req, res, next) {
-	res.render('my_gifts', {});
+	res.render('activity/my_gifts', {});
 }
 exports.my_tree = function(req, res, next) {
-	res.render('my_tree', {});
+	res.render('activity/my_tree', {});
 }
 exports.receive_friend_gifts = function(req, res, next) {
 	res.render('receive_friend_gifts', {});

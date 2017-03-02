@@ -20,17 +20,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require('cookie-parser')(config.session_secret));
 var RedisStore = require('connect-redis')(session);
 
-// app.use(session({
-//   secret: config.session_secret,
-//   store: new RedisStore({
-//     port: config.redis_port,
-//     host: config.redis_host,
-//     db: config.redis_db,
-//     pass: config.redis_password,
-//   }),
-//   resave: false,
-//   saveUninitialized: false,
-// }));
+app.use(session({
+  secret: config.session_secret,
+  store: new RedisStore({
+    port: config.redis_port,
+    host: config.redis_host,
+    db: config.redis_db,
+    pass: config.redis_password,
+  }),
+  resave: false,
+  saveUninitialized: false,
+}));
 
 var port = process.env.PORT || 80;
 
