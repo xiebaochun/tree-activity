@@ -3,6 +3,8 @@ var authMiddleWare = require('../middlewares/auth');
 var config = require('../config');
 var validator = require('validator');
 
+var api_post = require('../libs/api_post');
+
 
 exports.showLogin = function(req, res) {
     res.render('login/login', { error: false });

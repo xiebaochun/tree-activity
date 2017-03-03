@@ -12,9 +12,9 @@ var config = {
     redis_db: 0,
     redis_password: '',
 
-    session_secret: 'demo_secret', // 务必修改
+    session_secret: '312activity', // 务必修改
 
-    auth_cookie_name: 'demo_attack',
+    auth_cookie_name: '312activity',
 
     mysql_conf: {
         host: 'localhost',
@@ -25,17 +25,17 @@ var config = {
     weixin: {
         "wechatRedirectUrl": "http://312activity.xiaoshushidai.com/wechat/oauth-callback",
         "wechatToken": "312activity",
-        // "appId": "wxd292d9e457d266a6",
-        // "appSecret": "d78202186af52351564f5fa234a93220",
-        "appId": "wx949d74074b4ebc27",
-        "appSecret": "489155673c2f23977d14d3700419c048",
+        "appId": "wxd292d9e457d266a6",
+        "appSecret": "d78202186af52351564f5fa234a93220",
+        // "appId": "wx949d74074b4ebc27",
+        // "appSecret": "489155673c2f23977d14d3700419c048",
     },
     weixin_sign:{
-        appId: 'wx949d74074b4ebc27',
-        appSecret: '489155673c2f23977d14d3700419c048',
+        appId: 'wxd292d9e457d266a6',
+        appSecret: 'd78202186af52351564f5fa234a93220',
         appToken: '312activity',
         cache_json_file:'/tmp'
     },
-    weixin_auth_url: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx949d74074b4ebc27&redirect_uri=http://312activity.xiaoshushidai.com/wechat/oauth-callback&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect',
+    weixin_auth_url: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd292d9e457d266a6&redirect_uri=http://312activity.xiaoshushidai.com/wechat/oauth-callback&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect',
 }
 module.exports = config;

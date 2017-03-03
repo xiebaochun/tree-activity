@@ -4,7 +4,7 @@ var config = require('./config');
 var express = require('express');
 var session = require('express-session');
 var Loader = require('loader');
-//var apiRouter = require('./api_router');
+var apiRouter = require('./api_router');
 var cors = require('cors');
 var _ = require('lodash');
 var app = express();
@@ -13,7 +13,6 @@ var bodyParser = require('body-parser');
 var webRouter = require('./web_router');
 
 app.use('/public',express.static(path.resolve(__dirname ,'public')));
-
 
 //console.log(path.resolve(__dirname ,'public'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -45,10 +44,11 @@ _.extend(app.locals, {
 	Loader:Loader,
   current_nav:0,
   username: '',
-  signatureData:null
+  signatureData:null,
+  user_info: {}
 });
 
-//app.use('/api', cors(), apiRouter);
+app.use('/api', cors(), apiRouter);
 app.use('/',webRouter);
 
 app.listen(port);

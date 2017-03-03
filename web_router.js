@@ -10,14 +10,15 @@
 var express = require('express');
 var site = require('./controllers/site');
 var user = require('./controllers/user');
+var auth = require('./middlewares/auth');
 
 var router = express.Router();
 
 // home page
 //router.get('/', authMiddleWare.auth, site.index);
-router.get('/', site.index);
+router.get('/', auth.auth, site.index);
 router.get('/f-index', site.f_index);
-router.get('/get-tree', site.get_tree);
+router.get('/get-tree',auth.auth, site.get_tree);
 router.get('/rule', site.rule);
 router.get('/xs-ticket', site.xs_ticket);
 router.get('/gift-none', site.gift_none);

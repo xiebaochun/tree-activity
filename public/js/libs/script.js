@@ -1,5 +1,5 @@
 function AES_encrypt(strData){
-	var keyStr = "FANWE5LMUQC43P2P";
+	var keyStr = "JRUEUJROT9872JHH";
 	var key = CryptoJS.enc.Utf8.parse(keyStr);
 	var encryptedData = CryptoJS.AES.encrypt(strData, key, {
 		mode:CryptoJS.mode.ECB,
@@ -10,7 +10,7 @@ function AES_encrypt(strData){
 }
 
 function AES_decrypt(encryptedStr){
-	var keyStr = "FANWE5LMUQC43P2P";
+	var keyStr = "JRUEUJROT9872JHH";
 	var key = CryptoJS.enc.Utf8.parse(keyStr);
 	//var encryptedHexStr = CryptoJS.enc.Hex.parse(encryptedStr);
 	//var encryptedBase64Str = CryptoJS.enc.Base64.stringify(encryptedHexStr); 

@@ -10,3 +10,12 @@ https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd292d9e457d266a6&red
 微信测试号
 http://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login
 ## ...
+
+linux 命令:
+
+>ps -ef|grep redis (check redis pid)
+
+>kill -9 18659 (stop redis)
+
+>redis-server (start redis)
+

@@ -2,6 +2,7 @@ var User         = require('../proxy').User;
 var wechatConfig = require('../config').weixin;
 var authMiddleWare = require('../middlewares/auth');
 var Wechat = require('wechat-jssdk');
+var api_post = require('../libs/api_post');
 //wx.initialize(wechatConfig);
 const wx = new Wechat(wechatConfig);
 
@@ -44,10 +45,29 @@ exports.oauth = function(req, res){
        // res.render("index", {
        //   wechatInfo: userProfile
        // });
-       req.session.user = userProfile;
-       authMiddleWare.gen_session(userProfile, res);
-       
-       res.redirect('/');
+       //req.session.user = userProfile;
+       //authMiddleWare.gen_session(userProfile, res);
+
+       // 注册用户
+      api_post.post({
+      			act:'get_user_info', 
+      			open_id: userProfile.openid, 
+      			avatar_url: userProfile.headimgurl,
+      			nick_name: userProfile.nickname
+      		},
+       function(ret){
+			if(ret.status == 1){
+				console.log(ret);
+				if(ret.status == 1){
+					if(ret.user_info){
+						ret.user_info.open_id = userProfile.openid;
+						req.session.user = ret.user_info;
+       					authMiddleWare.gen_session(ret.user_info, res);
+       					res.redirect('/');
+					}
+				}
+			}
+		});
      });
 }
 

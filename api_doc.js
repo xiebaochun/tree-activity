@@ -4,6 +4,9 @@
 	method: 'post',
 	post_data: {
 		open_id: 'wx123456' // (必填)微信open_id
+		share_open_id: 'wx123456' // (选填)微信open_id
+		avatar_url: '',
+		nick_name: ''
 	},
 	result:{
 		response_code: '1',  // (0-失败,1-成功) 
@@ -13,7 +16,6 @@
 			watering_able_count: 1, // 我的可浇水次数
 			watered_count: 0, //小树已被浇水次数
 			is_binded_mobile: 0, // 是否绑定了手机(0-未绑定, 1-已绑定)
-			is_new: 1, // 是否是新用户(0-旧用户, 1-新用户)
 		}
 	}
 }
@@ -42,12 +44,17 @@
 	method: 'post',
 	post_data: {
 		mobile: '13083951288', // (必填)用户手机号码
-		open_id: 'wx1234567'   // (选填)微信open_id
+		captcha：'1234' ,//  (必填)验证码
+		user_id: '1234567'   // (必填)用户id
+		
 	},
 	result: {
 		response_code: '1',
+		show_err: '注册成功！',
 		data: {
 			is_new: 0, // (0-就用户, 1-新用户)
+			user_mark: 2, // (1-借款用户，2-理财用户)
+			bonus_success : 1 //(0-发放优惠券失败,1-发放优惠券成功)
 		}
 	}
 
@@ -72,8 +79,10 @@
 	url: 'water',
 	method: 'post',
 	post_data: {
-		open_id: 'wx123456', //  (必填)浇水人open_id
-		t_open_id: 'wx234567' // (必填)被浇水人open_id
+		user_id: 'wx123456', //  (必填)浇水人id
+		t_user_id: 'wx234567', // (必填)被浇水人id
+		fruit_index: '1' // (必填)果子编号
+		
 	},
 	result: {
 		response_code: '1' 
@@ -257,6 +266,32 @@
 				}
 			]
 		}
+	}
+}
+
+// 13.种树
+{
+	url: 'plant_tree',
+	method: 'post',
+	post_data: {
+		user_id: 123456, //(必填)
+	},
+	result:{
+		response_code: 1,
+		show_err: '种植成功',
+	}
+}
+
+// 14.发送验证码
+{
+	url: 'send_captcha',
+	method: 'post',
+	post_data: {
+		mobile: '12345678', //(必填)
+	},
+	result:{
+		response_code: 0,
+		show_err: '手机号码不能为空'
 	}
 }
 

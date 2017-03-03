@@ -1,6 +1,6 @@
 // post root url
-var API_ROOT_URL = ''; 
-
+var API_ROOT_URL = 'http://wentest.xiaoshushidai.com/mapis/index.php?mrt=mrt3&r_type=1&i_type=4&dev_type=WAP&version=2015102015&requestData='; 
+    API_ROOT_URL = '/api/';
 function verify_mobile(str) {
     var re = /^1\d{10}$/;
     if (re.test(str)) {
@@ -19,21 +19,21 @@ function splitSlice(str, len) {
 }
 
 // api post common method
-function api_post(act, post_data, callback) {
-
+function api_post(act, requestData, callback) {
+    //var requestData = '' + requestData;
     $.ajax({
         url: API_ROOT_URL + act,
         method: 'post',
-        data: post_data,
+        data: requestData,
         success: function(ret) {
-            if(ret.response_code == 1){
-                callback(ret.data);
+            if(ret.status == 1){
+                callback(ret);
             }else{
-                dialog.error(ret.msg);
+                dialog.error(ret.show_err);
             }
         },
         error: function(error) {
-            dialog.error('请求失败！');
+            dialog.error('api请求失败！');
         }
     });
 }

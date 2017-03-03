@@ -1,9 +1,12 @@
-﻿var wechatConfig = require('../config').weixin;
+﻿var config         = require('../config');
+var wechatConfig = require('../config').weixin;
 var wechat_sigin_config = require('../config').weixin_sign;
 var Wechat = require('wechat-jssdk');
 var signature = require('wx_jsapi_sign');
 //wx.initialize(wechatConfig);
 const wx = new Wechat(wechatConfig);
+
+var api_post = require('../libs/api_post');
 //console.log(wx);
 
 exports.index = function (req, res, next) {
@@ -14,25 +17,74 @@ exports.index = function (req, res, next) {
 	//     console.log(signatureData);
 	//     res.render('index', {signatureData:signatureData});	
 	// });
-	 
+	res.render('index', {signatureData:{}});
+	// req.session.destroy();
+ //    res.clearCookie(config.auth_cookie_name, { path: '/' });
+	return;
+
 	var url = req.protocol + '://' + req.get('Host') + req.url;
 	signature.getSignature(wechat_sigin_config)(url, function(error, result) {
         if (error) {
             console.log(error);
         } else {
+        	console.log('index >>>>>>');
         	console.log(result);
-        	var open_id = result.open_id;
-
-        	console.log('session');
-        	console.log(req.session);
-        	// 检测是否已注册
+        	var open_id = result.appId;
         	if(req.session.user){
-            	res.render('index', {signatureData:result});	
+        		console.log('/ controller session user:');
+        		console.log(req.session.user);
+    			api_post.post({act:'get_user_info', open_id: open_id}, function(ret){
+    				if(ret.status == 1){
+    					console.log('get user info>>>>>>>>>>>>>>>>:');
+    					console.log(ret.user_info.is_received_tree == 0);
+    					if(ret.user_info.is_received_tree == 0){
+    						res.redirect('/get-tree');
+    					}else{
+    						res.render('index', {signatureData:result,open_id: open_id});	
+    					}
+    				}
+    			});
+        		//res.render('index', {signatureData:result});
         	}else{
-        		res.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx949d74074b4ebc27&redirect_uri=http://312activity.xiaoshushidai.com/wechat/oauth-callback&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
+        		// 判断用户是否村
+	        	api_post.post({act:'is_user_exist',open_id:open_id},function(ret){
+	        		console.log(ret);
+	        		console.log(typeof ret);
+	        		if(ret.status == 1){
+		        		if(ret.data){
+		        			// 如果用户不存在
+			        		if(ret.data.is_exist == 0){
+			        			// 让用户微信授权并注册
+		        				res.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx949d74074b4ebc27&redirect_uri=http://312activity.xiaoshushidai.com/wechat/oauth-callback&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect');
+			        		}else{
+			        			//获取用户信息
+			        			api_post.post({act:'get_user_info', open_id: open_id}, function(ret){
+			        				if(ret.status == 1){
+			        					console.log(ret);
+			        					req.session.user = ret.user_info;
+			        					if(ret.user_info.is_received_tree == 0){
+			        						res.redirect('/get-tree');
+			        					}else{
+		            						res.render('index', {signatureData:result, open_id: open_id});	
+			        					}
+			        				}
+			        			});
+			        		}
+		        		}
+	        		}
+	        	});
         	}
+	        	
+        	function getUserInfo(){
+
+        	}
+        	//console.log('session');
+        	//console.log(req.session);
+        	// 检测是否已注册
         }
     });
+
+
 
 	// var signatureData ={};
 	// res.render('index', {signatureData:signatureData});	
@@ -86,16 +138,27 @@ exports.weixin_verify = function(req, res) {
 }
 
 exports.get_tree = function(req, res, next) {
-	res.render('activity/get_tree', {});
+	console.log('get_tree >>>> session:');
+	console.log(req.session.user);
+	//var user = req.session.user;
+	api_post.post({act: 'get_user_info', open_id:req.session.user.open_id}, function(ret){
+		if(ret.status == 1){
+			var user_info = ret.user_info;
+			console.log('get_user_info >>>> user:');
+			console.log(user_info);
+			if(user_info.is_received_tree == 1){
+				res.redirect('/');
+			}else{
+				res.render('activity/get_tree', {user_info: user_info});
+			}
+		}
+	});
 }
 
 exports.rule = function(req, res, next) {
 	res.render('activity/rule', {});
 }
 
-exports.get_tree = function(req, res, next) {
-	res.render('activity/get_tree', {});
-}
 exports.gift_rule = function(req, res, next) {
 	res.render('activity/gift_rule', {});
 }

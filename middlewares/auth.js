@@ -38,9 +38,10 @@ exports.authUser = function(req, res, next) {
 exports.auth = function(req, res, next) {
 	var user = req.session.user;
 	if(user){
-		res.locals.username = user.name;
+		//res.locals.username = user.name;
+		res.locals.user_info = user;
 		return next();
 	}else{
-		res.redirect('/signin');
+		res.redirect('/');
 	}
 }

@@ -25,13 +25,18 @@
 </div>
 <script type="text/javascript">
 	$(function(){
-		api_post('', {}, function(data){
-			if(data){
-				console.log(data);
-			}
-		});
+		// api_post('', {}, function(data){
+		// 	if(data){
+		// 		console.log(data);
+		// 	}
+		// });
 		$('#plant-tree').click(function(){
-
+			api_post('', {act:'plant_tree',user_id:<%= user_info.user_id %>}, function(ret){
+				console.log(ret);
+				if(ret.status == 1){
+					window.location.href = '/';
+				}
+			});
 		});
 	});
 </script>

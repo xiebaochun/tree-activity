@@ -70,181 +70,253 @@
 	.operation{position: absolute;bottom:0;left:0;width:100%;}
 	.operation .btn{width:6.5rem;margin:1rem 0.8rem;}
 </style>
-<img style="position:absolute;top:0;left:0; width:0" src="http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png">
-<div class="game-wrap">
-	<a class="activity-rule color-fff f1" href="/rule">活动规则</a>
-	<span class="tips w-100 tc none">果子尚未成熟~需要继续浇水哦</span>
-	<div class="water none">
-		<img class="bottle" src="../public/img/bottle.png">
-		<img class="water-drops animated flash none" src="../public/img/water_drops.png">
-	</div>
-	<img class="w-100" src="../public/img/main_bg.png">
-	<div class="planted-tree">
-		<img class="w-100 inline-block" src="../public/img/main_tree.png">
-		<div class="fruit fruit-1 fruit-p1">
-			<img class="grap-hand animated shake" src="../public/img/grap_hand.png">
-			<div class="fruit-hp hp-1">
-				<span class="hp-value active"></span>
+<div id="app">
+	{{ message }}
+	<img style="position:absolute;top:0;left:0; width:0" src="http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png">
+	<div class="game-wrap">
+
+		<a class="activity-rule color-fff f1" href="/rule">活动规则</a>
+		<span class="tips w-100 tc none">果子尚未成熟~需要继续浇水哦</span>
+		<div class="water none">
+			<img class="bottle" src="../public/img/bottle.png">
+			<img class="water-drops animated flash none" src="../public/img/water_drops.png">
+		</div>
+		<img class="w-100" src="../public/img/main_bg.png">
+		<div class="planted-tree">
+			<img class="w-100 inline-block" src="../public/img/main_tree.png">
+			<div class="fruit fruit-1 fruit-p1">
+				<img class="grap-hand animated shake" src="../public/img/grap_hand.png">
+				<div class="fruit-hp hp-1">
+					<span class="hp-value active"></span>
+				</div>
+				<img class="w-100" src="../public/img/fruit.png">
 			</div>
-			<img class="w-100" src="../public/img/fruit.png">
-		</div>
-		<div class="fruit fruit-2 fruit-p2">
-			<img class="grap-hand animated shake" src="../public/img/grap_hand.png">
-		<div class="fruit-hp hp-2">
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
+			<div class="fruit fruit-2 fruit-p2">
+				<img class="grap-hand animated shake" src="../public/img/grap_hand.png">
+			<div class="fruit-hp hp-2">
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+				</div>
+				<img class="w-100" src="../public/img/fruit.png">
 			</div>
-			<img class="w-100" src="../public/img/fruit.png">
-		</div>
-		<div class="fruit fruit-3 fruit-p3">
-			<img class="grap-hand animated shake" src="../public/img/grap_hand.png">
-			<div class="fruit-hp hp-3">
-				<span class="hp-value active"></span>
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
+			<div class="fruit fruit-3 fruit-p3">
+				<img class="grap-hand animated shake" src="../public/img/grap_hand.png">
+				<div class="fruit-hp hp-3">
+					<span class="hp-value active"></span>
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+				</div>
+				<img class="w-100" src="../public/img/fruit.png">
 			</div>
-			<img class="w-100" src="../public/img/fruit.png">
-		</div>
-		<div class="fruit fruit-4 fruit-p4">
-			<img class="grap-hand animated shake" src="../public/img/grap_hand.png">
-			<div class="fruit-hp hp-4">
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
+			<div class="fruit fruit-4 fruit-p4">
+				<img class="grap-hand animated shake" src="../public/img/grap_hand.png">
+				<div class="fruit-hp hp-4">
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+				</div>
+				<img class="w-100" src="../public/img/fruit.png">
 			</div>
-			<img class="w-100" src="../public/img/fruit.png">
-		</div>
-		<div class="fruit fruit-5 fruit-p5">
-			<img class="grap-hand animated shake" src="../public/img/grap_hand.png">
-			<div class="fruit-hp hp-5">
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
-				<span class="hp-value"></span>
+			<div class="fruit fruit-5 fruit-p5">
+				<img class="grap-hand animated shake" src="../public/img/grap_hand.png">
+				<div class="fruit-hp hp-5">
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+					<span class="hp-value"></span>
+				</div>
+				<img class="w-100" src="../public/img/fruit.png">
 			</div>
-			<img class="w-100" src="../public/img/fruit.png">
+		</div>
+		<div class="bottom-tool">
+			<div class="gift-box inline-block" @click="openFruit">
+				<img class="w-100 animated infinite tada" src="../public/img/gift_box.png">
+			</div>
+			<div class="bottle-box inline-block" @click="water">
+				<div class="bottle-info tc">{{ user_info.watering_able_count }}</div>
+				<img class="w-100" src="../public/img/water_bottle.png">
+			</div>
 		</div>
 	</div>
-	<div class="bottom-tool">
-		<div class="gift-box inline-block">
-			<img class="w-100 animated infinite tada" src="../public/img/gift_box.png">
+	<div class="tab-wrap">
+		<div class="tab inline-block tc w-50 border-right-line border-bottom-line active" data-for="growth-log">
+			<span class="nav-tips"></span>
+			<span class="f2">成长记录</span>
 		</div>
-		<div class="bottle-box inline-block">
-			<div class="bottle-info tc">1</div>
-			<img class="w-100" src="../public/img/water_bottle.png">
+		<div class="tab inline-block tc w-50 border-bottom-line" data-for='my-gift'>
+			<span class="nav-tips"></span>
+			<span class="f2">我的礼品</span>
 		</div>
 	</div>
-</div>
-<div class="tab-wrap">
-	<div class="tab inline-block tc w-50 border-right-line border-bottom-line active" data-for="growth-log">
-		<span class="nav-tips"></span>
-		<span class="f2">成长记录</span>
-	</div>
-	<div class="tab inline-block tc w-50 border-bottom-line" data-for='my-gift'>
-		<span class="nav-tips"></span>
-		<span class="f2">我的礼品</span>
-	</div>
-</div>
-<div class="tab-content-wrap">
-	<div class="tab-content" id="growth-log">
-		<div class="no-record none">
-			<span class="color-gray">暂无记录哦~</span>
+	<div class="tab-content-wrap">
+		<div class="tab-content" id="growth-log">
+			<div class="no-record none" id="none-growth-tips">
+				<span class="color-gray">暂无记录哦~</span>
+			</div>
+			<ul class="growth-list list">
+				<li class="item">
+					<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">
+						<!-- <img class="w-100" src="../public/img/fruit.png"> -->
+					</span>
+					<span class="vm nick-name">
+						阿尔伯特
+					</span>
+					<span class="log-info color-666">
+						成功浇水1次
+					</span>
+					<span class="create-time fr color-666">
+						3-11 23:59
+					</span>
+				</li>
+				<li class="tc" id="growth-more-btn">
+					<span>点击查看更多</span>
+				</li>
+			</ul>
 		</div>
-		<ul class="growth-list list">
-			<li class="item">
-				<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">
-					<!-- <img class="w-100" src="../public/img/fruit.png"> -->
-				</span>
-				<span class="vm nick-name">
-					阿尔伯特
-				</span>
-				<span class="log-info color-666">
-					成功浇水1次
-				</span>
-				<span class="create-time fr color-666">
-					3-11 23:59
-				</span>
-			</li>
-			<li class="tc">
-				<span>点击查看更多</span>
-			</li>
-		</ul>
-	</div>
-	<div class="tab-content none" id="my-gift">
-		<div class="no-record none">
-			<span class="color-gray">暂无记录哦~</span>
+		<div class="tab-content none" id="my-gift">
+			<div class="no-record none" id="none-gift-tips">
+				<span class="color-gray">暂无记录哦~</span>
+			</div>
+			<ul class="growth-list list">
+				<li class="item">
+					<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">
+						<!-- <img class="w-100" src="../public/img/fruit.png"> -->
+					</span>
+					<!-- <span class="vm nick-name">
+						阿尔伯特
+					</span> -->
+					<span class="log-info color-666">
+						恭喜你获得0.5元现金红包
+					</span>
+					<a class="create-time fr color-link" href="">
+						查看详情
+					</a>
+				</li>
+				<li class="item">
+					<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">
+						<!-- <img class="w-100" src="../public/img/fruit.png"> -->
+					</span>
+					<span class="vm nick-name">
+						阿尔伯特
+					</span>
+					<span class="log-info color-666">
+						恭喜你获得0.5元现金红包
+					</span>
+					<a class="create-time fr color-link" href="">
+						已送出
+					</a>
+				</li>
+				<li class="item">
+					<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">
+						<!-- <img class="w-100" src="../public/img/fruit.png"> -->
+					</span>
+					<span class="log-info color-666">
+						恭喜你获得0.5元现金红包
+					</span>
+					<span class="create-time fr color-666">
+						已送出
+					</span>
+				</li>
+				<li class="tc" id="gift-more-btn">
+					<span>点击查看更多</span>
+				</li>
+			</ul>
 		</div>
-		<ul class="growth-list list">
-			<li class="item">
-				<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">
-					<!-- <img class="w-100" src="../public/img/fruit.png"> -->
-				</span>
-				<!-- <span class="vm nick-name">
-					阿尔伯特
-				</span> -->
-				<span class="log-info color-666">
-					恭喜你获得0.5元现金红包
-				</span>
-				<a class="create-time fr color-link" href="">
-					查看详情
-				</a>
-			</li>
-			<li class="item">
-				<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">
-					<!-- <img class="w-100" src="../public/img/fruit.png"> -->
-				</span>
-				<span class="vm nick-name">
-					阿尔伯特
-				</span>
-				<span class="log-info color-666">
-					恭喜你获得0.5元现金红包
-				</span>
-				<a class="create-time fr color-link" href="">
-					已送出
-				</a>
-			</li>
-			<li class="item">
-				<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">
-					<!-- <img class="w-100" src="../public/img/fruit.png"> -->
-				</span>
-				<span class="log-info color-666">
-					恭喜你获得0.5元现金红包
-				</span>
-				<span class="create-time fr color-666">
-					已送出
-				</span>
-			</li>
-		</ul>
 	</div>
-</div>
-<div class="pop-box none">
-	<div class="body _animated bounceIn">
+	<div class="pop-box" v-bind:class="{ none: pop.isHide }">
+		<div class="body _animated bounceIn" v-bind:class="{ animated: !pop.isHide }">
+			<img class="w-100" src="../public/img/achieve_virtual_tips.png">
+			<div class="info">
+				<span>{{ pop.content }}</span>
+			</div>
+			<div class="operation">
+				<img @click="closePopBox" class="btn" src="../public/img/refuse_btn.png">
+				<img @click="recieveGift" class="btn" src="../public/img/recieve_btn.png">
+			</div>
+		</div>
+	</div>
+	<div class="none">
 		<img class="w-100" src="../public/img/achieve_virtual_tips.png">
-		<div class="info">
-			<span>恭喜你获得xx虚拟礼品</span>
-		</div>
-		<div class="operation">
-			<img class="btn" src="../public/img/refuse_btn.png">
-			<img class="btn" src="../public/img/recieve_btn.png">
-		</div>
+		<img class="w-100" src="../public/img/achieve_money_tips.png">
+		<img class="w-100" src="../public/img/achieve_invest_tips.png">
+		<img class="w-100" src="../public/img/achieve_ticket_tips.png">
+		<img class="w-100" src="../public/img/achieve_water_count.png">
 	</div>
 </div>
-<div class="none">
-	<img class="w-100" src="../public/img/achieve_virtual_tips.png">
-	<img class="w-100" src="../public/img/achieve_money_tips.png">
-	<img class="w-100" src="../public/img/achieve_invest_tips.png">
-	<img class="w-100" src="../public/img/achieve_ticket_tips.png">
-	<img class="w-100" src="../public/img/achieve_water_count.png">
-</div>
+<script type="text/javascript" src="/public/js/libs/vue.js"></script>
 <script type="text/javascript">
+	$(function(){	
+		var app = new Vue({
+		  el: '#app',
+		  data: {
+		    message: 'Hello Vue!',
+		    open_id: '<%= open_id %>',
+		    user_info: {watering_able_count:7},
+		    growth_log: null,
+		    gift_log: null,
+		    pop:{
+		    	isHide: true,
+		    	content: '恭喜'
+		    }
+		  },
+		  created: function(){
+		  	this.init();
+		  },
+		  methods: {
+		  	init: function(){
+
+		  		// 获取用户信息
+		  		this.getUserInfo();
+
+		  		// 列出成长记录
+		  		this.listGrowthLog(1);
+		  	},
+		  	getUserInfo: function(){
+		  		var self = this;
+		  		api_post('get_user_info',{open_id: this.open_id},function(ret){
+		  			console.log('>>>>>>>>>>>>>>>>');
+					console.log(ret);
+					self.user_info = ret.user_info;
+				});	
+		  	},
+		  	listGrowthLog: function(page){
+
+		  	},
+		  	getGrowthLog: function(page) {
+
+		  	},
+		  	water: function() {
+				this.openPopBox(1, '恭喜哦你');
+		  	},
+		  	openFruit: function() {
+		  		this.openPopBox();
+		  	},
+		  	recieveGift: function() {
+		  		this.closePopBox();
+		  	},
+		  	openPopBox: function(type, content	) {
+		  		this.pop.isHide = false;
+		  		// console.log
+		  		// this.$pop.removeClass('none').children('.body').addClass('animated');
+		  		// this.$pop.find('.info span').text(content || '?????');
+		  	},
+		  	closePopBox:function() {
+		  		this.pop.isHide = true;
+		  		// this.$pop.addClass('none').children('.body').removeClass('animated');
+		  		// this.$pop.find('.info span').text('');
+		  	}
+		  }
+
+		})
+	});
 	$(function(){
 		function Game() {
 			this.init();
@@ -256,6 +328,9 @@
 
 		p.$main = $('.main');
 		p.$pop = $('.pop-box');
+		p.$none_growth_tips = $('#none-growth-tips');
+		p.$none_gift_tips = $('#none-gift-tips');
+
 		p.pop_box_imgs = {
 			virtual_gift: '../public/img/achieve_virtual_tips.png',
 			money_gift: '../public/img/achieve_money_tips.png',
@@ -264,8 +339,63 @@
 			water_gift: '../public/img/achieve_water_count.png',
 		}
 
+		p.open_id = '<%= open_id %>';
+
+		p.user_info = null;
+
+
 		p.init = function() {
 			this.bindEvent();
+
+			// 获取用户信息
+			this.getUserInfo();
+
+			// 列出成长记录
+			this.listGrowthLog(1);
+		}
+
+		p.getUserInfo = function() {
+			api_post('get_user_info',{open_id: this.open_id},function(ret){
+				console.log(ret);
+			});	
+		}
+
+		p.listGrowthLog = function(page) {
+			var self = this;
+			this.getGrowthLog(page, function(ret){
+				console.log('获取的成长记录');
+				console.log(ret);
+				if(ret.growth_log){
+					var list_html = '';
+					
+						var html = '<li class="item">\
+										<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">\
+											<!-- <img class="w-100" src="../public/img/fruit.png"> -->\
+										</span>\
+										<span class="vm nick-name">\
+											阿尔伯特\
+										</span>\
+										<span class="log-info color-666">\
+											成功浇水1次\
+										</span>\
+										<span class="create-time fr color-666">\
+											3-11 23:59\
+										</span>\
+									</li>';
+					
+				}else{
+					self.$none_growth_tips.removeClass('none');
+				}
+			});
+		}
+
+		p.getGrowthLog = function(page, callback) {
+			api_post('get_growth_log',{open_id: this.open_id, page: page, page_count: 5},function(ret){
+				//console.log(ret);
+				if(ret.status == 1){
+					callback(ret);
+				}
+			});
 		}
 
 		p.bindEvent = function() {
@@ -325,6 +455,6 @@
 			this.$pop.find('.info span').text('');
 		}
 		// init Game
-		var game = new Game();
+		//var game = new Game();
 	});
 </script>
