@@ -46,6 +46,8 @@ function Dialog(){
 
 }
 
+function 
+
 $(function(){
     success_pop = document.getElementById('success-pop');
     Dialog.prototype.DOM = success_pop;
