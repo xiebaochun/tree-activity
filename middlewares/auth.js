@@ -42,8 +42,24 @@ exports.auth = function(req, res, next) {
 	if(user){
 		//res.locals.username = user.name;
 		res.locals.user_info = user;
-		return next();
+		
+		var signature = require('wx_jsapi_sign');
+		var url = 'http://312activity.xiaoshushidai.com/';
+		url = req.protocol + '://' + req.get('host') + req.originalUrl;
+		signature.getSignature(config.weixin_sign)(url, function(error, result) {
+		  if(error){
+		    console.log('middleware.js 产生的微信签名的错误：');
+		    console.log(error);
+		    next();
+		  }
+		  console.log('middleware.js 产生的微信签名：');
+		  console.log(result);
+		  res.locals.signatureData = result;
+		  return next();
+		});
+		
 	}else{
+		req.session.auth_redirect_url = req.originalUrl;
 		res.redirect(config.weixin_auth_url);
 		//res.redirect('/');
 	}

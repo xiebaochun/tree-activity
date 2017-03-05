@@ -38,6 +38,16 @@
     height: 2200px;
     background-color:rgba(200,0,0,0);
 }
+
+.share-tips{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
 .fadeIn{
     display: block;
     animation: fadeIn 0.5s forwards;

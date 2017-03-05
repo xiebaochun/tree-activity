@@ -10,23 +10,45 @@
 		<span class="none" id="can_send"><%= gift.can_send %></span>
 	</div>
 	<div class="tc">
-		<img class="inline-block" style="width:80%" src="../public/img/money_package.png">
+		<img class="inline-block" style="width:80%" src="/public/img/money_package.png">
 	</div>
 	<div style="height: 5rem;"></div>
 	<div class="bottom-nav">
-		<img class="btn help-water" id="send-friend" style="margin-top:3rem;" src="../public/img/send_friend_btn_02.png">
+		<img class="btn help-water" id="send-friend" style="margin-top:3rem;" src="/public/img/send_friend_btn_02.png">
 		<br>
-		<a class="btn inline-block" style="margin-top:1rem;" href="/"><img class="w-100" src="../public/img/self_use_btn.png"></a>
+		<a class="btn inline-block" style="margin-top:1rem;" href="/"><img class="w-100" src="/public/img/self_use_btn.png"></a>
 	</div>
 </div>
 <script type="text/javascript">
 	$(function(){
 		$('#send-friend').click(function(){
 			if(parseInt($('#can_send').text()) == 1){
-				dialog.error('此礼品不能赠送哦~');
+				//dialog.error('此礼品不能赠送哦~');
+				showShareTips();
 			}else{
 				dialog.error('此礼品不能赠送哦~');
 			}
 		});
 	});
 </script>
+<% if(signatureData) { %>
+<script type="text/javascript">
+	wx.ready(function(){
+	    wx.onMenuShareAppMessage({
+	        title: '领取好友礼物-312植树节-小树时代', // 分享标题
+	        desc: '领取好友礼物-小树时代-植树节', // 分享描述
+	        link: '312activity.xiaoshushidai.com/receive-friend-gifts/<%= user_info.user_id %>/<%= gift.gift_id %>', // 分享链接
+	        imgUrl: 'http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png', // 分享图标
+	        type: '', // 分享类型,music、video或link，不填默认为link
+	        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+	        success: function () { 
+	            // 用户确认分享后执行的回调函数
+	        },
+	        cancel: function () { 
+	            // 用户取消分享后执行的回调函数
+	        }
+	    });
+
+	});
+</script>
+<% } %>

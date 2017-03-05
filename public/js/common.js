@@ -29,6 +29,7 @@ function api_post(act, requestData, callback) {
             if(ret.status == 1){
                 callback(ret);
             }else{
+                callback(ret)
                 dialog.error(ret.show_err);
             }
         },
@@ -46,7 +47,13 @@ function Dialog(){
 
 }
 
-function 
+function showShareTips(){
+    $('.share-tips').fadeIn();
+}
+
+function closeShareTips(self){
+    $(self).fadeOut();
+}
 
 $(function(){
     success_pop = document.getElementById('success-pop');

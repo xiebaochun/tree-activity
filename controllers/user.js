@@ -63,7 +63,13 @@ exports.oauth = function(req, res){
 						ret.user_info.open_id = userProfile.openid;
 						req.session.user = ret.user_info;
        					authMiddleWare.gen_session(ret.user_info, res);
-       					res.redirect('/');
+       					if(req.session.auth_redirect_url){
+       						var url = req.session.auth_redirect_url;
+       						req.session.auth_redirect_url = null;
+       						res.redirect(url);	
+       					}else{
+       						res.redirect('/');
+       					}
 					}
 				}
 			}

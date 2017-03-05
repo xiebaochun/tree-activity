@@ -338,7 +338,7 @@
 		  		});
 		  	},
 		  	getGrowthLog: function(page) {
-
+		  		
 		  	},
 		  	addGiftLog: function(){
 		  		if(this.gift_log_index < this.gift_total_page){
@@ -465,6 +465,7 @@
 		  	},
 		  	recieveGift: function() {
 		  		var self = this;
+		  		
 		  		api_post('', {act:'receive_gift', id: this.gift_id, user_id: this.user_id}, function(ret){
 		  			console.log('领取礼物');
 		  			console.log(ret);

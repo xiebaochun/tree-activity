@@ -120,7 +120,8 @@ exports.my_gifts = function(req, res, next) {
 				break;
 			}	
 			gift.info = content;
-			res.render('activity/my_gifts', {gift: gift});
+			gift.gift_id = gift_id;
+			res.render('activity/my_gifts', {user_info:req.session.user,gift: gift});
 		}else{
 			res.redirect('/');
 		}
@@ -131,7 +132,43 @@ exports.my_tree = function(req, res, next) {
 	res.render('activity/my_tree', {});
 }
 exports.receive_friend_gifts = function(req, res, next) {
-	res.render('receive_friend_gifts', {});
+	console.log('领取好友礼物：');
+	console.log(req.params.f_user_id+":"+req.params.gift_id);
+	//res.render('activity/receive_friend_gifts', {});
+	var gift_id = req.params.gift_id;
+	api_post.post({act:'get_gift', gift_id: gift_id}, function(ret){
+		console.log('获取礼品详情成功：');
+		console.log(ret);
+		if(ret.status == 1){
+
+			var content = '';
+			var gift = ret.data;
+			var pre = '恭喜你获得';
+			
+			switch(parseInt(gift.type_id)){
+				case 1:
+				content = pre + gift.amount + '元现金红包';
+				break;
+				case 2:
+				content = pre + gift.amount + '元理财券';
+				break;
+				case 3:
+				content = pre + '1张小树券';
+				break;
+				case 4:
+				content = pre + '1次浇水机会';
+				break;
+				case 5:
+				content = pre + gift.name;
+				break;
+			}	
+			gift.info = content;
+			gift.gift_id = gift_id;
+			res.render('activity/receive_friend_gifts', {user_info:req.session.user,gift: gift,f_user_id:req.params.f_user_id});
+		}else{
+			res.redirect('/');
+		}
+	});
 }
 exports.verify_mobile = function(req, res, next) {
 	res.render('user/verify_mobile', {});
