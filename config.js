@@ -1,6 +1,10 @@
 /**
  * config
  */
+var REDIRECT_URL = 'http://312activity.xiaoshushidai.com/wechat/oauth-callback';
+var APP_ID = 'wxd292d9e457d266a6';
+var APP_SECRET= 'd78202186af52351564f5fa234a93220';
+var TOKEN = '312activity';
 
 var config = {
     // mongodb 配置
@@ -23,19 +27,19 @@ var config = {
         database: 'demo'
     },
     weixin: {
-        "wechatRedirectUrl": "http://312activity.xiaoshushidai.com/wechat/oauth-callback",
-        "wechatToken": "312activity",
-        "appId": "wxd292d9e457d266a6",
-        "appSecret": "d78202186af52351564f5fa234a93220",
+        "wechatRedirectUrl": REDIRECT_URL,
+        "wechatToken": TOKEN,
+        "appId": APP_ID,
+        "appSecret": APP_SECRET,
         // "appId": "wx949d74074b4ebc27",
         // "appSecret": "489155673c2f23977d14d3700419c048",
     },
     weixin_sign:{
-        appId: 'wxd292d9e457d266a6',
-        appSecret: 'd78202186af52351564f5fa234a93220',
-        appToken: '312activity',
+        appId: APP_ID,
+        appSecret: APP_SECRET,
+        appToken: TOKEN,
         cache_json_file:'/tmp'
     },
-    weixin_auth_url: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd292d9e457d266a6&redirect_uri=http://312activity.xiaoshushidai.com/wechat/oauth-callback&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect',
+    weixin_auth_url: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + APP_ID + '&redirect_uri=' + REDIRECT_URL + '&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect',
 }
 module.exports = config;

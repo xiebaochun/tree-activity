@@ -81,7 +81,7 @@
 	post_data: {
 		user_id: 'wx123456', //  (必填)浇水人id
 		t_user_id: 'wx234567', // (必填)被浇水人id
-		fruit_index: '1' // (必填)果子编号
+		fruit_id: '1' // (必填)果子编号
 		
 	},
 	result: {
@@ -170,7 +170,7 @@
 	url: 'open_fruit',
 	method: 'post',
 	post_data: {
-		open_id: 'wx1234567', // (必填)
+		user_id: 'wx1234567', // (必填)
 		fruit_index: 2, // (必填)果子编号
 	},
 	result: {
@@ -217,12 +217,15 @@
 	}
 }
 
+
 // 10.领取礼品
 {
 	url: 'recieve_gift',
 	method: 'post',
 	post_data: {
-		id: 12 // 礼品id
+		id: 12 // (必填)礼品id
+		user_id:1234 //(必填)用户id
+		f_user_id:1234 //(选填)好友id 
 	},
 	result: {
 		response_code: 1, 
@@ -231,18 +234,18 @@
 }
 
 //11.领取好友礼品
-{
-	url: 'recieve_friend_gift',
-	post_data:{
-		id: 224 // (必填)礼品id
-		m_open_id: 'wx123456', // 我的open_id
-		f_open_id: 'wx12456' // (必填) 好友open_id
-	},
-	result:{
-		response_code: 1, 
-		show_err: '领取成功'
-	}
-}
+// {
+// 	url: 'recieve_friend_gift',
+// 	post_data:{
+// 		id: 224 // (必填)礼品id
+// 		m_open_id: 'wx123456', // 我的open_id
+// 		f_open_id: 'wx12456' // (必填) 好友open_id
+// 	},
+// 	result:{
+// 		response_code: 1, 
+// 		show_err: '领取成功'
+// 	}
+// }
 
 // 12.获取礼品列表
 {
@@ -295,3 +298,57 @@
 	}
 }
 
+//好友是否有浇过水
+{
+	url: 'has_water',
+	method: 'post',
+	post_data: {
+		user_id: 123456, //用户id
+		t_user_id: 123456 //被浇水人id
+	},
+	result:{
+		response_code:1,
+		show_err:'已浇过水',
+		data: {
+			has_water:1
+		}
+	}
+}
+
+
+//查看礼品
+{
+	url: 'get_gift',
+	method: 'post',
+	post_data: {
+		gift_id: 123456, //(必填)
+	},
+	result:{
+	
+		response_code: 1,
+		show_err: '查看成功',
+		data: {
+			amount: 1,//礼品价值或数量
+			name:'xx虚拟礼品',//礼品名称
+			type_id: 5, //礼品类型
+			can_send：1 //可否赠送
+		}
+	}
+}
+
+
+//是否有未领取礼品
+{
+	url: 'has_gift',
+	method: 'post',
+	post_data: {
+		user_id: 123456 //用户id
+	},
+	result:{
+		response_code:1,
+		show_err:'有礼品未领取',
+		data: {
+			has_gift:1
+		}
+	}
+}

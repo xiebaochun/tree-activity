@@ -8,7 +8,9 @@
 	.nav-tips{display:block;position: absolute;right:25%;top:0.5rem; background-color: red;width: 0.5rem;height: 0.5rem;border-radius: 100%;}
 	.activity-rule{display: inline-block; position: absolute;top:0; left:0;padding: 1rem;}
 	.tips{display: block; position: absolute;top:2.2rem; left:0;padding: 0rem;}
-	.water{position: absolute;display: inline-block;left:70%;top:4rem;width:5rem;z-index: 2;}
+	.water{position: absolute;display: inline-block;left:70%;top:4rem;width:6rem;z-index: 2;0}
+	.water .bottle{position: absolute; right:0;width:3rem;}
+	.water .water-drops{position: absolute; width:2rem;top:2rem;left:1.8rem;_opacity: 0;}
 	.no-record{padding: 2rem 0;text-align: center;}
 
 	/*fruit*/
@@ -72,36 +74,142 @@
 	.bottom-nav{text-align: center;}
 	.bottom-nav .btn{width:70%;}
 </style>
-<div class="game-wrap">
-	<a class="activity-rule color-fff f1" href="/rule">活动规则</a>
-	<!-- <span class="tips w-100 tc">果子尚未成熟~需要继续浇水哦</span> -->
-	<img class="water none" src="../public/img/water.gif">
-	<img class="w-100 block" src="../public/img/main_bg.png">
-	<div class="planted-tree">
-		<img class="w-100 inline-block" src="../public/img/main_tree.png">
-		<div class="fruit fruit-1 fruit-p1 none">
-			<div class="fruit-hp hp-1">
-				<span class="hp-value active"></span>
+<div id="app">
+	<div class="game-wrap">
+		<a class="activity-rule color-fff f1" href="/rule">活动规则</a>
+		<!-- <span class="tips w-100 tc">果子尚未成熟~需要继续浇水哦</span> -->
+		<div class="water none">
+			<img class="bottle" src="../public/img/bottle.png">
+			<img class="water-drops animated flash none" src="../public/img/water_drops.png">
+		</div>
+		<img class="w-100 block" src="../public/img/main_bg.png">
+		<div class="planted-tree">
+			<img class="w-100 inline-block" src="../public/img/main_tree.png">
+			<div class="fruit fruit-1 fruit-p1 none">
+				<!-- <div class="fruit-hp hp-1">
+					<span class="hp-value active"></span>
+				</div> -->
+				<img class="w-100" src="../public/img/fruit.png">
 			</div>
-			<img class="w-100" src="../public/img/fruit.png">
+			<div class="fruit fruit-2 fruit-p2 none">
+				<!-- <div class="fruit-hp hp-1">
+					<span class="hp-value active"></span>
+				</div> -->
+				<img class="w-100" src="../public/img/fruit.png">
+			</div>
+			<div class="fruit fruit-3 fruit-p3 none">
+				<!-- <div class="fruit-hp hp-1">
+					<span class="hp-value active"></span>
+				</div> -->
+				<img class="w-100" src="../public/img/fruit.png">
+			</div>
+			<div class="fruit fruit-4 fruit-p4 none">
+				<!-- <div class="fruit-hp hp-1">
+					<span class="hp-value active"></span>
+				</div> -->
+				<img class="w-100" src="../public/img/fruit.png">
+			</div>
+			<div class="fruit fruit-5 fruit-p5 none">
+				<!-- <div class="fruit-hp hp-1">
+					<span class="hp-value active"></span>
+				</div> -->
+				<img class="w-100" src="../public/img/fruit.png">
+			</div>
 		</div>
-		
+		<div class="bottom-tool">
+			<div class="bottle-box inline-block">
+				<div class="bottle-info tc">{{ user_info.watering_able_count }}</div>
+				<img class="w-100" src="../public/img/water_bottle.png">
+			</div>
+		</div>
 	</div>
-	<div class="bottom-tool">
-		<div class="bottle-box inline-block">
-			<div class="bottle-info tc">1</div>
-			<img class="w-100" src="../public/img/water_bottle.png">
-		</div>
+	<img class="w-100" style="margin-top:-2px;" src="../public/img/help_water_bottom.png">
+	<div class="bottom-nav">
+		<img class="btn help-water" @click="water" style="margin-top:3rem;" src="../public/img/help_water_btn.png">
+		<br>
+		<a class="btn inline-block" style="margin-top:1rem;" href="/"><img class="w-100" src="../public/img/my_tree.png"></a>
 	</div>
 </div>
-<img class="w-100" style="margin-top:-2px;" src="../public/img/help_water_bottom.png">
-<div class="bottom-nav">
-	<img class="btn help-water" style="margin-top:3rem;" src="../public/img/help_water_btn.png">
-	<br>
-	<a class="btn inline-block" style="margin-top:1rem;" href="/"><img class="w-100" src="../public/img/my_tree.png"></a>
-</div>
-
+<script type="text/javascript" src="/public/js/libs/vue.js"></script>
 <script type="text/javascript">
+	$(function(){	
+		var app = new Vue({
+		  el: '#app',
+		  data: {
+		    open_id: '<%= open_id %>',
+		    f_open_id: '<%= f_open_id %>',
+		    user_info: {watering_able_count:1},
+		    f_user_info: null,
+		    hasWater: false,
+		  },	
+		  created: function(){
+		  	this.init();
+		  },
+		  methods: {
+		  	init: function(){
+
+		  		// 获取用户信息
+		  		this.getUserInfo();
+
+		  		api_post('', {act:'has_water', });
+
+		  	},
+		  	getUserInfo: function(callback){
+		  		var self = this;
+		  		api_post('get_user_info',{open_id: this.open_id},function(ret){
+		  			console.log('>>>>>>>>>>>>>>>>');
+					console.log(ret);
+					self.user_info = ret.user_info;
+					
+				});	
+
+				api_post('get_user_info',{open_id: this.f_open_id},function(ret){
+		  			console.log('>>>>>>>>>>>>>>>>');
+					console.log(ret);
+					self.f_user_info = ret.user_info;
+					
+				});	
+		  	},
+		  	
+		  	// 浇水
+		  	water: function() {
+				//this.openPopBox(1, '恭喜哦你');
+				self = this;
+				if(parseInt(self.user_info.watering_able_count) > 0){
+					api_post('', {act: 'water',user_id: this.user_info.user_id, t_user_id: this.f_user_info.user_id, fruit_id: 1}, function(ret){
+						// 浇水结果
+						console.log('浇水结果:');
+						console.log(ret);
+						self.waterAnimate(function(){
+								//self.getFruitList();
+							if(ret.show_err) dialog.success(ret.show_err);
+							self.getUserInfo(function(){
+								
+							});
+						});
+					});
+				}
+		  	},
+		  	waterAnimate: function(callback) {
+		  		$('.water').removeClass('none').children('.bottle').addClass('rotate');
+
+		  		setTimeout(function(){
+		  			$('.water').children('.water-drops').removeClass('none').addClass('flash');
+		  		},1000);
+
+		  		setTimeout(function(){
+		  			$('.water').addClass('none').children('.bottle').removeClass('rotate');
+		  			$('.water').children('.water-drops').addClass('none').removeClass('flash');
+
+		  			if(callback) callback();
+		  		},3000);
+		  	},
+		  	
+		  }
+
+		})
+	});
+
 	$(function(){
 		function Game() {
 			this.init();
@@ -121,7 +229,8 @@
 			var self = this;
 
 			this.bindClick('.help-water', function(){
-				$('.fruit').removeClass('none').find('img').addClass('animated bounceIn');
+
+				self.water();
 			});
 
 		}
@@ -130,8 +239,27 @@
 			this.$main.on('click', className, callback);
 		}
 
-		
+		p.water = function() {
+			this.waterAnimate(function(){
+				$('.fruit').removeClass('none').find('img').addClass('animated bounceIn');
+			});
+		}
+
+		p.waterAnimate = function(callback) {
+	  		$('.water').removeClass('none').children('.bottle').addClass('rotate');
+
+	  		setTimeout(function(){
+	  			$('.water').children('.water-drops').removeClass('none').addClass('flash');
+	  		},1000);
+
+	  		setTimeout(function(){
+	  			$('.water').addClass('none').children('.bottle').removeClass('rotate');
+	  			$('.water').children('.water-drops').addClass('none').removeClass('flash');
+
+	  			if(callback) callback();
+	  		},3000);
+		}
 		// init Game
-		var game = new Game();
+		//var game = new Game();
 	});
 </script>

@@ -6,15 +6,27 @@
 	<a class="fr color-red inline-block" style="padding:1rem;" href="/rule">礼品规则</a>
 	<div style="height: 5rem;"></div>
 	<div class="tc">
-		<span>善坊手工豆腐干</span>
+		<span><%= gift.info %></span>
+		<span class="none" id="can_send"><%= gift.can_send %></span>
 	</div>
 	<div class="tc">
 		<img class="inline-block" style="width:80%" src="../public/img/money_package.png">
 	</div>
 	<div style="height: 5rem;"></div>
 	<div class="bottom-nav">
-		<img class="btn help-water" style="margin-top:3rem;" src="../public/img/send_friend_btn.png">
+		<img class="btn help-water" id="send-friend" style="margin-top:3rem;" src="../public/img/send_friend_btn.png">
 		<br>
-		<a class="btn inline-block" style="margin-top:1rem;" href="/"><img class="w-100" src="../public/img/continute_achieve_btn.png"></a>
+		<!-- <a class="btn inline-block" style="margin-top:1rem;" href="/"><img class="w-100" src="../public/img/continute_achieve_btn.png"></a> -->
 	</div>
 </div>
+<script type="text/javascript">
+	$(function(){
+		$('#send-friend').click(function(){
+			if(parseInt($('#can_send').text()) == 1){
+				dialog.error('此礼品不能赠送哦~');
+			}else{
+				dialog.error('此礼品不能赠送哦~');
+			}
+		});
+	});
+</script>

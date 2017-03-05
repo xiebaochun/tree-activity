@@ -9,6 +9,7 @@ exports.post = function(data, callback) {
 	request.post(ROOT_URL + request_data, {}, function(error, response, body){
 		if(!error && response.statusCode == 200) {
 			console.log('api_post请求成功：');
+			console.log(data);
 			console.log(typeof body);
 			console.log(body);
 			if(typeof body == 'string'){
