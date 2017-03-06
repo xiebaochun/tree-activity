@@ -14,7 +14,7 @@
 	</div>
 	<div style="height: 5rem;"></div>
 	<div class="bottom-nav">
-		<a class="btn inline-block" href="javascript:"><img class="btn help-water send-friend" id="send-friend-01" style="margin-top:3rem;" src="/public/img/send_friend_btn_02.png">
+		<a class="btn inline-block" href="javascript:"><img class="w-100 help-water send-friend" id="send-friend-01" style="margin-top:3rem;" src="/public/img/send_friend_btn_02.png">
 		</a>
 
 		<a class="btn inline-block send-friend none" id="send-friend-02" style="margin-top:1rem;" href="javascript:"><img class="w-100" src="/public/img/send_friend_btn.png"></a>
@@ -37,6 +37,8 @@
 			}
 			
 		});
+
+		// 判断是否是小树券
 		if('<%= gift.type_id %>' == '3'){
 			var post_data = {act: 'get_tree_coupon_count', user_id: '<%= user_info.user_id %>'};
 			log(post_data);
@@ -61,6 +63,7 @@
 			$('.app').removeClass('none');
 		}
 
+		// 兑换小树券
 		$('#exchange-btn').click(function(){
 			var post_data = {act:'exchange-btn', user_id: '<%= user_info.user_id %>'};
 			api_post('', post_data, function(ret){
@@ -69,7 +72,8 @@
 				}
 			});
 		});
-		var bgs = ['','/public/img/money_package.png','/public/img/invest_ticket.png','/public/img/xs_ticket.png','/public/img/bottle.png','/public/img/virtual_gift.png'];
+
+		var bgs = ['','/public/img/money_package.png','/public/img/invest_ticket.png','/public/img/xs_ticket.png','/public/img/achieve_water_count_small.png','/public/img/virtual_gift.png'];
 
 		$('#gift-bg').attr('src',bgs['<%= gift.type_id %>']);
 	});

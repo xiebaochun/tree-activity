@@ -1,6 +1,34 @@
 <style type="text/css">
-	
+	.pop-wrap{
+		position: fixed;
+		left:0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url('/public/img/exchange_success_bg.png');
+		background-size: cover;
+		background-origin: center;
+	}
+	.rule-link{
+		display: inline-block;
+		padding: 1rem;
+	}
+	.pop-body{position: relative;}
 </style>
-<div>
-	
+<div class="pop-wrap">
+	<a class="rule-link fr color-000" style="color: #000;" href="/rule">活动规则</a>
+	<div style="height: 4rem;"></div>
+	<div class="pop-body tc">
+		<img class="w-80" src="../public/img/exchange_success.png">
+		<div class="tc" style="margin-top: 2rem;">
+			<img class="w-50" id="plant-tree" src="../public/img/my_tree_btn.png">
+		</div>
+	</div>
 </div>
+<script type="text/javascript">
+	$(function(){
+		$('#plant-tree').click(function(){
+			window.location.href = '/';
+		});
+	});
+</script>

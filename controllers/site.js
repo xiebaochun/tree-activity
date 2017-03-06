@@ -32,6 +32,7 @@ exports.index = function (req, res, next) {
 		});
 	}else{
 		// 让用户去授权
+		console.log('首页跳去授权');
 		res.redirect(config.weixin_auth_url);
 	}
 };
