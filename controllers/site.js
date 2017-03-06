@@ -11,7 +11,7 @@ var api_post = require('../libs/api_post');
 //console.log(wx);
 
 exports.index = function (req, res, next) {
-	if(req.session.user){
+	// if(req.session.user){
 		console.log('/ controller session user:');
 		console.log(req.session.user);
 		var open_id = req.session.user.open_id;
@@ -30,11 +30,11 @@ exports.index = function (req, res, next) {
 				}
 			}
 		});
-	}else{
-		// 让用户去授权
-		console.log('首页跳去授权');
-		res.redirect(config.weixin_auth_url);
-	}
+	// }else{
+	// 	// 让用户去授权
+	// 	console.log('首页跳去授权');
+	// 	res.redirect(config.weixin_auth_url);
+	// }
 };
 
 exports.f_index = function (req, res, next) {

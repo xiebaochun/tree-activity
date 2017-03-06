@@ -352,3 +352,5 @@
 		}
 	}
 }
+
+is_user_exist open_id

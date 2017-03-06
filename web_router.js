@@ -16,7 +16,7 @@ var router = express.Router();
 
 // home page
 //router.get('/', authMiddleWare.auth, site.index);
-router.get('/',  site.index);
+router.get('/', auth.auth, site.index);
 router.get('/f-index/:open_id',auth.auth, site.f_index);
 router.get('/get-tree',auth.auth, site.get_tree);
 router.get('/rule',auth.auth, site.rule);
