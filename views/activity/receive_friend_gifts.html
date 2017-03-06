@@ -17,9 +17,9 @@
 <div>
 	<div class="pop-box">
 		<div class="body animated bounceIn">
-			<img class="w-100" src="/public/img/achieve_invest_tips.png">
+			<img class="w-100" id="gift-bg" src="/public/img/achieve_invest_tips.png">
 			<div class="info">
-				<span></span>
+				<span><%= gift.info %></span>
 			</div>
 			<div class="operation">
 				<img onclick="refused()" class="btn" src="/public/img/refuse_btn.png">
@@ -29,6 +29,7 @@
 	</div>
 </div>
 <script type="text/javascript">
+	var user_info = null;
 	function refused(){
 		window.location.href = '/';
 	}
@@ -36,18 +37,25 @@
   		api_post('get_user_info',{open_id: '<%= user_info.open_id %>'},function(ret){
   			console.log('>>>>>>>>>>>>>>>>');
 			console.log(ret);
-			
+			user_info = ret.user_info;
+			if(user_info.user_mark == 1){
+				window.location.href = '/none-invest-user';
+				return;
+			}
 			if(ret.user_info.is_binded_mobile){
 				api_post('', {act:'receive_gift', id: '<%= gift.gift_id %>', user_id: '<%= user_info.user_id %>',f_user_id: '<%= f_user_id %>'}, function(ret){
 					console.log('领取礼物');
 					console.log(ret);
 					if(ret.status == 1){
-						dialog('恭喜成功领取好友礼物！');
+						dialog.success('恭喜成功领取好友礼物！');
 						setTimeout(function(){
 							window.location.href = "/";
 						},3000);
 					}else{
-						window.location.href = "/";
+						dialog.error(ret.show_err);
+						setTimeout(function(){
+							window.location.href = "/";
+						},3000);
 					}
 				});
 			}else{
@@ -56,28 +64,27 @@
 		});	
 	}	
 	$(function(){
-		$('#send-friend').click(function(){
-			showShareTips();
-			// if(parseInt($('#can_send').text()) == 1){
-			// 	//dialog.error('此礼品不能赠送哦~');
-			// }else{
-			// 	dialog.error('此礼品不能赠送哦~');
-			// }
-		});
+		
+		var bgs = ['','/public/img/achieve_money_tips.png','/public/img/achieve_invest_tips.png','/public/img/achieve_ticket_tips.png','/public/img/achieve_water_count.png','/public/img/achieve_virtual_tips.png'];
+
+		$('#gift-bg').attr('src',bgs['<%= gift.type_id %>']);
+
 	});
 </script>
 <% if(signatureData) { %>
 <script type="text/javascript">
 	wx.ready(function(){
 	    wx.onMenuShareAppMessage({
-	        title: '领取好友礼物-312植树节-小树时代', // 分享标题
-	        desc: '领取好友礼物-小树时代-植树节', // 分享描述
+	        title: '领取好友礼物-' + TITLE, // 分享标题
+	        desc: '领取好友礼物-' + DESC, // 分享描述
 	        link: '312activity.xiaoshushidai.com/receive-friend-gifts/<%= user_info.user_id %>/<%= gift.gift_id %>', // 分享链接
-	        imgUrl: 'http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png', // 分享图标
+	        imgUrl: IMAGE_URL, // 分享图标
 	        type: '', // 分享类型,music、video或link，不填默认为link
 	        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 	        success: function () { 
 	            // 用户确认分享后执行的回调函数
+	            api_post('', {act:'add_water_times', user_id: '<%= user_info.user_id %>'}, function(ret){
+	  	           	});
 	        },
 	        cancel: function () { 
 	            // 用户取消分享后执行的回调函数

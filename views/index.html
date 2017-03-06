@@ -47,14 +47,15 @@
 	.bottom-tool{position: absolute;right:0;bottom:0;padding: 0.5rem 1rem;}
 	.gift-box{width: 2.5rem;padding-right: 0.8rem;}
 	.bottle-box{width:3rem;}
-	.bottle-info{position: absolute;_width: 1rem;height: 1rem;padding: 0 0.2rem;line-height: 1rem;background-color: red; color:#fff;font-size: 0.5rem;border: 1px solid #fff;border-radius: 50%;right:0.8rem;top:-0.2rem;}
+	.bottle-info{position: absolute;_width: 1rem;height: 1rem;padding: 0 0.3rem;line-height: 1rem;background-color: red; color:#fff;font-size: 0.6rem;border: 1px solid #fff;border-radius: 50%;right:0.8rem;top:-0.2rem;}
 
 
 	/*list*/
 	.list .item{padding: 0.5rem 0.5rem;line-height: 2.5rem;}
 	.list .item span{margin-left:0.5rem;}
 	.avator{width:2rem;height:2rem;border: 1px solid #209f20;border-radius: 50%;overflow: hidden;}
-
+	._nick-name{display: inline-block;max-width:5rem;}
+	.nick-name-info{display: inline-block;max-width:18rem;vertical-align: middle;}
 	/*pop-box*/
 	.pop-box{position: fixed;top:0;left:0;width:100%;height:100%;background-color: rgba(0,0,0,0.7);z-index: 10;}
 	.pop-box > .body{position: relative; margin-top:5rem; text-align: center;
@@ -69,7 +70,18 @@
 	.pop-box > .body .info{position: absolute;bottom:4.3rem;left:0;width:100%;text-align: center;}
 	.operation{position: absolute;bottom:0;left:0;width:100%;}
 	.operation .btn{width:6.5rem;margin:1rem 0.8rem;}
+
+	.add-water{position: absolute; right: 2rem; top: -1rem;color:green;font-size: 1.5rem;text-shadow: 0 0 2px #fff;}
+
+	.loader{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#000;z-index:100000}
+	.loader-bar{position:absolute;top:48%;left:50%;width:200px;height:5px;margin-left:-100px;background-color:#fff}
+	.loader-progress{position:absolute;left:0;top:0;width:0;height:100%;background-color:red}
 </style>
+<div class="loader" v-show="loader.is_show">
+	<div class="loader-bar">
+		<div class="loader-progress" id="loader-progress"></div>
+	</div>
+</div>
 <div class="none" id="app">
 	<img style="position:absolute;top:0;left:0; width:0" src="http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png">
 	<div class="game-wrap">
@@ -99,6 +111,7 @@
 				<img class="w-100 animated infinite _tada" src="../public/img/gift_box.png">
 			</div>
 			<div class="bottle-box inline-block" @click="water">
+				<div class="add-water bounceIn none">+</div>
 				<div class="bottle-info tc">{{ user_info.watering_able_count }}</div>
 				<img class="w-100" src="../public/img/water_bottle.png">
 			</div>
@@ -123,11 +136,13 @@
 					<span class="vm inline-block avator bg-cover" v-bind:style="{backgroundImage: 'url(' + (log.avatar_url || '../public/img/fruit.png') + ')'}" >
 						<!-- <img class="w-100" src="../public/img/fruit.png"> -->
 					</span>
-					<span class="vm nick-name">
-						{{ log.nick_name }}
-					</span>
-					<span class="log-info color-666">
-						{{ log.info }}
+					<span class="nick-name-info nowrap">
+						<span class="vm nick-name _nowrap">
+							{{ log.nick_name }}
+						</span>
+						<span class="log-info color-666">
+							{{ log.info }}
+						</span>
 					</span>
 					<span class="create-time fr color-666">
 						{{ log.create_time }}
@@ -147,11 +162,13 @@
 					<span class="vm inline-block avator bg-cover" v-bind:style="{backgroundImage: 'url(' + (log.avatar_url || '../public/img/fruit.png') + ')'}">
 						<!-- <img class="w-100" src="../public/img/fruit.png"> -->
 					</span>
-					<span class="vm nick-name">
-						{{ log.nick_name }}
-					</span>
-					<span class="log-info color-666">
-						{{ log.info }}
+					<span class="nick-name-info nowrap">
+						<span class="vm nick-name _nowrap">
+							{{ log.nick_name }}
+						</span>
+						<span class="log-info color-666">
+							{{ log.info }}
+						</span>
 					</span>
 
 					<a class="create-time fr color-link" v-bind:href="'/my-gift/' + log.gift_id" v-if="log.is_received == 1">
@@ -247,6 +264,9 @@
 		    gift_id: null,
 		    gift_bgs:['../public/img/achieve_money_tips.png','../public/img/achieve_invest_tips.png','../public/img/achieve_ticket_tips.png','../public/img/achieve_water_count.png','../public/img/achieve_virtual_tips.png'],
 		    has_new_gift: false,
+		    loader:{
+		    	is_show: true,
+		    }
 
 		  },
 		  filters: {
@@ -264,7 +284,7 @@
 		  },
 		  methods: {
 		  	init: function(){
-
+		  		var self = this;
 		  		// 获取用户信息
 		  		this.getUserInfo();
 
@@ -279,6 +299,10 @@
 
 		  		// 查看是否有未领取礼品
 		  		this.checkGiftLog();
+
+		  		setTimeout(function(){
+		  			self.loader.is_show = false;
+		  		},3000);
 
 		  	},
 		  	getUserInfo: function(callback){
@@ -392,18 +416,20 @@
 						break;
 					}
 				}
-				if(parseInt(this.user_info.watering_able_count) > 0){
+				if(parseInt(this.user_info.watering_able_count) > 0 && this.fruit_list[fruit_index].watered_count < this.fruit_list[fruit_index].total_required_water_count){
 					api_post('', {act: 'water',user_id: this.user_info.user_id, t_user_id: this.user_info.user_id, fruit_id: this.fruit_list[fruit_index].id}, function(ret){
 						// 浇水结果
 						console.log('浇水结果:');
 						console.log(ret);
-						self.waterAnimate(function(){
-								//self.getFruitList();
-							if(ret.show_err) dialog.success(ret.show_err);
-							self.getUserInfo(function(){
-								
+						if(ret.status == 1){
+							self.waterAnimate(function(){
+									//self.getFruitList();
+								if(ret.show_err) dialog.success(ret.show_err);
+								self.getUserInfo(function(){
+									
+								});
 							});
-						});
+						}
 					});
 				}
 		  	},
@@ -455,7 +481,16 @@
 		  					content = pre + gift.gift_name;
 		  					break;
 		  				}	
-		  				self.openPopBox(gift, content);
+		  				if(gift.gift_type == 4){
+		  					self.gift_id = gift.id;
+		  					self.recieveGift(function(){
+		  						// 加浇水机会
+		  						dialog.success('获得一次浇水机会！');
+		  						self.addWaterCountAnimation();
+		  					});
+		  				}else{
+		  					self.openPopBox(gift, content);
+		  				}
 		  				self.getUserInfo();
 		  			}
 		  		});
@@ -463,13 +498,14 @@
 		  	openGift: function(){
 
 		  	},
-		  	recieveGift: function() {
+		  	recieveGift: function(callback) {
 		  		var self = this;
 		  		
 		  		api_post('', {act:'receive_gift', id: this.gift_id, user_id: this.user_id}, function(ret){
 		  			console.log('领取礼物');
 		  			console.log(ret);
 		  			if(ret.status == 1){
+		  				if(typeof callback == 'function') callback();
 		  				self.listGiftLog(self.gift_log_index);
 		  				self.closePopBox();
 		  			}
@@ -497,149 +533,64 @@
 		  		}else if(index == 2){
 		  			this.listGiftLog(this.gift_log_index);
 		  		}
+		  	},
+		  	addWaterCountAnimation: function(){
+		  		$('.add-water').addClass('animated').removeClass('none');
+		  		setTimeout(function(){
+		  			$('.add-water').removeClass('animated').addClass('none');
+		  		}, 1500);
 		  	}
 		  }
 
 		})
 	});
 	$(function(){
-		function Game() {
-			this.init();
-			// setTimeout(function(){
-			// 	window.location.reload();
-			// },3000);
-		}
-		var p = Game.prototype;
-
-		p.$main = $('.main');
-		p.$pop = $('.pop-box');
-		p.$none_growth_tips = $('#none-growth-tips');
-		p.$none_gift_tips = $('#none-gift-tips');
-
-		p.pop_box_imgs = {
-			virtual_gift: '../public/img/achieve_virtual_tips.png',
-			money_gift: '../public/img/achieve_money_tips.png',
-			invest_gift: '../public/img/achieve_invest_tips.png',
-			ticket_gift: '../public/img/achieve_ticket_tips.png',
-			water_gift: '../public/img/achieve_water_count.png',
-		}
-
-		p.open_id = '<%= open_id %>';
-
-		p.user_info = null;
-
-
-		p.init = function() {
-			this.bindEvent();
-
-			// 获取用户信息
-			this.getUserInfo();
-
-			// 列出成长记录
-			this.listGrowthLog(1);
-		}
-
-		p.getUserInfo = function() {
-			api_post('get_user_info',{open_id: this.open_id},function(ret){
-				console.log(ret);
-			});	
-		}
-
-		p.listGrowthLog = function(page) {
-			var self = this;
-			this.getGrowthLog(page, function(ret){
-				console.log('获取的成长记录');
-				console.log(ret);
-				if(ret.growth_log){
-					var list_html = '';
-					
-						var html = '<li class="item">\
-										<span class="vm inline-block avator bg-cover" style="background-image: url(../public/img/fruit.png);">\
-											<!-- <img class="w-100" src="../public/img/fruit.png"> -->\
-										</span>\
-										<span class="vm nick-name">\
-											阿尔伯特\
-										</span>\
-										<span class="log-info color-666">\
-											成功浇水1次\
-										</span>\
-										<span class="create-time fr color-666">\
-											3-11 23:59\
-										</span>\
-									</li>';
-					
-				}else{
-					self.$none_growth_tips.removeClass('none');
+		(function(){
+			var imageBase = '/public/img/';
+			var $loader_pro = $('#loader-progress');
+			function Game(){
+				this.init();
+			}
+			var p = Game.prototype;
+			p.loadedCount = 0;
+			p.assets = [];
+			p.loadImage = function(images){
+				var self = this;
+				for(var index in images){
+					var img = new Image();
+					img.src = images[index];
+					img.addEventListener('load',function(){
+						self.loadedCount ++;
+						//console.log(this);
+						self.loaderUpdate(self.loadedCount);
+					});
+					this.assets.push(img);
+				}	
+			}
+			p.loaderUpdate = function(count){
+				//console.log(count);
+				$loader_pro.css({'width':(parseFloat(count)/game.assets.length)*100+'%'});
+				if(count/game.assets.length >= 1){
+					//game.remove(game.loadProgressText);
+					setTimeout(function(){
+						$loader_pro.parent().parent().remove();
+					},500);
 				}
-			});
-		}
-
-		p.getGrowthLog = function(page, callback) {
-			api_post('get_growth_log',{open_id: this.open_id, page: page, page_count: 5},function(ret){
-				//console.log(ret);
-				if(ret.status == 1){
-					callback(ret);
-				}
-			});
-		}
-
-		p.bindEvent = function() {
-			var self = this;
-			// nav 
-			this.$main.on('click', '.tab', function(){
-				$(this).addClass('active').siblings().removeClass('active');
-				$('#' + $(this).data('for')).removeClass('none').siblings().addClass('none');
-			});
-
-			// bottom tools
-			// water
-			this.bindClick('.bottle-box', function(){
-				self.water();
-			});
-			// bottle
-			this.bindClick('.gift-box', function(){
-				//self.openPopBox(1, '恭喜你！');
-			});	
-
-			this.bindClick('.fruit', function(){
-				self.openPopBox(1, '恭喜你！');
-			});				
-
-			this.bindClick('.pop-box .operation .btn', function(){
-				self.closePopBox();
-			});
-
-		}
-
-		p.bindClick = function(className, callback){
-			this.$main.on('click', className, callback);
-		}
-
-		p.water = function() {
-			$('.water').removeClass('none').children('.bottle').addClass('rotate');
-
-			setTimeout(function(){
-				$('.water').children('.water-drops').removeClass('none').addClass('flash');
-			},1000);
-
-			setTimeout(function(){
-				$('.water').addClass('none').children('.bottle').removeClass('rotate');
-				$('.water').children('.water-drops').addClass('none').removeClass('flash');
-			},3000);
-		}
-
-		// open pop-box
-		p.openPopBox = function(type, content) {
-			this.$pop.removeClass('none').children('.body').addClass('animated');
-			this.$pop.find('.info span').text(content || '?????');
-
-		}
-
-		p.closePopBox = function() {
-			this.$pop.addClass('none').children('.body').removeClass('animated');
-			this.$pop.find('.info span').text('');
-		}
-		// init Game
-		//var game = new Game();
+			}
+			p.init = function(){
+				var self = this;
+				self.loadImage([
+					imageBase + 'main_bg.png',
+					imageBase + 'main_tree.png',
+					imageBase + 'fruit.png',
+					imageBase + 'water_bottle.png',
+					imageBase + 'bottle.png',
+					imageBase + 'money_package.png',
+					imageBase + 'achieve_invest_tips.png',
+					imageBase + 'grap_hand.png',
+					]);
+			}
+			var game = new Game();
+		})();
 	});
 </script>

@@ -61,7 +61,7 @@
 		    var mobile = $mobile.val(), 
 		        validcode = $captcha.val();
 
-		    if(verify_mobile(mobile)){
+		    if(!verify_mobile(mobile)){
 		        //dialog.error('ÇëÊäÈëÑéÖ¤Âë£¡',2000);
 		        alert('手机号输入错误！');
 		        return false;
@@ -74,33 +74,47 @@
 		    }
 		    //alert(agree_checkbox.checked);
 
-		    var query = new Object();
-		    query.mobile = mobile;
-		    query.captcha = captcha;
+		    // var query = new Object();
+		    // query.mobile = mobile;
+		    // query.captcha = captcha;
 
-		    ajax({
-		        url: '/',              //
-		        type: "POST",                       //
-		        data: query,        //
-		        dataType: "json",
-		        success: function (response) {
-		            data = JSON.parse(response);
-		            // ´Ë´¦·Å³É¹¦ºóÖ´ÐÐµÄ´úÂë
-		            if(data.response_code)
-		            {
-		                alert('验证成功！');
-		                setTimeout(function(){
-		                    window.location.href = '/wap/index.php?ctl=new_register_success';
-		                },2500);
-		            }else{
-		                alert('验证失败！');
-		                return false;
-		            }
-		        },
-		        fail: function (status) {
-		            // ´Ë´¦·ÅÊ§°ÜºóÖ´ÐÐµÄ´úÂë
-		        }
+		    api_post('', {act: 'bind_mobile', mobile: mobile, captcha: validcode}, function(ret){
+		    	if(ret.status == 1){
+		    		if(ret.user_mark ==1){
+		    			window.location.href = '/none-invest-user';
+		    			return;
+		    		}
+		    		console.log(ret);
+		    		window.location.href = '/setting-pwd';
+		    	}else{
+		    		//window.location.href = '/setting-pwd';
+		    		dialog.error(ret.show_err);
+		    	}	
 		    });
+
+		    // ajax({
+		    //     url: '/',              //
+		    //     type: "POST",                       //
+		    //     data: query,        //
+		    //     dataType: "json",
+		    //     success: function (response) {
+		    //         data = JSON.parse(response);
+		    //         // ´Ë´¦·Å³É¹¦ºóÖ´ÐÐµÄ´úÂë
+		    //         if(data.response_code)
+		    //         {
+		    //             alert('验证成功！');
+		    //             setTimeout(function(){
+		    //                 window.location.href = '/wap/index.php?ctl=new_register_success';
+		    //             },2500);
+		    //         }else{
+		    //             alert('验证失败！');
+		    //             return false;
+		    //         }
+		    //     },
+		    //     fail: function (status) {
+		    //         // ´Ë´¦·ÅÊ§°ÜºóÖ´ÐÐµÄ´úÂë
+		    //     }
+		    // });
 		});
 
 		$('.get-verify-btn').click(function(){
@@ -110,7 +124,7 @@
 		            if(rets){
 		         
 		                valideCodeTimer = new ValidCodeTimer();
-		        		valideCodeTimer.start();
+		        		//valideCodeTimer.start();
 		            }else{
 		                alert('验证码发送失败！');
 		                return false;
@@ -131,25 +145,38 @@
 		    	return false;
 		    }
 
-		    var query = new Object();
-		    query.mobile = mobile;
-		   callback(1);
-		    $.ajax({
-		        url: '',              //ÇëÇóµØÖ·
-		        type: "POST",                       //ÇëÇó·½Ê½
-		        data: query,        //ÇëÇó²ÎÊý
-		        dataType: "json",
-		        success: function (response, xml) {
-		            // ´Ë´¦·Å³É¹¦ºóÖ´ÐÐµÄ´úÂë
-		            callback(1);
-		            isCanSendCode = true;
-		        },
-		        fail: function (status) {
-		            // ´Ë´¦·ÅÊ§°ÜºóÖ´ÐÐµÄ´úÂë
-		            callback(0);
-		            isCanSendCode = true;
-		        }
+		    var post_data = {act:'send_captcha', mobile: mobile};
+		    api_post('',post_data, function(ret){
+		    	console.log('获取短信验证码');
+		    	console.log(ret);
+		    	if(ret.status == 1){
+		    		callback(1);
+		    		isCanSendCode = true;
+		    	}else{
+		    		callback(0);
+		    		isCanSendCode = true;
+		    	}
 		    });
+
+		   //  var query = new Object();
+		   //  query.mobile = mobile;
+		   // //callback(1);
+		   //  $.ajax({
+		   //      url: '',              //ÇëÇóµØÖ·
+		   //      type: "POST",                       //ÇëÇó·½Ê½
+		   //      data: query,        //ÇëÇó²ÎÊý
+		   //      dataType: "json",
+		   //      success: function (response, xml) {
+		   //          // ´Ë´¦·Å³É¹¦ºóÖ´ÐÐµÄ´úÂë
+		   //          callback(1);
+		   //          isCanSendCode = true;
+		   //      },
+		   //      fail: function (status) {
+		   //          // ´Ë´¦·ÅÊ§°ÜºóÖ´ÐÐµÄ´úÂë
+		   //          callback(0);
+		   //          isCanSendCode = true;
+		   //      }
+		   //  });
 		}
 		function ValidCodeTimer(){
 		    this.start();
@@ -170,7 +197,7 @@
 		        $remained_time.text(self.time);
 		        if(self.time <= 0){
 		            self.stop();
-		            $remained_time.text('60s');
+		            //$remained_time.text('60s');
 		        }
 		    },1000);
 		}   

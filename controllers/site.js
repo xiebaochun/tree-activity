@@ -74,6 +74,8 @@ exports.get_tree = function(req, res, next) {
 			var user_info = ret.user_info;
 			console.log('get_user_info >>>> user:');
 			console.log(user_info);
+			//res.render('activity/get_tree', {user_info: user_info});
+			//return;
 			if(user_info.is_received_tree == 1){
 				res.redirect('/');
 			}else{
@@ -133,7 +135,12 @@ exports.my_tree = function(req, res, next) {
 }
 exports.receive_friend_gifts = function(req, res, next) {
 	console.log('领取好友礼物：');
-	console.log(req.params.f_user_id+":"+req.params.gift_id);
+	console.log(req.params.f_user_id+":"+req.params.gift_id+":" + req.session.user.user_id);
+
+	if(req.params.f_user_id == req.session.user.user_id){
+		res.redirect('/');
+		return;
+	}
 	//res.render('activity/receive_friend_gifts', {});
 	var gift_id = req.params.gift_id;
 	api_post.post({act:'get_gift', gift_id: gift_id}, function(ret){
@@ -180,6 +187,10 @@ exports.setting_pwd = function(req, res, next) {
 
 exports.setting_pwd_success = function(req, res, next) {
 	res.render('user/setting_pwd_success', {});
+}
+
+exports.none_invest_user = function(req, res, next){
+	res.render('user/none_invest_user', {});
 }
 
 //

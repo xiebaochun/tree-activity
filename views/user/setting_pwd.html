@@ -42,14 +42,14 @@
 	</div>
 	<br>
 	<p style="height: 1rem;"></p>
-	<a class="color-red" href="">隐私条款</a>
+	<a class="color-red" href="/rule">隐私条款</a>
 </div>
 <script type="text/javascript">
 	$(function(){
 		$('.submit-btn').click(function(){
 			var pwd = $('#pwd').val();
 			var e_pwd = $('#e-pwd').val();
-
+			//window.location.href = '/setting-pwd-success';
 			if(!pwd){
 				alert('请输入密码！');
 				return false;
@@ -57,7 +57,20 @@
 
 			if(pwd != e_pwd){
 				alert('两次输入的密码不一致！');
+				return false;
 			}
+			var post_data = {act:'set_password', user_id: '<%= user_info.user_id %>', password: pwd};
+			console.log(post_data);
+			api_post('', post_data, function(ret){
+				if(ret.status == 1){
+					dialog.success(ret.show_err);
+					setTimeout(function(){
+						window.location.href = '/setting-pwd-success';
+					},3000);
+				}else{
+					dialog.error(ret.show_err);
+				}
+			});
 		});
 	});
 </script>

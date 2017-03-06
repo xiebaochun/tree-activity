@@ -33,6 +33,8 @@ router.get('/verify-mobile',  auth.auth, site.verify_mobile);
 router.get('/setting-pwd', auth.auth, site.setting_pwd);
 router.get('/setting-pwd-success', auth.auth, site.setting_pwd_success);
 
+router.get('/none-invest-user', auth.auth, site.none_invest_user);
+
 router.get('/wechat/oauth-callback', user.oauth);
 //router.get('/oauth-callback', user.oauth);
 

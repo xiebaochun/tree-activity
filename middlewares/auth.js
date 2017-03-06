@@ -39,6 +39,9 @@ exports.auth = function(req, res, next) {
 	var user = req.session.user;
 	// console.log('auth里打印的user:');
 	// console.log(user);
+	// req.session.auth_redirect_url = req.originalUrl;
+	// 	res.redirect(config.weixin_auth_url);
+	// 	return;
 	if(user){
 		//res.locals.username = user.name;
 		res.locals.user_info = user;

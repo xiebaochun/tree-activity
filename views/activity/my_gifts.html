@@ -6,17 +6,19 @@
 	<a class="fr color-red inline-block" style="padding:1rem;" href="/rule">礼品规则</a>
 	<div style="height: 5rem;"></div>
 	<div class="tc">
-		<span><%= gift.info %></span>
+		<span class="gift-info"><%= gift.info %></span>
 		<span class="none" id="can_send"><%= gift.can_send %></span>
 	</div>
 	<div class="tc">
-		<img class="inline-block" style="width:80%" src="/public/img/money_package.png">
+		<img class="inline-block" id="gift-bg" style="width:80%" src="/public/img/money_package.png">
 	</div>
 	<div style="height: 5rem;"></div>
 	<div class="bottom-nav">
 		<img class="btn help-water" id="send-friend" style="margin-top:3rem;" src="/public/img/send_friend_btn_02.png">
 		<br>
 		<a class="btn inline-block" style="margin-top:1rem;" href="/"><img class="w-100" src="/public/img/self_use_btn.png"></a>
+		<br>
+		<a class="btn inline-block none" style="margin-top:1rem;" href="/"><img class="w-100" src="/public/img/continute_achieve_btn.png"></a>
 	</div>
 </div>
 <script type="text/javascript">
@@ -28,21 +30,37 @@
 			}else{
 				dialog.error('此礼品不能赠送哦~');
 			}
+			if('<%= gift.type_id %>' == '3'){
+				var post_data = {act: 'get_tree_coupon_count', user_id: '<%= user_info.user_id %>'};
+				log(post_data);
+				api_post('', post_data, function(ret){
+					log('获取小树券的数量');
+					log(ret);
+					if(ret.status == 1){
+						$('.gift-info').text('');
+					}
+				});
+			}
 		});
+		var bgs = ['','/public/img/money_package.png','/public/img/invest_ticket.png','/public/img/xs_ticket.png','/public/img/bottle.png','/public/img/virtual_gift.png'];
+
+		$('#gift-bg').attr('src',bgs['<%= gift.type_id %>']);
 	});
 </script>
 <% if(signatureData) { %>
 <script type="text/javascript">
 	wx.ready(function(){
 	    wx.onMenuShareAppMessage({
-	        title: '领取好友礼物-312植树节-小树时代', // 分享标题
-	        desc: '领取好友礼物-小树时代-植树节', // 分享描述
+	        title: '领取好友礼物-' + TITLE, // 分享标题
+	        desc: '领取好友礼物-' + DESC, // 分享描述
 	        link: '312activity.xiaoshushidai.com/receive-friend-gifts/<%= user_info.user_id %>/<%= gift.gift_id %>', // 分享链接
-	        imgUrl: 'http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png', // 分享图标
+	        imgUrl: IMAGE_URL, // 分享图标
 	        type: '', // 分享类型,music、video或link，不填默认为link
 	        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 	        success: function () { 
 	            // 用户确认分享后执行的回调函数
+	            api_post('', {act:'add_water_times', user_id: '<%= user_info.user_id %>'}, function(ret){
+	  	           	});
 	        },
 	        cancel: function () { 
 	            // 用户取消分享后执行的回调函数

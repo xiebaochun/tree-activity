@@ -118,7 +118,7 @@
 		</div>
 		<div class="bottom-tool">
 			<div class="bottle-box inline-block">
-				<div class="bottle-info tc">{{ user_info.watering_able_count }}</div>
+				<div class="bottle-info tc">1</div>
 				<img class="w-100" src="../public/img/water_bottle.png">
 			</div>
 		</div>
@@ -138,7 +138,7 @@
 		  data: {
 		    open_id: '<%= open_id %>',
 		    f_open_id: '<%= f_open_id %>',
-		    user_info: {watering_able_count:1},
+		    user_info: null,
 		    f_user_info: null,
 		    hasWater: false,
 		  },	
@@ -147,12 +147,36 @@
 		  },
 		  methods: {
 		  	init: function(){
-
+		  		self = this;
 		  		// 获取用户信息
 		  		this.getUserInfo();
 
-		  		api_post('', {act:'has_water', });
+		  		var time = setInterval(function(){
+		  			//console.log(this.user_info);
+		  			if(self.user_info && self.f_user_info){
+		  				self.checkWater();
+				  		clearInterval(time);
+		  			}
+		  		},100);
 
+		  	},
+		  	checkWater: function(callback){
+		  		var self = this;
+  				var post_data = {act:'has_water', user_id: self.user_info.user_id, t_user_id:self.f_user_info.user_id};
+  				console.log(post_data);
+		  		api_post('', post_data,function(ret){
+		  			console.log('是否给好友浇过是水');
+		  			console.log(ret);
+		  			if(ret.has_water){
+		  				$('.bottle-info').text('0');
+		  				self.hasWater = true;
+		  				if(callback) callback();
+		  			}else{
+		  				$('.bottle-info').text('1');
+		  				self.hasWater = false;
+		  				if(callback) callback();
+		  			}
+		  		});
 		  	},
 		  	getUserInfo: function(callback){
 		  		var self = this;
@@ -175,20 +199,29 @@
 		  	water: function() {
 				//this.openPopBox(1, '恭喜哦你');
 				self = this;
-				if(parseInt(self.user_info.watering_able_count) > 0){
-					api_post('', {act: 'water',user_id: this.user_info.user_id, t_user_id: this.f_user_info.user_id, fruit_id: 1}, function(ret){
-						// 浇水结果
-						console.log('浇水结果:');
-						console.log(ret);
-						self.waterAnimate(function(){
-								//self.getFruitList();
-							if(ret.show_err) dialog.success(ret.show_err);
-							self.getUserInfo(function(){
-								
-							});
+				this.checkWater(function(){
+					if(self.hasWater || $('.bottle-info').text() == '0'){
+						dialog.error('已给好友浇过水,请明天再来浇！');
+					}
+					if(!self.hasWater){
+						api_post('', {act: 'water',user_id: self.user_info.user_id, t_user_id: self.f_user_info.user_id, fruit_id: 1}, function(ret){
+							// 浇水结果
+							console.log('浇水结果:');
+							console.log(ret);
+							if(ret.status == 1){
+								$('.bottle-info').text('0');
+								self.waterAnimate(function(){
+										//self.getFruitList();
+									if(ret.show_err) dialog.success(ret.show_err);
+									$('.fruit').removeClass('none').addClass('animated bounceIn');
+									// self.getUserInfo(function(){
+										
+									// });
+								});
+							}
 						});
-					});
-				}
+					}
+				});
 		  	},
 		  	waterAnimate: function(callback) {
 		  		$('.water').removeClass('none').children('.bottle').addClass('rotate');

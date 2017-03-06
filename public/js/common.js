@@ -10,6 +10,10 @@ function verify_mobile(str) {
     }
 }
 
+function log(content){
+    console.log(content);
+}
+
 function splitSlice(str, len) {
     var ret = [];
     for (var offset = 0, strLen = str.length; offset < strLen; offset += len) {

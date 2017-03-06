@@ -36,17 +36,22 @@
 	<p style="height:1rem;"></p>
 	<p>本次活动的相关奖品将在活动结束后进行发放。</p>
 	<p style="height:5rem;"></p>
-	<div class="inline-block bg-yellow submit-btn">
+	<div class="inline-block bg-yellow submit-btn" onclick="goStore()">
 		马上激活新手礼包
 	</div>
 	<p style="height: 0.5rem;"></p>
-	<div class="inline-block bg-yellow submit-btn">
+	<div class="inline-block bg-yellow submit-btn" onclick="goHome()">
 		查看我的小树
 	</div>
 	<br>
 	<p style="height: 1rem;"></p>
-	<a class="color-red" href="">隐私条款</a>
+	<a class="color-red" href="/rule">隐私条款</a>
 </div>
 <script type="text/javascript">
-	
+	function goStore(){
+		window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.xssd.p2p";
+	}
+	function goHome(){
+		window.location.href = '/';
+	}
 </script>
