@@ -189,6 +189,10 @@ exports.setting_pwd_success = function(req, res, next) {
 	res.render('user/setting_pwd_success', {});
 }
 
+exports.exchange_success = function(req, res, next){
+	res.render('activity/exchange_success', {});
+}
+
 exports.none_invest_user = function(req, res, next){
 	res.render('user/none_invest_user', {});
 }

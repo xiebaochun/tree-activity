@@ -32,7 +32,7 @@ router.get('/receive-friend-gifts/:f_user_id/:gift_id', auth.auth,site.receive_f
 router.get('/verify-mobile',  auth.auth, site.verify_mobile);
 router.get('/setting-pwd', auth.auth, site.setting_pwd);
 router.get('/setting-pwd-success', auth.auth, site.setting_pwd_success);
-
+router.get('/exchange-success', auth.auth, site.exchange_success);
 router.get('/none-invest-user', auth.auth, site.none_invest_user);
 
 router.get('/wechat/oauth-callback', user.oauth);
