@@ -27,6 +27,7 @@
     border-radius:5px;
     padding:45px 20px;
     box-sizing: border-box;
+    z-index: 100;
 }
 .success-pop:before{
     content:'';

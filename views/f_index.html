@@ -117,7 +117,7 @@
 			</div>
 		</div>
 		<div class="bottom-tool">
-			<div class="bottle-box inline-block">
+			<div class="bottle-box inline-block" @click="water">
 				<div class="bottle-info tc">1</div>
 				<img class="w-100" src="../public/img/water_bottle.png">
 			</div>
@@ -213,7 +213,9 @@
 								self.waterAnimate(function(){
 										//self.getFruitList();
 									if(ret.show_err) dialog.success(ret.show_err);
-									$('.fruit').removeClass('none').addClass('animated bounceIn');
+
+									var index = GetRandomNum(1, 5);
+									$('.fruit-' + index).removeClass('none').addClass('animated bounceIn');
 									// self.getUserInfo(function(){
 										
 									// });
@@ -295,4 +297,9 @@
 		// init Game
 		//var game = new Game();
 	});
+	function GetRandomNum(Min,Max){   
+		var Range = Max - Min;   
+		var Rand = Math.random();   
+		return(Min + Math.round(Rand * Range));   
+	}   
 </script>

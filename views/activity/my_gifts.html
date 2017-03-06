@@ -56,6 +56,10 @@
 					$('#self-use-btn').addClass('none');
 					$('#send-friend-01').addClass('none');
 					$('#send-friend-02').removeClass('none');
+					if('<%= gift.is_received %>' == '2'){
+						$('#send-friend-01').addClass('none');
+						$('#send-friend-02').addClass('none');
+					}
 					$('.app').removeClass('none');
 				}
 			});
@@ -78,7 +82,7 @@
 		$('#gift-bg').attr('src',bgs['<%= gift.type_id %>']);
 	});
 </script>
-<% if(signatureData) { %>
+<% if(signatureData && gift.is_received != 2) { %>
 <script type="text/javascript">
 	wx.ready(function(){
 	    wx.onMenuShareAppMessage({

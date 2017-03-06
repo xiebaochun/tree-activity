@@ -42,25 +42,33 @@
 				window.location.href = '/none-invest-user';
 				return;
 			}
-			if(ret.user_info.is_binded_mobile){
-				api_post('', {act:'receive_gift', id: '<%= gift.gift_id %>', user_id: '<%= user_info.user_id %>',f_user_id: '<%= f_user_id %>'}, function(ret){
-					console.log('领取礼物');
-					console.log(ret);
-					if(ret.status == 1){
-						dialog.success('恭喜成功领取好友礼物！');
-						setTimeout(function(){
-							window.location.href = "/";
-						},3000);
+			api_post('', {act: 'get_gift' , gift_id: '<%= gift.gift_id %>'}, function(ret){
+				if(ret.status == 1){
+					//alert(ret.data.is_received);
+					if(ret.data.is_received == 2){
+						window.location.href = "/gift-none";
 					}else{
-						dialog.error(ret.show_err);
-						setTimeout(function(){
-							window.location.href = "/";
-						},3000);
+						//alert(user_info.is_binded_mobile);
+						if(user_info.is_binded_mobile){
+							api_post('', {act:'receive_gift', id: '<%= gift.gift_id %>', user_id: '<%= user_info.user_id %>',f_user_id: '<%= f_user_id %>'}, function(ret){
+								console.log('领取礼物');
+								console.log(ret);
+								if(ret.status == 1){
+									dialog.success('恭喜成功领取好友礼物！');
+									setTimeout(function(){
+										window.location.href = "/";
+									},3000);
+								}else{
+									window.location.href = "/gift-none";
+								}
+							});
+						}else{
+							window.location.href = "/verify-mobile";
+						}
 					}
-				});
-			}else{
-				window.location.href = "/verify-mobile";
-			}
+				}
+			});
+			
 		});	
 	}	
 	$(function(){

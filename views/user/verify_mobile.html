@@ -22,7 +22,7 @@
 		line-height: 3.5rem;
 		border:none;
 	}
-	.get-verify-btn{width:6rem;text-align:center;height: 100%;padding:0 1rem;margin-right: -1rem;}
+	.get-verify-btn{min-width:6.5rem;text-align:center;height: 100%;padding:0 1rem;margin-right: -1rem;}
 	.submit-btn{width:15rem;line-height: 3rem;border-radius:3px;}
 </style>
 <div class="_list-item color-999 bg-fff" style="padding:1rem;border-bottom:1rem solid #f4f4f4;">
@@ -43,7 +43,7 @@
 	</div>
 	<br>
 	<p style="height: 1rem;"></p>
-	<a class="color-red" href="">服务条款</a>
+	<a class="color-red" href="/rule">服务条款</a>
 </div>
 <script type="text/javascript">
 	$(function(){
@@ -142,6 +142,7 @@
 
 		    if(!verify_mobile(mobile)){
 		    	alert('手机号输入错误！');
+		    	isCanSendCode = true;
 		    	return false;
 		    }
 
@@ -150,11 +151,11 @@
 		    	console.log('获取短信验证码');
 		    	console.log(ret);
 		    	if(ret.status == 1){
+		    		isCanSendCode = true;
 		    		callback(1);
-		    		isCanSendCode = true;
 		    	}else{
-		    		callback(0);
 		    		isCanSendCode = true;
+		    		callback(0);
 		    	}
 		    });
 

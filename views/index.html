@@ -75,7 +75,7 @@
 
 	.loader{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#000;z-index:100000}
 	.loader-bar{position:absolute;top:48%;left:50%;width:200px;height:5px;margin-left:-100px;background-color:#fff}
-	.loader-progress{position:absolute;left:0;top:0;width:0;height:100%;background-color:red}
+	.loader-progress{position:absolute;left:0;top:0;width:0;height:100%;background-color:#209f20}
 </style>
 <div class="loader" v-show="loader.is_show">
 	<div class="loader-bar">
@@ -96,7 +96,7 @@
 		<div class="planted-tree">
 			<img class="w-100 inline-block" src="../public/img/main_tree.png">
 			<div v-for="(fruit, key) in fruit_list">
-				<div class="fruit _fruit-1 _fruit-p1" v-bind:class="[fruit_class[key]]" v-show="(fruit_list[key].watered_count > 0)" @click="openFruit(fruit.index,fruit.id)">
+				<div class="fruit _fruit-1 _fruit-p1" v-bind:class="[fruit_class[key]]" v-show="(fruit_list[key].watered_count > 0 && (fruit_list[key].is_opened == 0))" @click="openFruit(fruit.index,fruit.id)">
 					<img class="grap-hand animated _shake" v-show="(fruit_list[key].watered_count >= fruit_list[key].total_required_water_count) && (fruit_list[key].is_opened == 0)" src="../public/img/grap_hand.png">
 					<div class="fruit-hp" v-bind:class="[fruit_hp_class[key]]"  v-show="!(fruit_list[key].watered_count >= fruit_list[key].total_required_water_count)">
 						<span class="hp-value active" v-for="n in (fruit_list[key].watered_count)"></span>
@@ -171,7 +171,7 @@
 						</span>
 					</span>
 
-					<a class="create-time fr color-link" v-bind:href="'/my-gift/' + log.gift_id" v-if="log.is_received == 1">
+					<a class="create-time fr color-link" v-bind:href="'/my-gift/' + log.gift_id" v-if="(log.is_received == 1 && log.type_id != 4)">
 						查看详情  
 					</a>
 					<span class="create-time fr color-link" v-else-if="log.is_received == 0" @click="openPopBox(log,log.info)">马上领取</span>
@@ -366,7 +366,7 @@
 		  	},
 		  	addGiftLog: function(){
 		  		if(this.gift_log_index < this.gift_total_page){
-		  			this.listGrowthLog(this.gift_log_index + 1);
+		  			this.listGiftLog(this.gift_log_index + 1);
 		  		}
 		  	},
 		  	listGiftLog: function(page) {
@@ -450,7 +450,9 @@
 		  	openFruit: function(index, id) {
 		  		var self = this;
 		  		//alert(index);
-		  		if(this.fruit_list[index-1].is_opened > 0){
+		  		var fruit = this.fruit_list[index-1];
+
+		  		if(fruit.is_opened > 0 || fruit.watered_count < fruit.total_required_water_count){
 		  			return;
 		  		}
 		  		var post_data = {act: 'open_fruit', user_id: this.user_id, fruit_index: index, fruit_id: id,user_type: this.user_info.user_type};
@@ -500,7 +502,10 @@
 		  	},
 		  	recieveGift: function(callback) {
 		  		var self = this;
-		  		
+		  		if(!self.user_info.is_binded_mobile){
+		  			window.location.href = '/verify-mobile';
+		  			return;
+		  		}
 		  		api_post('', {act:'receive_gift', id: this.gift_id, user_id: this.user_id}, function(ret){
 		  			console.log('领取礼物');
 		  			console.log(ret);
