@@ -34,7 +34,7 @@
 		window.location.href = '/';
 	}
 	function receive(){
-  		api_post('',{act:'get_user_info', open_id: '<%= user_info.open_id %>'},function(ret){
+  		api_post('',{act:'get_user_info', open_id: '<%= user_info.open_id %>', share_user_id: '<%= f_user_id %>'},function(ret){
   			console.log('>>>>>>>>>>>>>>>>');
 			console.log(ret);
 			user_info = ret.user_info;

@@ -80,8 +80,12 @@
 
 		    api_post('', {act: 'bind_mobile',user_id: '<%= user_info.user_id %>', mobile: mobile, captcha: validcode}, function(ret){
 		    	if(ret.status == 1){
-		    		if(ret.user_mark ==1){
+		    		if(ret.data.user_mark ==1){
 		    			window.location.href = '/none-invest-user';
+		    			return;
+		    		}
+		    		if(ret.data.is_new == 0){
+		    			window.location.href = '/';
 		    			return;
 		    		}
 		    		console.log(ret);
