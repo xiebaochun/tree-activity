@@ -73,16 +73,16 @@ $(function(){
     Dialog.prototype.show = function(content, showTime){
         var self = this;
         var showTime = showTime || 1000;
-        $(self.DOM).removeClass('animated fadeInLeftBig fadeOutRightBig');
+        $(self.DOM).removeClass('animated fadeIn fadeOut');
         if(this.timeout)clearTimeout(this.timeout);
-        $(self.DOM).addClass('animated fadeInLeftBig').removeClass('none');
+        $(self.DOM).addClass('animated fadeIn').removeClass('none');
         self.DOM.innerText = content || 'dialog';
         
         this.timeout = setTimeout(function(){
-            $(self.DOM).removeClass('animated fadeInLeftBig').addClass('animated fadeOutRightBig');
+            $(self.DOM).removeClass('animated fadeIn').addClass('animated fadeOut');
         },showTime);
         this.timeout = setTimeout(function(){
-            $(self.DOM).removeClass('animated fadeOutRightBig').addClass('none');
+            $(self.DOM).removeClass('animated fadeOut').addClass('none');
         },showTime + 500);
     }
     Dialog.prototype.success = function(content, showTime){

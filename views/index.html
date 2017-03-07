@@ -103,7 +103,7 @@
 		<div class="planted-tree">
 			<img class="w-100 inline-block" src="../public/img/main_tree.png">
 			<div v-for="(fruit, key) in fruit_list">
-				<div class="fruit _fruit-1 _fruit-p1" v-bind:class="[fruit_class[key]]" v-show="(fruit_list[key].watered_count > 0 && (fruit_list[key].is_opened == 0))" @click="openFruit(fruit.index,fruit.id)">
+				<div class="fruit _fruit-1 _fruit-p1" v-bind:class="[fruit_class[key]]" v-show="(fruit_list[key].watered_count > 0)" @click="openFruit(fruit.index,fruit.id)">
 					<img class="grap-hand animated _shake" v-show="(fruit_list[key].watered_count >= fruit_list[key].total_required_water_count) && (fruit_list[key].is_opened == 0)" src="../public/img/grap_hand.png">
 					<div class="fruit-hp" v-bind:class="[fruit_hp_class[key]]"  v-show="!(fruit_list[key].watered_count >= fruit_list[key].total_required_water_count)">
 						<span class="hp-value active" v-for="n in (fruit_list[key].watered_count)"></span>

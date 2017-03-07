@@ -43,10 +43,11 @@ exports.f_index = function (req, res, next) {
 	if(req.params.user_id == req.session.user.user_id){
 		res.redirect('/');
 	}else{
-		res.render('f_index', {open_id: req.session.user.open_id, f_user_id:req.params.user_id});	
+		api_post.post({act:'get_user_info', open_id: open_id}, function(ret){
+			
+			res.render('f_index', {user_info: req.session.user, open_id: req.session.user.open_id, f_user_id:req.params.user_id});	
+		}
 	}
-
-
 };
 
 exports.xs_ticket = function(req, res) {

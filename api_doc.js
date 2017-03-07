@@ -82,7 +82,6 @@
 		user_id: 'wx123456', //  (必填)浇水人id
 		t_user_id: 'wx234567', // (必填)被浇水人id
 		fruit_id: '1' // (必填)果子编号
-		
 	},
 	result: {
 		response_code: '1' 
