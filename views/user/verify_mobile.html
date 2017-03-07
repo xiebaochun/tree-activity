@@ -34,7 +34,7 @@
 </div>
 <div class='list-item bottom-line'>
 	<label>验证码</label>
-	<input type="text" name="mobile" id="captcha">
+	<input type="text" name="mobile" id="captcha" style="width:8rem;">
 	<div class="fr get-verify-btn bg-yellow bg-gray">获取短信</div>
 </div>
 <div class="tc" style="margin-top:5rem;">
@@ -78,7 +78,7 @@
 		    // query.mobile = mobile;
 		    // query.captcha = captcha;
 
-		    api_post('', {act: 'bind_mobile', mobile: mobile, captcha: validcode}, function(ret){
+		    api_post('', {act: 'bind_mobile',user_id: '<%= user_info.user_id %>', mobile: mobile, captcha: validcode}, function(ret){
 		    	if(ret.status == 1){
 		    		if(ret.user_mark ==1){
 		    			window.location.href = '/none-invest-user';

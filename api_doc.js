@@ -4,7 +4,7 @@
 	method: 'post',
 	post_data: {
 		open_id: 'wx123456' // (必填)微信open_id
-		share_open_id: 'wx123456' // (选填)微信open_id
+		share_user_id: 'wx123456' // (选填)微信open_id
 		avatar_url: '',
 		nick_name: ''
 	},

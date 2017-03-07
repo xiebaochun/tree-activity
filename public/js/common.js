@@ -25,10 +25,11 @@ function splitSlice(str, len) {
 // api post common method
 function api_post(act, requestData, callback) {
     //var requestData = '' + requestData;
+    var url = encodeURIComponent(AES_encrypt(JSON.stringify(requestData)));
     $.ajax({
         url: API_ROOT_URL + act,
         method: 'post',
-        data: requestData,
+        data: {url: url},
         success: function(ret) {
             if(ret.status == 1){
                 callback(ret);
@@ -52,11 +53,17 @@ function Dialog(){
 }
 
 function showShareTips(){
-    $('.share-tips').fadeIn();
+    $('.share-tips').removeClass('none').addClass('animated fadeIn');
+    setTimeout(function(){
+        $('.share-tips').removeClass('animated fadeIn');
+    },1000);
 }
 
 function closeShareTips(self){
-    $(self).fadeOut();
+    $(self).addClass('animated fadeOut');
+    setTimeout(function(){
+        $(self).removeClass('aniamted fadeOut').addClass('none');
+    });
 }
 
 $(function(){
@@ -66,14 +73,17 @@ $(function(){
     Dialog.prototype.show = function(content, showTime){
         var self = this;
         var showTime = showTime || 1000;
-        $(self.DOM).removeClass('fadeIn');
+        $(self.DOM).removeClass('animated fadeInLeftBig fadeOutRightBig');
         if(this.timeout)clearTimeout(this.timeout);
-        $(self.DOM).addClass('fadeIn');
+        $(self.DOM).addClass('animated fadeInLeftBig').removeClass('none');
         self.DOM.innerText = content || 'dialog';
         
         this.timeout = setTimeout(function(){
-            $(self.DOM).removeClass('fadeIn');
+            $(self.DOM).removeClass('animated fadeInLeftBig').addClass('animated fadeOutRightBig');
         },showTime);
+        this.timeout = setTimeout(function(){
+            $(self.DOM).removeClass('animated fadeOutRightBig').addClass('none');
+        },showTime + 500);
     }
     Dialog.prototype.success = function(content, showTime){
         this.DOM.style.color = '#0f0';

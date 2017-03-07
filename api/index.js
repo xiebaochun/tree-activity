@@ -1,7 +1,8 @@
 var api_post = require('../libs/api_post');
 
 exports.index = function(req, res, next){
-	api_post.post(req.body,function(ret){
+	var url = req.body.url;
+	api_post.normal_post(url,function(ret){
 		console.log(ret);
 		res.send(ret);
 	});
@@ -21,7 +22,7 @@ exports.get_user_info = function(req, res, next) {
 	// }};
 	// //var result = {response_code: '0', show_err: "用户不存在！"};
 	req.body.act = 'get_user_info';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		console.log(ret);
 		res.send(ret);
 	});
@@ -29,7 +30,7 @@ exports.get_user_info = function(req, res, next) {
 
 exports.is_user_exist = function(req, res, next) {
 	req.body.act = 'is_user_exist';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		res.send(ret);
 	});
 }
@@ -49,7 +50,7 @@ exports.is_new_user = function(req, res, next) {
 	// 	isNew: 0, //是否是新用户(0-旧用户, 1-新用户)
 	// }}
 	req.body.act = 'is_new_user';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		res.send(ret);
 	});
 }
@@ -64,7 +65,7 @@ exports.register = function(req, res, next) {
 
 	// }
 	req.body.act = 'register';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		res.send(ret);
 	});
 }
@@ -78,7 +79,7 @@ exports.water =　function(req, res, next){
 	// var result = {response_code: 1, show_err: '浇水成功'};
 	// res.send(result);
 	req.body.act = 'water';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		res.send(ret);
 	});
 }
@@ -119,7 +120,7 @@ exports.get_growth_log = function(req, res, next) {
 	// 	}
 	// }
 	req.body.act = 'get_growth_log';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		res.send(ret);
 	});
 }
@@ -154,7 +155,7 @@ exports.get_fruit_list = function(req, res, next) {
 
 	// res.send(result);
 	req.body.act = 'get_fruit_list';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		res.send(ret);
 	});
 }
@@ -179,7 +180,7 @@ exports.open_fruit = function(req, res, next) {
 	// var result = {response_code: 1, show_err: '打开成功'};
 	// res.send(result);
 	req.body.act = 'open_fruit';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		res.send(ret);
 	});
 }
@@ -220,7 +221,7 @@ exports.get_gift_log = function(req, res, next) {
 	// res.send(result);
 
 	req.body.act = 'get_gift_log';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		res.send(ret);
 	});
 
@@ -236,7 +237,7 @@ exports.recieve_gift = function(req, res, next) {
 
 	// res.send(result);
 	req.body.act = 'recieve_gift';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		res.send(ret);
 	});
 }
@@ -251,21 +252,21 @@ exports.recieve_friend_gift = function(req, res, next) {
 
 	// res.send(result);
 	req.body.act = 'recieve_friend_gift';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		res.send(ret);
 	});
 }
 
 exports.get_gift_list = function(req, res, next) {
 	req.body.act = 'get_gift_list';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		res.send(ret);
 	});
 }
 
 exports.plant_tree = function(req, res, next) {
 	req.body.act = 'plant_tree';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		res.send(ret);
 	});
 }	
@@ -273,7 +274,7 @@ exports.plant_tree = function(req, res, next) {
 
 exports.send_captcha = function(req, res, next) {
 	req.body.act = 'send_captcha';
-	api_post.post(req.body,function(ret){
+	api_post.normal_post(req.body,function(ret){
 		res.send(ret);
 	});
 }	

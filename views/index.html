@@ -3,7 +3,7 @@
 	.game-wrap{position: relative;}
 	.planted-tree{position: absolute;width:70%;bottom:18%;left: 15%;}
 	.tab-wrap{font-size: 0;}
-	.tab-wrap .tab{position: relative; line-height: 2.5rem; font-size: 1rem;}
+	.tab-wrap .tab{position: relative; line-height: 2.5rem; font-size: 1rem;-webkit-transition: all 0.2s;transition: all 0.2s;}
 	.tab-wrap .tab.active{border-bottom: 1px solid #008710;color: #008710;}
 	.nav-tips{display:block;position: absolute;right:25%;top:0.5rem; background-color: red;width: 0.5rem;height: 0.5rem;border-radius: 100%;}
 	.activity-rule{display: inline-block; position: absolute;top:0; left:0;padding: 1rem;}
@@ -60,7 +60,7 @@
 	.pop-box{position: fixed;top:0;left:0;width:100%;height:100%;background-color: rgba(0,0,0,0.7);z-index: 10;}
 	.pop-box > .body{position: relative; margin-top:5rem; text-align: center;
 		position: absolute;left:50%;top:50%;width:100%;
-		margin-left:-12.5rem;
+		margin-left:-13.4rem;
 		margin-top:-15rem;
 		/*-webkit-transform: translateX(-50%,-50%);
 		transform: translate(-50%,-50%);*/
@@ -74,8 +74,15 @@
 	.add-water{position: absolute; right: 2rem; top: -1rem;color:green;font-size: 1.5rem;text-shadow: 0 0 2px #fff;}
 
 	.loader{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#000;z-index:100000}
-	.loader-bar{position:absolute;top:48%;left:50%;width:200px;height:5px;margin-left:-100px;background-color:#fff}
-	.loader-progress{position:absolute;left:0;top:0;width:0;height:100%;background-color:#209f20}
+	.loader-bar{position:absolute;top:48%;left:50%;width:200px;height:6px;margin-left:-100px;background-color:#fff;border-radius:3px;overflow: hidden;}
+	.loader-progress{position:absolute;left:0;top:0;width:0;height:100%;background-color:#209f20;
+		-webkit-transition: width 1s;
+		transition: width 1s;
+	}
+	.animated.bounceOut {
+	  -webkit-animation-duration: .6s;
+	  animation-duration: .6s;
+	}
 </style>
 <div class="loader" v-show="loader.is_show">
 	<div class="loader-bar">
@@ -113,7 +120,7 @@
 			<div class="bottle-box inline-block" @click="water">
 				<div class="add-water bounceIn none">+</div>
 				<div class="bottle-info tc">{{ user_info.watering_able_count }}</div>
-				<img class="w-100" src="../public/img/water_bottle.png">
+				<img class="w-100 flash _infinite" v-bind:class="{ animated: !is_can_water }" src="../public/img/water_bottle.png">
 			</div>
 		</div>
 	</div>
@@ -149,7 +156,12 @@
 					</span>
 				</li>
 				<li class="tc item" id="growth-more-btn" v-show="growth_log_index < growth_total_page" @click="addGrowthLog">
-					<span>点击查看更多</span>
+					<div class="data-loader" v-show="loader.is_loading">
+					    <svg class="circular" viewBox="25 25 50 50">
+					      <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+					    </svg> 
+					</div>
+					<a v-show="!loader.is_loading" class="color-000" href="javascript:">点击查看更多</a>
 				</li>
 			</ul>
 		</div>
@@ -171,20 +183,27 @@
 						</span>
 					</span>
 
-					<a class="create-time fr color-link" v-bind:href="'/my-gift/' + log.gift_id" v-if="(log.is_received == 1 && log.type_id != 4)">
+					<a class="create-time fr color-link" v-bind:href="'/my-gift/' + log.gift_id" v-if="(log.is_received == 1 && log.type_id != 4 && log.is_change != 1 && log.is_received_log != 1)">
 						查看详情  
 					</a>
+					<span class="create-time fr" v-else-if="(log.is_change == 1 && log.type_id == 3)">已兑换</span>
 					<span class="create-time fr color-link" v-else-if="log.is_received == 0" @click="openPopBox(log,log.info)">马上领取</span>
 					<span class="create-time fr" v-else-if="log.is_received == 2">已送出</span>
+					<span class="create-time fr" v-else-if="log.is_received_log == 1">已被领取</span>
 				</li>
 				<li class="tc item" id="gift-more-btn" v-show="gift_log_index < gift_total_page" @click="addGiftLog">
-					<span>点击查看更多</span>
+					<div class="data-loader" v-show="loader.is_loading">
+					    <svg class="circular" viewBox="25 25 50 50">
+					      <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+					    </svg> 
+					</div>
+					<a v-show="!loader.is_loading" class="color-000" href="javascript:">点击查看更多</a>
 				</li>
 			</ul>
 		</div>
 	</div>
 	<div class="pop-box" v-bind:class="{ none: pop.isHide }">
-		<div class="body _animated bounceIn" v-bind:class="{ animated: !pop.isHide }">
+		<div class="body _animated bounceIn" v-bind:class="{ animated: !pop.isHide, bounceOut: pop.fadeOut }">
 			<img class="w-100" v-bind:src="pop.bg">
 			<div class="info">
 				<span>{{ pop.content }}</span>
@@ -254,6 +273,7 @@
 		    gift_log: [],
 		    pop:{
 		    	isHide: true,
+		    	fadeOut: false,
 		    	content: '恭喜',
 		    	bg:null
 		    },
@@ -266,8 +286,12 @@
 		    has_new_gift: false,
 		    loader:{
 		    	is_show: true,
+		    },
+		    none_water_count: 0,
+		    is_can_water: true,
+		    loader:{
+		    	is_loading: false,
 		    }
-
 		  },
 		  filters: {
 			capitalize: function (value) {
@@ -307,9 +331,9 @@
 		  	},
 		  	getUserInfo: function(callback){
 		  		var self = this;
-		  		api_post('get_user_info',{open_id: this.open_id},function(ret){
-		  			console.log('>>>>>>>>>>>>>>>>');
-					console.log(ret);
+		  		api_post('',{act: 'get_user_info',open_id: this.open_id},function(ret){
+		  			log('>>>>>>>>>>>>>>>>');
+					log(ret);
 					self.user_info = ret.user_info;
 					if(callback){
 						callback();
@@ -321,8 +345,8 @@
 		  	getFruitList: function() {
 		  		var self = this;
 		  		api_post('', {act: 'get_fruit_list', user_id: this.user_info.user_id}, function(ret){
-		  			console.log('果子列表：');
-		  			console.log(ret);
+		  			log('果子列表：');
+		  			log(ret);
 		  			for(var index in ret.fruits){
 		  				ret.fruits[index].watered_count = parseInt(ret.fruits[index].watered_count); 
 		  				ret.fruits[index].total_required_water_count = parseInt(ret.fruits[index].total_required_water_count); 
@@ -331,31 +355,36 @@
 		  			self.fruit_list = ret.fruits;
 		  			if($('#app').hasClass('none')){
 		  				$('#app').removeClass('none');
+		  				loader.loaderUpdate(loader.assets.length + 1);
 		  			}
 		  		});
 		  	},
 		  	addGrowthLog: function(){
+		  		var self = this;
 		  		if(this.growth_log_index < this.growth_total_page){
-		  			this.listGrowthLog(this.growth_log_index + 1);
+		  			this.loader.is_loading = true;
+		  			this.listGrowthLog(this.growth_log_index + 1,function(){
+		  				self.loader.is_loading = false;
+		  			});
 		  		}
 		  	},	
-		  	listGrowthLog: function(page){
+		  	listGrowthLog: function(page,callback){
 		  		this.growth_log_index = parseInt(page);
 		  		var self = this;
 		  		var post_data = {act:'get_growth_log', user_id: this.user_id, page: page, page_count:5};
-		  		console.log(post_data);
+		  		log(post_data);
 		  		api_post('', post_data, function(ret){
 		  			if(ret.status == 1){
-		  				console.log('成长记录：');
-		  				console.log(ret);
+		  				log('成长记录：');
+		  				log(ret);
 		  				//alert(ret.total_page);
 		  				self.growth_total_page = parseInt(ret.total_page);
 		  				// for(var i in  ret.growth_log){
 		  				// 	self.growth_log.push(ret.growth_log[i]);
 		  				// }
 		  				self.growth_log = ret.growth_log;
-
-		  				console.log(self.growth_log);
+		  				if(callback) callback();
+		  				log(self.growth_log);
 		  				//self.growth_log = ret.growth_log;
 
 		  			}
@@ -365,24 +394,29 @@
 		  		
 		  	},
 		  	addGiftLog: function(){
+		  		var self = this;
 		  		if(this.gift_log_index < this.gift_total_page){
-		  			this.listGiftLog(this.gift_log_index + 1);
+		  			this.loader.is_loading = true;
+		  			this.listGiftLog(this.gift_log_index + 1,function(){
+		  				self.loader.is_loading = false;
+		  			});
 		  		}
 		  	},
-		  	listGiftLog: function(page) {
+		  	listGiftLog: function(page,callback) {
 		  		var self = this;
 		  		this.gift_log_index = parseInt(page);
 		  		var post_data = {act:'get_gift_log', user_id: this.user_id, page: page, page_count:5};
-		  		console.log(post_data);
+		  		log(post_data);
 		  		api_post('', post_data, function(ret){
 		  			if(ret.status == 1){
-		  				console.log('礼品记录：');
-		  				console.log(ret);
+		  				log('礼品记录：');
+		  				log(ret);
 		  				self.gift_total_page = parseInt(ret.total_page);
 		  				//alert(ret.total_page);
 		  				// for(var i in ret.log_list){
 		  				// 	self.gift_log.push(ret.log_list[i]);
 		  				// }
+		  				if(callback) callback();
 		  				self.gift_log = ret.log_list;
 		  				//self.growth_log = ret.growth_log;
 
@@ -392,10 +426,10 @@
 		  	checkGiftLog: function(){
 		  		var self = this;
 		  		var post_data = {act:'has_gift', user_id: this.user_id};
-		  		console.log('查看是否有未领取的礼品：');
-		  		console.log(post_data);
+		  		log('查看是否有未领取的礼品：');
+		  		log(post_data);
 		  		api_post('', post_data, function(ret){
-		  			console.log(ret);
+		  			log(ret);
 		  			if(parseInt(ret.data.has_gift) > 0){
 		  				self.has_new_gift = true;
 		  			}else{
@@ -407,7 +441,6 @@
 		  	water: function() {
 				//this.openPopBox(1, '恭喜哦你');
 				self = this;
-				console.log();
 				var fruit_index = 0;
 				for(var index in this.fruit_list){
 					fruit_index = index;
@@ -416,21 +449,41 @@
 						break;
 					}
 				}
+				if(parseInt(this.user_info.watering_able_count) < 1){
+					this.none_water_count++;
+					if(this.none_water_count > 1){
+						this.none_water_count = 0;
+						showShareTips();
+						return;
+					}
+					dialog.error('可用浇水次数不够！');
+					return;
+				}
+
 				if(parseInt(this.user_info.watering_able_count) > 0 && this.fruit_list[fruit_index].watered_count < this.fruit_list[fruit_index].total_required_water_count){
+					if(!self.is_can_water){
+						return;
+					}else{
+						self.is_can_water = false;
+					}
+					//log('执行浇水');
 					api_post('', {act: 'water',user_id: this.user_info.user_id, t_user_id: this.user_info.user_id, fruit_id: this.fruit_list[fruit_index].id}, function(ret){
 						// 浇水结果
-						console.log('浇水结果:');
-						console.log(ret);
+						log('浇水结果:');
+						log(ret);
 						if(ret.status == 1){
 							self.waterAnimate(function(){
 									//self.getFruitList();
-								if(ret.show_err) dialog.success(ret.show_err);
+								if(ret.show_err) dialog.success(ret.show_err,1500);
 								self.getUserInfo(function(){
 									
 								});
-							});
+							});	
 						}
+						self.is_can_water = true;
 					});
+				}else{
+					dialog.error('小主您今天已结满果实啦~明天再来吧！');
 				}
 		  	},
 		  	waterAnimate: function(callback) {
@@ -456,12 +509,12 @@
 		  			return;
 		  		}
 		  		var post_data = {act: 'open_fruit', user_id: this.user_id, fruit_index: index, fruit_id: id,user_type: this.user_info.user_type};
-		  		console.log('打开果子的post数据');
-		  		console.log(post_data);
+		  		log('打开果子的post数据');
+		  		log(post_data);
 		  		api_post('',post_data , function(ret){
 		  			
-		  			console.log('打开果子：');
-		  			console.log(ret);
+		  			log('打开果子：');
+		  			log(ret);
 		  			var content = '';
 		  			var gift = ret.data;
 		  			var pre = '恭喜你获得';
@@ -487,7 +540,7 @@
 		  					self.gift_id = gift.id;
 		  					self.recieveGift(function(){
 		  						// 加浇水机会
-		  						dialog.success('获得一次浇水机会！');
+		  						dialog.success('获得一次浇水机会！',2000);
 		  						self.addWaterCountAnimation();
 		  					});
 		  				}else{
@@ -507,9 +560,10 @@
 		  			return;
 		  		}
 		  		api_post('', {act:'receive_gift', id: this.gift_id, user_id: this.user_id}, function(ret){
-		  			console.log('领取礼物');
-		  			console.log(ret);
+		  			log('领取礼物');
+		  			log(ret);
 		  			if(ret.status == 1){
+		  				dialog.success(ret.show_err, 3000);
 		  				if(typeof callback == 'function') callback();
 		  				self.listGiftLog(self.gift_log_index);
 		  				self.closePopBox();
@@ -522,12 +576,17 @@
 		  		this.pop.content = content;
 		  		this.pop.bg = this.gift_bgs[((gift.gift_type || gift.type_id)-1)];
 		  		this.pop.isHide = false;
-		  		// console.log
+		  		// log
 		  		// this.$pop.removeClass('none').children('.body').addClass('animated');
 		  		// this.$pop.find('.info span').text(content || '?????');
 		  	},
 		  	closePopBox:function() {
-		  		this.pop.isHide = true;
+		  		var self = this;
+		  		this.pop.fadeOut = true;
+		  		setTimeout(function(){
+		  			self.pop.fadeOut = false;
+		  			self.pop.isHide = true;
+		  		},600);
 		  		// this.$pop.addClass('none').children('.body').removeClass('animated');
 		  		// this.$pop.find('.info span').text('');
 		  	},
@@ -548,15 +607,15 @@
 		  }
 
 		})
-	});
-	$(function(){
-		(function(){
+
+
+		;(function(){
 			var imageBase = '/public/img/';
 			var $loader_pro = $('#loader-progress');
-			function Game(){
+			function Loader(){
 				this.init();
 			}
-			var p = Game.prototype;
+			var p = Loader.prototype;
 			p.loadedCount = 0;
 			p.assets = [];
 			p.loadImage = function(images){
@@ -566,20 +625,21 @@
 					img.src = images[index];
 					img.addEventListener('load',function(){
 						self.loadedCount ++;
-						//console.log(this);
+						//log(this);
 						self.loaderUpdate(self.loadedCount);
 					});
 					this.assets.push(img);
 				}	
 			}
 			p.loaderUpdate = function(count){
-				//console.log(count);
-				$loader_pro.css({'width':(parseFloat(count)/game.assets.length)*100+'%'});
-				if(count/game.assets.length >= 1){
+				//log(count);
+				$loader_pro.css({'width':(parseFloat(count)/this.assets.length +1 )*100+'%'});
+				if(count/(this.assets.length + 1) >= 1){
 					//game.remove(game.loadProgressText);
-					setTimeout(function(){
+					$loader_pro.parent().parent().addClass('animated fadeOut');
+	  				setTimeout(function(){
 						$loader_pro.parent().parent().remove();
-					},500);
+					},1000);
 				}
 			}
 			p.init = function(){
@@ -593,9 +653,12 @@
 					imageBase + 'money_package.png',
 					imageBase + 'achieve_invest_tips.png',
 					imageBase + 'grap_hand.png',
+					imageBase + 'water_drops.png',
+					imageBase + 'gift_box.png',
 					]);
 			}
-			var game = new Game();
+			var loader = new Loader();
+			window.loader = loader;
 		})();
 	});
 </script>

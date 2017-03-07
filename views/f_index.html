@@ -137,7 +137,7 @@
 		  el: '#app',
 		  data: {
 		    open_id: '<%= open_id %>',
-		    f_open_id: '<%= f_open_id %>',
+		    f_user_id: '<%= f_user_id %>',
 		    user_info: null,
 		    f_user_info: null,
 		    hasWater: false,
@@ -180,14 +180,14 @@
 		  	},
 		  	getUserInfo: function(callback){
 		  		var self = this;
-		  		api_post('get_user_info',{open_id: this.open_id},function(ret){
+		  		api_post('',{act:'get_user_info', open_id: this.open_id, share_user_id: this.f_user_id},function(ret){
 		  			console.log('>>>>>>>>>>>>>>>>');
 					console.log(ret);
 					self.user_info = ret.user_info;
 					
 				});	
 
-				api_post('get_user_info',{open_id: this.f_open_id},function(ret){
+				api_post('',{act: 'get_user_info', user_id: this.f_user_id},function(ret){
 		  			console.log('>>>>>>>>>>>>>>>>');
 					console.log(ret);
 					self.f_user_info = ret.user_info;

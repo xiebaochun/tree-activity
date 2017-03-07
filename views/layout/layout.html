@@ -8,11 +8,11 @@
 	<meta name="description" content="">
 	<meta name="referrer" content="always">
 	<!-- style -->
-	  <%- Loader('/public/css/base.css')
+	  <%- Loader('/public/css/index.min.css')
 	  .css('/public/css/base.css')
 	  .css('/public/css/common.css')
 	  .css('/public/css/animate.css')
-	  .done()
+	  .done('production')
 	  %>
 	  <!-- scripts -->
 	  <%- Loader('/public/index.min.js')
@@ -26,11 +26,20 @@
 	  .js('/public/js/common.js')
 	  .done()
 	  %>
+	  <script>
+			var _hmt = _hmt || [];
+			(function() {
+			  var hm = document.createElement("script");
+			  hm.src = "https://hm.baidu.com/hm.js?669d1158226943392091d5376efb79f2";
+			  var s = document.getElementsByTagName("script")[0]; 
+			  s.parentNode.insertBefore(hm, s);
+			})();
+		</script>
 	  <% if(signatureData) { %>
 	  <script type="text/javascript">
 	  	var TITLE = '312植树节-小树时代';
-	  	var DESC = '小树时代-植树节';
-	  	var LINK = '312activity.xiaoshushidai.com/f-index/<%= user_info.open_id %>';
+	  	var DESC = '只差1次浇水，我的发财树就能掉999元了！老铁，帮个忙呗？';
+	  	var LINK = '312activity.xiaoshushidai.com/f-index/<%= user_info.user_id %>';
 	  	var IMAGE_URL = 'http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png';
 
 	  	wx.config({
@@ -112,7 +121,7 @@
 	  	    });
 
 	  	    wx.onMenuShareTimeline({
-	  	        title: TITLE + '-分享朋友圈', // 分享标题
+	  	        title: TITLE, // 分享标题
 	  	        link: LINK, // 分享链接
 	  	        imgUrl: IMAGE_URL, // 分享图标
 	  	        success: function () { 
@@ -126,7 +135,7 @@
 	  	    });
 
 	  	    wx.onMenuShareQQ({
-	  	        title: TITLE + '-分享QQ', // 分享标题
+	  	        title: TITLE, // 分享标题
 	  	        link: LINK, // 分享链接
 	  	        imgUrl: IMAGE_URL, // 分享图标
 	  	        imgUrl: 'http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png', // 分享图标
@@ -165,8 +174,8 @@
 	</div>
 	<div class="bottom-nav">
 	</div>
-	<div class="success-pop" id="success-pop">恭喜你已注册成功！</div>
-	<div class="share-tips tc" style="display: none;" onclick="closeShareTips(this)">
+	<div class="success-pop none" id="success-pop"></div>
+	<div class="share-tips tc none" onclick="closeShareTips(this)">
 		<div style="height: 1rem"></div>
 		<img class="w-80" src="/public/img/share_tips.png">
 		<div style="height: 3rem"></div>

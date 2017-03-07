@@ -28,3 +28,6 @@ appId: 'wxd292d9e457d266a6',
   nonceStr: 'b5b54un7omaxxex',
   signature: '37bd9224395d8f128ebd0083d7f37e2d7005ae87'
 
+
+ nohup node index.js > 1.log &
+

@@ -39,11 +39,11 @@ exports.index = function (req, res, next) {
 
 exports.f_index = function (req, res, next) {
 	console.log('帮朋友浇水：open_id');
-	console.log(req.params.open_id);
-	if(req.params.open_id == req.session.user.open_id){
+	console.log(req.params.user_id);
+	if(req.params.user_id == req.session.user.user_id){
 		res.redirect('/');
 	}else{
-		res.render('f_index', {open_id: req.session.user.open_id, f_open_id: req.params.open_id});	
+		res.render('f_index', {open_id: req.session.user.open_id, f_user_id:req.params.user_id});	
 	}
 
 
@@ -148,10 +148,15 @@ exports.receive_friend_gifts = function(req, res, next) {
 		console.log('获取礼品详情成功：');
 		console.log(ret);
 		if(ret.status == 1){
-
+			
 			var content = '';
 			var gift = ret.data;
 			var pre = '恭喜你获得';
+
+			if(gift.is_received == 2){
+				res.redirect('/gift-none');
+				return;
+			}
 			
 			switch(parseInt(gift.type_id)){
 				case 1:
@@ -179,7 +184,8 @@ exports.receive_friend_gifts = function(req, res, next) {
 	});
 }
 exports.verify_mobile = function(req, res, next) {
-	res.render('user/verify_mobile', {});
+	var user_info = req.session.user;
+	res.render('user/verify_mobile', {user_info: user_info});
 }
 
 exports.setting_pwd = function(req, res, next) {
@@ -195,7 +201,7 @@ exports.exchange_success = function(req, res, next){
 }
 
 exports.none_invest_user = function(req, res, next){
-	res.render('user/none_invest_user', {});
+	res.render('user/no_invest_user', {});
 }
 
 //
