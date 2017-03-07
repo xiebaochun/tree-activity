@@ -13,7 +13,16 @@ exports.post = function(data, callback) {
 			console.log(typeof body);
 			console.log(body);
 			if(typeof body == 'string'){
-				body = JSON.parse(body);
+				try{
+					body = JSON.parse(body);
+				}catch(e){
+					console.log(e);
+					callback({
+						status: 0,
+						msg: 'api请求地址出错',
+						show_err: '请求地址出错'
+					});
+				}
 			}
 			//callback(body);
 			if(body['response_code'] == 1){
@@ -47,7 +56,16 @@ exports.normal_post = function(url, callback) {
 			console.log(typeof body);
 			console.log(body);
 			if(typeof body == 'string'){
-				body = JSON.parse(body);
+				try{
+					body = JSON.parse(body);
+				}catch(e){
+					console.log(e);
+					callback({
+						status: 0,
+						msg: 'api请求地址出错',
+						show_err: '请求地址出错'
+					});
+				}
 			}
 			//callback(body);
 			if(body['response_code'] == 1){
