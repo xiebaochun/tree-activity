@@ -544,6 +544,7 @@ ul > li{
 .fl{float: left;}
 .fr{float: right;}
 
+.w-33{width: 33.33333333%;}
 .w-50{
   width:50%;
 }

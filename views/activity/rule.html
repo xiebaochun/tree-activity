@@ -1,39 +1,75 @@
 <style type="text/css">
-	html{background-color: #f4f4f4;}
+	html{background-color: #fff;}
 	.rule-wrap{padding:0.5rem;}
-	h3{padding: 1rem 0;}
-	p{padding: 0rem 0;}
+	h3{padding: .5rem 0;}
+	p{padding: 0.2rem 0;}
 	.tab-wrap{font-size: 0;}
 	.tab-wrap .tab{position: relative; line-height: 2.5rem; font-size: 1rem;-webkit-transition: all 0.2s;transition: all 0.2s;}
 	.tab-wrap .tab.active{border-bottom: 1px solid #008710;color: #008710;}
+	.block{
+		display: block !important;
+	}
+	ul > li{padding: 0.2rem 0;}
 </style>
-<div class="rule-wrap">
-	<div class="tab-wrap">
-		<div class="tab inline-block tc w-50 border-right-line border-bottom-line" v-bind:class="{ active:(nav_index == 1) }" @click="switchNav(1)">
-			<span class="f2">成长记录</span>
-		</div>
-		<div class="tab inline-block tc w-50 border-bottom-line" v-bind:class="{ active:(nav_index == 2) }" @click="switchNav(2)">
-			<span class="nav-tips" v-show="has_new_gift"></span>
-			<span class="f2">我的礼品</span>
-		</div>
+<div class="tab-wrap">
+	<div id="nav-1" class="tab inline-block tc w-33 border-right-line border-bottom-line <% if(index == 1) { %> active <% } %>" onclick="switchNav(1)">
+		<span class="f2">活动奖品</span>
 	</div>
-	<h3>活动规则：</h3>
-	<p>	
-		<p>1.小树需要浇水方可结出果实，每次浇水将可提高果实的成熟度；</p>
-		<p>2.每早6点更新果实数及浇水次数，每人初始浇水次数为1次；</p>
-		<p>3.每天初次分享都可增加1次浇水，每位好友可为自己浇水1次；</p>
-		<p>4.小树每天可结5颗果实；</p>
-		<p>5.财神券集满5张可免费兑换财神树一株；</p>
-		<p>6.赠送礼物给他人，他人成功注册后，将自动关联推荐人；</p>
-		<p>7.本活动最终解释权归小树时代所有</p>
-
-	</p>
-	<h3>奖品规则：</h3>
-	<p>
-		<p>1.现金红包将充值到您的小树账户余额上，可投资扣减也可提现；</p>
-		<p>2.理财券将发放到您的小树账户余额上，投资可抵减相应金额</p>
-		<p>&nbsp;</p>
-		联系客服留下快递地址
-
-	</p>
+	<div id="nav-2" class="tab inline-block tc w-33 border-right-line border-bottom-line <% if(index == 2) { %> active <% } %>" onclick="switchNav(2)">
+		<span class="f2">活动规则</span>
+	</div>
+	<div id="nav-3" class="tab inline-block tc w-33 border-bottom-line <% if(index == 3) { %> active <% } %>" onclick="switchNav(3)">
+		<span class="f2">隐私条款</span>
+	</div>
 </div>
+<div class="rule-wrap">
+	<div class="none <% if(index == 1) { %> block <% } %>" id="content-1">
+		<h3>活动奖品</h3>
+		<p>	
+			<p>现金红包（2000个，最高999元）</p>
+			<p>领取后将发放至小树时代理财账户，可直接提现。</p>
+			<p>小树理财券（1700张，最高888元）</p>
+			<p>领取后将发放至小树时代理财账户，单笔投资1000元以上且投资3个月以上期限标方可使用。</p>
+			<p>发财树（300棵）</p>
+			<p>集齐5张小树券可联系客服兑换发财树盆栽，每人限兑换1棵；小树券可转让。</p>
+		</p>
+	</div>
+	<div class="none <% if(index == 2) { %> block <% } %>" id="content-2">
+		<h3>活动规则</h3>
+		<p>	
+			<p>1.活动时间：3.10-3.12</p>
+			<p>2.参与活动即可领取小树苗1棵，种下后结出果实，浇水则果实长大成熟。</p>
+			<p>3.每日最多能长出5个果实，每个果实成熟所需的浇水次数不同：</p>
+			<p class="f1">
+				果实1浇水1次成熟<br>
+				果实2浇水2次成熟<br>
+				果实3浇水4次成熟<br>
+				果实4浇水5次成熟<br>
+				果实5浇水10次成熟。
+			</p>
+			<p>4.当日长出的果实必须当日采摘，每晚24：00更新数据，未采摘果实将清零。次日重新长出果实1、2、3……</p>
+			<p>5.每人每日可获得1次浇水机会，仅限当日用于给自己的树浇水，未使用则每晚24：00清零。</p>
+			<p>6.转发分享可额外获得1次浇水机会，每日仅限1次，使用规则同4</p>
+			<p>7.每日只能给同个好友浇1次水，可给不同好友浇水。</p>
+		</p>
+	</div>
+	<div class="none <% if(index == 3) { %> block <% } %>" id="content-3">
+		<h3>隐私条款</h3>
+		<p>	
+			<p>本网站及APP将对用户的个人隐私进行严格保密，承诺未经本人同意不将个人信息随意披露。</p>
+			<ul>
+				<li>* 为保证您的交易顺利完成，我们不得不把您的某些信息，如姓名、电话、e-mail等提供给相关第三方，如物流公司，以便于他们及时与您取得联系，提供服务；</li>
+				<li>* 当您在本网站的行为违反服务条款，或可能损害他人权益、导致他人遭受损害，我们为了进行辨识、联络或采取法律行动等必要行动，将不得不披露您的信息；</li>
+				<li>* 法律法规所规定的必须披露或公开的个人信息，我们也将依法披露；</li>
+				<li>* 当司法机关或其它有权机关依法执行公务，要求提供特定个人资料时，我们必须给予必要的配合。</li>
+			</ul>
+		</p>
+	</div>
+</div>
+<script type="text/javascript">
+	function switchNav(index) {
+		//window.location.href="/rule/" + index;
+		$('#nav-' + index).addClass('active').siblings().removeClass('active');
+		$('#content-' + index).addClass('block').siblings().removeClass('block');
+	}
+</script>
