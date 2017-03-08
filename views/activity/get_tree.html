@@ -36,7 +36,7 @@
 			api_post('', {act:'plant_tree',user_id:<%= user_info.user_id %>}, function(ret){
 				console.log(ret);
 				if(ret.status == 1){
-					window.location.href = '/';
+					window.location.href = '/user/my_guide';
 				}
 			});
 		});

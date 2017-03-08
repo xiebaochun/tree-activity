@@ -39,7 +39,7 @@ router.get('/wechat/oauth-callback', user.oauth);
 
 router.get('/user/:page_name', auth.auth, user.index);
 
-router.get('/404', , auth.auth, site.error);
+router.get('/404', auth.auth, site.error);
 //router.get('/oauth-callback', user.oauth);
 
 router.get('/api/wechat', site.weixin_verify);

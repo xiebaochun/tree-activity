@@ -9,7 +9,7 @@ const wx = new Wechat(wechatConfig);
 exports.index = function(req, res, next) {
 	var act = req.params.page_name;	
 	if(act){
-		res.render('user/' + act, {});
+		res.render('user/' + act, {user_info: req.session.user});
 	}else{
 		res.redirect('/404');
 	}

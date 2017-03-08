@@ -353,3 +353,9 @@
 }
 
 is_user_exist open_id
+
+//引导页
+has_water_guide 参数user_id
+
+//随机位置
+position
