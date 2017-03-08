@@ -202,5 +202,9 @@ exports.none_invest_user = function(req, res, next){
 	res.render('user/no_invest_user', {});
 }
 
+
+exports.error = function(req, res, next){
+	res.render('404.html', {});
+}	
 //
 

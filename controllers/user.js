@@ -6,6 +6,15 @@ var api_post = require('../libs/api_post');
 //wx.initialize(wechatConfig);
 const wx = new Wechat(wechatConfig);
 
+exports.index = function(req, res, next) {
+	var act = req.params.page_name;	
+	if(act){
+		res.render('user/' + act, {});
+	}else{
+		res.redirect('/404');
+	}
+}
+
 exports.user = function(req, res, next) {
 	console.log(req.session);
 	var current_id = null;
