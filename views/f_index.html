@@ -73,6 +73,11 @@
 
 	.bottom-nav{text-align: center;}
 	.bottom-nav .btn{width:70%;}
+
+	.avatar-wrap{
+
+	}
+	.avatar{display: inline-block; width:2rem;height:2rem;border: 1px solid #209f20;border-radius: 50%;overflow: hidden;}
 </style>
 <div id="app">
 	<div class="game-wrap">
@@ -119,17 +124,19 @@
 		<div class="bottom-tool">
 			<div class="bottle-box inline-block" @click="water">
 				<div class="bottle-info tc">1</div>
-				<img class="w-100" src="../public/img/water_bottle.png">
+				<img class="w-100" src="../public/img/help_water_bottle.png">
 			</div>
 		</div>
 	</div>
 	<!-- <img class="w-100" style="margin-top:-2px;" src="../public/img/help_water_bottom.png"> -->
-	<div>
-		<span>这些好友一帮TA浇水</span>
-		<span id="">
-			
-			<span><img src=""></span>
-			
+	<div class="" style="line-height: 3rem;">
+		<span class="vm">已有{{ water_log.total }}位好友来浇过水</span>
+		<span class="avatar-wrap vm inline-block" style="height: 3rem;">
+			<span class="avatar bg-cover" v-for="log in water_log.log_list" v-bind:style="{backgroundImage: 'url(' + (log.avatar_url || '../public/img/fruit.png') + ')'}">
+				<!-- <img class="w-100" v-bind:src="log.avatar_url">
+				<span></span> -->
+			</span>
+
 		</span>
 
 	</div>
@@ -152,6 +159,10 @@
 		    user_info: null,
 		    f_user_info: null,
 		    hasWater: false,
+		    water_log:{
+		    	total: 0,
+		    	log_list: []
+		    }
 		  },	
 		  created: function(){
 		  	this.init();
@@ -169,6 +180,8 @@
 				  		clearInterval(time);
 		  			}
 		  		},100);
+
+		  		this.getWaterLog();
 
 		  	},
 		  	checkWater: function(callback){
@@ -204,6 +217,15 @@
 					self.f_user_info = ret.user_info;
 					
 				});	
+		  	},
+		  	getWaterLog: function(){
+		  		var self = this;
+  				api_post('',{act: 'get_water_log', user_id: this.f_user_id},function(ret){
+  		  			console.log('朋友的浇水记录');
+  					console.log(ret);
+  					self.water_log = ret;
+  					
+  				});	
 		  	},
 		  	
 		  	// 浇水
