@@ -63,7 +63,7 @@
 	.list .item{padding: 0.5rem 0.5rem;line-height: 2.5rem;}
 	.list .item span{margin-left:0.5rem;}
 	.avator{width:2rem;height:2rem;border: 1px solid #209f20;border-radius: 50%;overflow: hidden;}
-	._nick-name{display: inline-block;max-width:5rem;}
+	.nick-name{display: inline-block;max-width:8rem;}
 	.nick-name-info{display: inline-block;max-width:17rem;margin-left:0 !important;vertical-align: middle;}
 	/*pop-box*/
 	.pop-box{position: fixed;top:0;left:0;width:100%;height:100%;background-color: rgba(0,0,0,0.7);z-index: 10;}
@@ -155,11 +155,11 @@
 			</div>
 			<ul class="growth-list list" v-if="growth_log.length > 0">
 				<li class="item" v-for="log in growth_log">
-					<span class="vm inline-block avator bg-cover" v-bind:style="{backgroundImage: 'url(' + (log.avatar_url || '../public/img/fruit.png') + ')'}" >
+					<span class="vm inline-block avator bg-cover" v-bind:style="{backgroundImage: 'url(' + (log.avatar_url || '../public/img/defualt_avatar.png') + ')'}" >
 						<!-- <img class="w-100" src="../public/img/fruit.png"> -->
 					</span>
 					<span class="nick-name-info nowrap">
-						<span class="vm nick-name _nowrap">
+						<span class="vm nick-name nowrap">
 							{{ log.nick_name }}
 						</span>
 						<span class="log-info color-666">
@@ -186,11 +186,11 @@
 			</div>
 			<ul class="growth-list list" v-if="gift_log.length > 0">
 				<li class="item" v-for="log in gift_log">
-					<span class="vm inline-block avator bg-cover" v-bind:style="{backgroundImage: 'url(' + (log.avatar_url || '../public/img/fruit.png') + ')'}">
+					<span class="vm inline-block avator bg-cover" v-bind:style="{backgroundImage: 'url(' + (log.avatar_url || '../public/img/defualt_avatar.png') + ')'}">
 						<!-- <img class="w-100" src="../public/img/fruit.png"> -->
 					</span>
 					<span class="nick-name-info nowrap">
-						<span class="vm nick-name _nowrap">
+						<span class="vm nick-name nowrap">
 							{{ log.nick_name }}
 						</span>
 						<span class="log-info color-666">
