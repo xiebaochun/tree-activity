@@ -93,7 +93,8 @@ exports.get_tree = function(req, res, next) {
 }
 
 exports.rule = function(req, res, next) {
-	res.render('activity/rule', {});
+	var index = req.params.index;
+	res.render('activity/rule', {index: index});
 }
 
 exports.gift_rule = function(req, res, next) {

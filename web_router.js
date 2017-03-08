@@ -19,7 +19,7 @@ var router = express.Router();
 router.get('/', auth.auth, site.index);
 router.get('/f-index/:user_id',auth.auth, site.f_index);
 router.get('/get-tree',auth.auth, site.get_tree);
-router.get('/rule',auth.auth, site.rule);
+router.get('/rule/:index',auth.auth, site.rule);
 router.get('/xs-ticket', auth.auth,site.xs_ticket);
 router.get('/gift-none', auth.auth,site.gift_none);
 
