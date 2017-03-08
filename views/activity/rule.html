@@ -3,8 +3,20 @@
 	.rule-wrap{padding:0.5rem;}
 	h3{padding: 1rem 0;}
 	p{padding: 0rem 0;}
+	.tab-wrap{font-size: 0;}
+	.tab-wrap .tab{position: relative; line-height: 2.5rem; font-size: 1rem;-webkit-transition: all 0.2s;transition: all 0.2s;}
+	.tab-wrap .tab.active{border-bottom: 1px solid #008710;color: #008710;}
 </style>
 <div class="rule-wrap">
+	<div class="tab-wrap">
+		<div class="tab inline-block tc w-50 border-right-line border-bottom-line" v-bind:class="{ active:(nav_index == 1) }" @click="switchNav(1)">
+			<span class="f2">成长记录</span>
+		</div>
+		<div class="tab inline-block tc w-50 border-bottom-line" v-bind:class="{ active:(nav_index == 2) }" @click="switchNav(2)">
+			<span class="nav-tips" v-show="has_new_gift"></span>
+			<span class="f2">我的礼品</span>
+		</div>
+	</div>
 	<h3>活动规则：</h3>
 	<p>	
 		<p>1.小树需要浇水方可结出果实，每次浇水将可提高果实的成熟度；</p>
