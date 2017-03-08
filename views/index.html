@@ -55,7 +55,7 @@
 	/*bottom-tool*/
 	.bottom-tool{position: absolute;right:0;bottom:0;padding: 0.5rem 1rem;}
 	.gift-box{width: 2.5rem;padding-right: 0.8rem;}
-	.bottle-box{width:3rem;}
+	.bottle-box{width:4rem;}
 	.bottle-info{position: absolute;_width: 1rem;height: 1rem;padding: 0 0.3rem;line-height: 1rem;background-color: red; color:#fff;font-size: 0.6rem;border: 1px solid #fff;border-radius: 50%;right:0.8rem;top:-0.2rem;}
 
 
@@ -392,8 +392,8 @@
 		  				log($('.fruit-' + (parseInt(index)+1)));
 		  				var $fruit = $('.fruit-' + (parseInt(index)+1));
 		  				$('.grap-hand').css({
-		  					left: (parseInt($fruit.css('left')) + parseInt($fruit.width())/2) + 'px',
-		  					top: (parseInt($fruit.css('top')) + parseInt($fruit.width())/2) + 'px',
+		  					left: (parseInt($fruit.css('left')) + parseInt($fruit.width())) + 'px',
+		  					top: (parseInt($fruit.css('top'))) + 'px',
 		  				});
 		  				this.hand_fruit.index = fruit.index;
 		  				this.hand_fruit.id = fruit.id;
@@ -606,7 +606,7 @@
 		  	recieveGift: function(callback) {
 		  		var self = this;
 		  		if(!self.user_info.is_binded_mobile && self.gift_type_id != 4){
-		  			window.location.href = '/verify-mobile';
+		  			window.location.href = '/verify-mobile/' + this.gift_id;
 		  			return;
 		  		}
 		  		api_post('', {act:'receive_gift', id: this.gift_id, user_id: this.user_id}, function(ret){

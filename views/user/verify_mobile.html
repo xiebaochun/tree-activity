@@ -80,16 +80,23 @@
 
 		    api_post('', {act: 'bind_mobile',user_id: '<%= user_info.user_id %>', mobile: mobile, captcha: validcode}, function(ret){
 		    	if(ret.status == 1){
+		    		var bind_data = ret;
 		    		if(ret.data.user_mark ==1){
 		    			window.location.href = '/none-invest-user';
 		    			return;
 		    		}
-		    		if(ret.data.is_new == 0){
-		    			window.location.href = '/';
-		    			return;
-		    		}
-		    		console.log(ret);
-		    		window.location.href = '/setting-pwd';
+		    		api_post('', {act:'receive_gift', id: '<%= gift_id %>', user_id: '<%= user_info.user_id %>'}, function(ret){
+			  			log('领取礼物');
+			  			log(ret);
+			  			if(ret.status == 1){
+			  				if(bind_data.data.is_new == 0){
+			  					window.location.href = '/';
+			  					return;
+			  				}
+			  				window.location.href = '/setting-pwd';
+			  			}
+			  		});
+		    		
 		    	}else{
 		    		//window.location.href = '/setting-pwd';
 		    		dialog.error(ret.show_err);

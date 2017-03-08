@@ -29,7 +29,7 @@ router.get('/gift-rule', auth.auth,site.gift_rule);
 router.get('/my-gift/:gift_id', auth.auth, site.my_gifts);
 router.get('/my-tree', auth.auth, site.my_tree);
 router.get('/receive-friend-gifts/:f_user_id/:gift_id', auth.auth,site.receive_friend_gifts);
-router.get('/verify-mobile',  auth.auth, site.verify_mobile);
+router.get('/verify-mobile/:gift_id',  auth.auth, site.verify_mobile);
 router.get('/setting-pwd', auth.auth, site.setting_pwd);
 router.get('/setting-pwd-success', auth.auth, site.setting_pwd_success);
 router.get('/exchange-success', auth.auth, site.exchange_success);

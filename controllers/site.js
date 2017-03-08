@@ -192,7 +192,7 @@ exports.receive_friend_gifts = function(req, res, next) {
 }
 exports.verify_mobile = function(req, res, next) {
 	var user_info = req.session.user;
-	res.render('user/verify_mobile', {user_info: user_info});
+	res.render('user/verify_mobile', {user_info: user_info, gift_id: req.params.gift_id});
 }
 
 exports.setting_pwd = function(req, res, next) {

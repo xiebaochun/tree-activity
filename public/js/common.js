@@ -86,7 +86,7 @@ $(function(){
         },showTime + 500);
     }
     Dialog.prototype.success = function(content, showTime){
-        this.DOM.style.color = '#0f0';
+        this.DOM.style.color = '#fff';
         this.show(content,showTime);
     }
     Dialog.prototype.tips = function(content, showTime){
@@ -94,7 +94,7 @@ $(function(){
         this.show(content,showTime);
     }
     Dialog.prototype.error = function(content, showTime){
-        this.DOM.style.color = 'red';
+        this.DOM.style.color = '#fff';
         this.show(content,showTime || 2000);
     }
 });
