@@ -27,7 +27,7 @@
 	.fruit-p4{left: 14rem;top: 8rem;}
 	.fruit-p5{left: 0.7rem;top: 9rem;}
 
-	.grap-hand{_display: none; position:absolute;width:1.3rem;top:1rem;left:1rem;z-index: 1;}
+	.grap-hand{_display: none; position:absolute;width:1.3rem;top:1rem;left:1rem;z-index: 1;-webkit-transition: all 1s;transition: all 1s;}
 
 	.fruit-hp{position: absolute;left:1.5rem;top:-0.5rem;height:0.5rem;min-width:2rem;background-color: #fff;border: 1px solid #008710;border-radius: 0.8rem;overflow: hidden;font-size: 0;}
 	.fruit-hp .hp-value{display: inline-block;height: 100%;/*width:0.5rem;*/ background-color: #c1eaaa;font-size: 0;float:left;border-right:1px solid #fff;}
@@ -43,6 +43,15 @@
 	.hp-5{width: 5rem;}
 	.hp-5 span{width: 10%;}
 
+	.fruit-complete-ico{
+		display: block;
+		width:40%;
+		position: absolute;
+		right:0;
+		top:0;
+		z-index: 2;
+	}
+
 	/*bottom-tool*/
 	.bottom-tool{position: absolute;right:0;bottom:0;padding: 0.5rem 1rem;}
 	.gift-box{width: 2.5rem;padding-right: 0.8rem;}
@@ -55,7 +64,7 @@
 	.list .item span{margin-left:0.5rem;}
 	.avator{width:2rem;height:2rem;border: 1px solid #209f20;border-radius: 50%;overflow: hidden;}
 	._nick-name{display: inline-block;max-width:5rem;}
-	.nick-name-info{display: inline-block;max-width:18rem;vertical-align: middle;}
+	.nick-name-info{display: inline-block;max-width:17rem;margin-left:0 !important;vertical-align: middle;}
 	/*pop-box*/
 	.pop-box{position: fixed;top:0;left:0;width:100%;height:100%;background-color: rgba(0,0,0,0.7);z-index: 10;}
 	.pop-box > .body{position: relative; margin-top:5rem; text-align: center;
@@ -83,6 +92,10 @@
 	  -webkit-animation-duration: .6s;
 	  animation-duration: .6s;
 	}
+	.animated.flash{
+		-webkit-animation-duration: .3s;
+		animation-duration: .3s;
+	}
 </style>
 <div class="loader" v-show="loader.is_show">
 	<div class="loader-bar">
@@ -102,21 +115,23 @@
 		<img class="w-100" src="../public/img/main_bg.png">
 		<div class="planted-tree">
 			<img class="w-100 inline-block" src="../public/img/main_tree.png">
+			<img class="grap-hand animated _shake" @click="openFruit(hand_fruit.index,hand_fruit.id)" src="../public/img/grap_hand.png">
 			<div v-for="(fruit, key) in fruit_list">
 				<div class="fruit _fruit-1 _fruit-p1" v-bind:class="[fruit_class[key]]" v-show="(fruit_list[key].watered_count > 0)" @click="openFruit(fruit.index,fruit.id)">
-					<img class="grap-hand animated _shake" v-show="(fruit_list[key].watered_count >= fruit_list[key].total_required_water_count) && (fruit_list[key].is_opened == 0)" src="../public/img/grap_hand.png">
+					<!-- <img class="grap-hand animated _shake" v-show="(fruit_list[key].watered_count >= fruit_list[key].total_required_water_count) && (fruit_list[key].is_opened == 0)" src="../public/img/grap_hand.png"> -->
 					<div class="fruit-hp" v-bind:class="[fruit_hp_class[key]]"  v-show="!(fruit_list[key].watered_count >= fruit_list[key].total_required_water_count)">
 						<span class="hp-value active" v-for="n in (fruit_list[key].watered_count)"></span>
 						<span class="hp-value" v-for="i in ((fruit_list[key].total_required_water_count - fruit_list[key].watered_count))"></span>
 					</div>
+					<img class="fruit-complete-ico" v-show="fruit_list[key].is_opened == 1" src="public/img/completeico.png">
 					<img class="w-100 bounceIn" v-bind:class="{ animated: (fruit_list[key].watered_count > 0) }" src="../public/img/fruit.png">
 				</div>
 			</div>
 		</div>
 		<div class="bottom-tool">
-			<div class="gift-box inline-block" @click="switchNav(2)">
+			<!-- <div class="gift-box inline-block" @click="switchNav(2)" v-show="false">
 				<img class="w-100 animated infinite _tada" src="../public/img/gift_box.png">
-			</div>
+			</div> -->
 			<div class="bottle-box inline-block" @click="water">
 				<div class="add-water bounceIn none">+</div>
 				<div class="bottle-info tc">{{ user_info.watering_able_count }}</div>
@@ -135,10 +150,10 @@
 	</div>
 	<div class="tab-content-wrap">
 		<div class="tab-content" id="growth-log" v-show="nav_index == 1">
-			<div class="no-record none" id="none-growth-tips">
+			<div class="no-record" id="none-growth-tips" v-if="growth_log.length < 1">
 				<span class="color-gray">暂无记录哦~</span>
 			</div>
-			<ul class="growth-list list">
+			<ul class="growth-list list" v-if="growth_log.length > 0">
 				<li class="item" v-for="log in growth_log">
 					<span class="vm inline-block avator bg-cover" v-bind:style="{backgroundImage: 'url(' + (log.avatar_url || '../public/img/fruit.png') + ')'}" >
 						<!-- <img class="w-100" src="../public/img/fruit.png"> -->
@@ -166,10 +181,10 @@
 			</ul>
 		</div>
 		<div class="tab-content" id="my-gift" v-show="nav_index == 2">
-			<div class="no-record none" id="none-gift-tips">
+			<div class="no-record" id="none-gift-tips" v-if="gift_log.length < 1">
 				<span class="color-gray">暂无记录哦~</span>
 			</div>
-			<ul class="growth-list list">
+			<ul class="growth-list list" v-if="gift_log.length > 0">
 				<li class="item" v-for="log in gift_log">
 					<span class="vm inline-block avator bg-cover" v-bind:style="{backgroundImage: 'url(' + (log.avatar_url || '../public/img/fruit.png') + ')'}">
 						<!-- <img class="w-100" src="../public/img/fruit.png"> -->
@@ -282,6 +297,7 @@
 		    growth_total_page: 0,
 		    gift_total_page: 0,
 		    gift_id: null,
+		    gift_type_id: 0,
 		    gift_bgs:['../public/img/achieve_money_tips.png','../public/img/achieve_invest_tips.png','../public/img/achieve_ticket_tips.png','../public/img/achieve_water_count.png','../public/img/achieve_virtual_tips.png'],
 		    has_new_gift: false,
 		    loader:{
@@ -291,6 +307,10 @@
 		    is_can_water: true,
 		    loader:{
 		    	is_loading: false,
+		    },
+		    hand_fruit:{
+		    	index:1,
+		    	id: 1
 		    }
 		  },
 		  filters: {
@@ -353,11 +373,39 @@
 		  				ret.fruits[index].is_opened = parseInt(ret.fruits[index].is_opened);
 		  			}
 		  			self.fruit_list = ret.fruits;
+
+		  			// update grap hand status & position
+		  			self.updateHandPosition();
+
 		  			if($('#app').hasClass('none')){
 		  				$('#app').removeClass('none');
 		  				loader.loaderUpdate(loader.assets.length + 1);
 		  			}
 		  		});
+		  	},
+		  	updateHandPosition: function() {
+		  		var has_can_open = false;
+		  		for(var index in this.fruit_list){
+		  			var fruit = this.fruit_list[index];
+		  			if(fruit.is_opened == 0 && fruit.watered_count >= fruit.total_required_water_count){
+		  				log('.fruit-' + (parseInt(index)+1));
+		  				log($('.fruit-' + (parseInt(index)+1)));
+		  				var $fruit = $('.fruit-' + (parseInt(index)+1));
+		  				$('.grap-hand').css({
+		  					left: (parseInt($fruit.css('left')) + parseInt($fruit.width())/2) + 'px',
+		  					top: (parseInt($fruit.css('top')) + parseInt($fruit.width())/2) + 'px',
+		  				});
+		  				this.hand_fruit.index = fruit.index;
+		  				this.hand_fruit.id = fruit.id;
+		  				has_can_open = true;
+		  				break;
+		  			}
+		  		}
+		  		if(!has_can_open){
+		  			$('.grap-hand').addClass('none');
+		  		}else{
+		  			$('.grap-hand').removeClass('none');
+		  		}
 		  	},
 		  	addGrowthLog: function(){
 		  		var self = this;
@@ -419,7 +467,6 @@
 		  				if(callback) callback();
 		  				self.gift_log = ret.log_list;
 		  				//self.growth_log = ret.growth_log;
-
 		  			}
 		  		});
 		  	},
@@ -475,10 +522,10 @@
 							self.waterAnimate(function(){
 									//self.getFruitList();
 								if(ret.show_err) dialog.success(ret.show_err,1500);
-								self.getUserInfo(function(){
-									
-								});
 							});	
+							self.getUserInfo(function(){
+								
+							});
 						}
 						self.is_can_water = true;
 					});
@@ -491,14 +538,14 @@
 
 		  		setTimeout(function(){
 		  			$('.water').children('.water-drops').removeClass('none').addClass('flash');
-		  		},1000);
+		  		},500);
 
 		  		setTimeout(function(){
 		  			$('.water').addClass('none').children('.bottle').removeClass('rotate');
 		  			$('.water').children('.water-drops').addClass('none').removeClass('flash');
 
 		  			if(callback) callback();
-		  		},3000);
+		  		},1000);
 		  	},
 		  	openFruit: function(index, id) {
 		  		var self = this;
@@ -538,6 +585,7 @@
 		  				}	
 		  				if(gift.gift_type == 4){
 		  					self.gift_id = gift.id;
+		  					self.gift_type_id = gift.gift_type;
 		  					self.recieveGift(function(){
 		  						// 加浇水机会
 		  						dialog.success('获得一次浇水机会！',2000);
@@ -547,6 +595,8 @@
 		  					self.openPopBox(gift, content);
 		  				}
 		  				self.getUserInfo();
+		  				self.listGiftLog(self.gift_log_index);
+		  				self.checkGiftLog();
 		  			}
 		  		});
 		  	},
@@ -555,7 +605,7 @@
 		  	},
 		  	recieveGift: function(callback) {
 		  		var self = this;
-		  		if(!self.user_info.is_binded_mobile){
+		  		if(!self.user_info.is_binded_mobile && self.gift_type_id != 4){
 		  			window.location.href = '/verify-mobile';
 		  			return;
 		  		}
@@ -573,6 +623,7 @@
 		  	},
 		  	openPopBox: function(gift, content) {
 		  		this.gift_id = gift.id || gift.gift_id;
+		  		this.gift_type_id = gift.type_id;
 		  		this.pop.content = content;
 		  		this.pop.bg = this.gift_bgs[((gift.gift_type || gift.type_id)-1)];
 		  		this.pop.isHide = false;

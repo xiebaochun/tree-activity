@@ -22,6 +22,7 @@ exports.post = function(data, callback) {
 						msg: 'api请求地址出错',
 						show_err: '请求地址出错'
 					});
+					return;
 				}
 			}
 			//callback(body);

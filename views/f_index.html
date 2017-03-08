@@ -47,8 +47,8 @@
 	/*bottom-tool*/
 	.bottom-tool{position: absolute;right:0;bottom:0;padding: 0.5rem 1rem;}
 	.gift-box{width: 2.5rem;padding-right: 0.8rem;}
-	.bottle-box{width:3rem;}
-	.bottle-info{position: absolute;width: 1rem;height: 1rem;line-height: 1rem;background-color: red; color:#fff;font-size: 0.5rem;border: 1px solid #fff;border-radius: 50%;right:0.8rem;top:-0.2rem;}
+	.bottle-box{width:5rem;}
+	.bottle-info{position: absolute;width: 1.2rem;height: 1.2rem;line-height: 1.1rem;background-color: red; color:#fff;font-size: 0.7rem;border: 1px solid #fff;border-radius: 50%;right:0.8rem;top:-0.2rem;}
 
 
 	/*list*/
@@ -72,16 +72,19 @@
 	.operation .btn{width:6.5rem;margin:1rem 0.8rem;}
 
 	.bottom-nav{text-align: center;}
-	.bottom-nav .btn{width:70%;}
+	.bottom-nav .btn{width:40%;}
 
 	.avatar-wrap{
-
+		max-width: 15rem;
+		height: 2.5rem;
+		overflow: hidden;
 	}
-	.avatar{display: inline-block; width:2.5rem;height:2.5rem;margin: 0 0.2rem; border: 1px solid #209f20;border-radius: 50%;overflow: hidden;}
+	.avatar{display: inline-block;position: relative; width:2.5rem;height:2.5rem;margin: 0 0.2rem; border: 1px solid #209f20;border-radius: 50%;overflow: hidden;}
+	.avatar-water{position: absolute;width: 1rem;display: inline-block;right:0rem;top:0rem;}
 
 	.trangle{position: absolute;bottom:0;left:2rem;width:0;height:0;border:1rem solid rgba(0,0,0,0);border-bottom-color: #fff;}
 </style>
-<div id="app">
+<div id="app" class="none">
 	<div class="game-wrap">
 		<a class="activity-rule color-fff f1" href="/rule">活动规则</a>
 		<!-- <span class="tips w-100 tc">果子尚未成熟~需要继续浇水哦</span> -->
@@ -89,7 +92,7 @@
 			<img class="bottle" src="../public/img/bottle.png">
 			<img class="water-drops animated flash none" src="../public/img/water_drops.png">
 		</div>
-		<img class="w-100 block" src="../public/img/main_bg.png">
+		<img class="w-100 block" src="../public/img/main_bg.png" onload="mainTreeLoaded()">
 		<div class="planted-tree">
 			<img class="w-100 inline-block" src="../public/img/main_tree.png">
 			<div class="fruit fruit-1 fruit-p1 none">
@@ -132,23 +135,23 @@
 		<div class="trangle"></div>
 	</div>
 	<!-- <img class="w-100" style="margin-top:-2px;" src="../public/img/help_water_bottom.png"> -->
-	<div class="bg-fff" style="padding:0.5rem;border-bottom: 0.5rem solid #f4f4f4;">
-		<span class="vm f1">已有{{ water_log.total }}位好友来浇过水</span>
+	<div class="bg-fff" style="padding:0.7rem 0rem 0.5rem 0.5rem;border-bottom: 0.5rem solid #f4f4f4;">
+		<span class="vm f1 color-666">已有{{ water_log.total }}位好友来浇过水</span>
 		<span class="avatar-wrap vm inline-block" style="_height: 3rem;">
-			<span class="avatar bg-cover" v-for="log in water_log.log_list" v-bind:style="{backgroundImage: 'url(' + (log.avatar_url || '../public/img/fruit.png') + ')'}">
-				<!-- <img class="w-100" v-bind:src="log.avatar_url">
-				<span></span> -->
+			<span class="inline-block pr" v-for="log in water_log.log_list">
+				<span class="avatar bg-cover" v-bind:style="{backgroundImage: 'url(' + (log.avatar_url || '../public/img/fruit.png') + ')'}">	
+				</span>
+				<img class="avatar-water" src="/public/img/water_bottle.png">
 			</span>
-
 		</span>
 
 	</div>
 	<div class="bottom-nav">
 
-		<img class="btn help-water" @click="water" style="margin-top:3rem;" src="../public/img/my_tree_btn.png">
+		<a v-if="user_info.is_received_tree" class="btn inline-block" href="/"><img class="w-100" style="margin-top:3rem;" src="../public/img/my_tree_btn.png"></a>
 		<br>
 		<br>
-		<a class="btn inline-block" style="margin-top:1rem;" href="/"><img class="w-100" src="../public/img/i_plant_tree_btn.png"></a>
+		<a v-if="!user_info.is_received_tree" class="btn inline-block" style="margin-top:1rem;" href="/get-tree"><img class="w-100" src="../public/img/i_plant_tree_btn.png"></a>
 	</div>
 </div>
 <script type="text/javascript" src="/public/js/libs/vue.js"></script>
@@ -159,7 +162,7 @@
 		  data: {
 		    open_id: '<%= open_id %>',
 		    f_user_id: '<%= f_user_id %>',
-		    user_info: null,
+		    user_info: {},
 		    f_user_info: null,
 		    hasWater: false,
 		    water_log:{
@@ -258,7 +261,14 @@
 									// self.getUserInfo(function(){
 										
 									// });
+									
 								});
+								var html = '<span class="inline-block pr">\
+												<span class="avatar bg-cover" style="background-image: url('+ self.user_info.avatar_url +')">\
+												</span>\
+												<img class="avatar-water" src="/public/img/water_bottle.png">\
+											</span>';
+								$('.avatar-wrap').prepend(html);
 							}
 						});
 					}
@@ -284,58 +294,9 @@
 		})
 	});
 
-	$(function(){
-		function Game() {
-			this.init();
-			// setTimeout(function(){
-			// 	window.location.reload();
-			// },3000);
-		}
-		var p = Game.prototype;
-
-		p.$main = $('.main');
-
-		p.init = function() {
-			this.bindEvent();
-		}
-
-		p.bindEvent = function() {
-			var self = this;
-
-			this.bindClick('.help-water', function(){
-
-				self.water();
-			});
-
-		}
-
-		p.bindClick = function(className, callback){
-			this.$main.on('click', className, callback);
-		}
-
-		p.water = function() {
-			this.waterAnimate(function(){
-				$('.fruit').removeClass('none').find('img').addClass('animated bounceIn');
-			});
-		}
-
-		p.waterAnimate = function(callback) {
-	  		$('.water').removeClass('none').children('.bottle').addClass('rotate');
-
-	  		setTimeout(function(){
-	  			$('.water').children('.water-drops').removeClass('none').addClass('flash');
-	  		},1000);
-
-	  		setTimeout(function(){
-	  			$('.water').addClass('none').children('.bottle').removeClass('rotate');
-	  			$('.water').children('.water-drops').addClass('none').removeClass('flash');
-
-	  			if(callback) callback();
-	  		},3000);
-		}
-		// init Game
-		//var game = new Game();
-	});
+	function mainTreeLoaded(){
+		$('#app').removeClass('none');
+	}
 	function GetRandomNum(Min,Max){   
 		var Range = Max - Min;   
 		var Rand = Math.random();   

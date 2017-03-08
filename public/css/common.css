@@ -25,16 +25,6 @@
     box-sizing: border-box;
     z-index: 100;
 }
-.success-pop:before{
-    content:'';
-    position: fixed;
-    display: block;
-    top:-1000px;
-    left:-500px;
-    width: 1000px;
-    height: 2200px;
-    background-color:rgba(200,0,0,0);
-}
 
 .share-tips{
     position: fixed;
@@ -43,6 +33,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.7);
+    z-index: 2;
 }
 
 /*.fadeIn{
@@ -70,8 +61,8 @@
 }
 
 .rotate{
-	-webkit-animation-duration: 1s;
-	animation-duration: 1s;
+	-webkit-animation-duration: 0.5s;
+	animation-duration: 0.5s;
 	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
 	-webkit-animation-timing-function: ease-in-out;
