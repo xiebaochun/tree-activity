@@ -67,7 +67,7 @@
 					$('#self-use-btn').addClass('none');
 					$('#send-friend-01').addClass('none');
 					$('#send-friend-02').removeClass('none');
-					if('<%= gift.can_send %>' != '1'){
+					if('<%= gift.is_received %>' == '2' || '<%= gift.can_send %>' != '1'){
 						$('#send-friend-01').addClass('none');
 						$('#send-friend-02').addClass('none');
 					}
