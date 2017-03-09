@@ -24,11 +24,11 @@
 		<a class="btn inline-block none" id="continue-btn" style="margin-top:1rem;" href="/"><img class="w-100" src="/public/img/continute_achieve_btn.png"></a>
 		
 		<a class="btn inline-block none" id="exchange-btn"  style="margin-top:1rem;" href="javascript:"><img class="w-100" src="/public/img/exchange_btn.png"></a>
-
 	</div>
 </div>
 <script type="text/javascript">
 	$(function(){
+		$('#share-tips-text').attr('src','/public/img/share_tips_.png');
 		$('.send-friend').click(function(){
 			if(parseInt($('#can_send').text()) == 1){
 				//dialog.error('此礼品不能赠送哦~');
