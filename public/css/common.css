@@ -8,8 +8,19 @@
 
 .f1{font-size: 1rem;}
 .f2{font-size: 1.2rem;}
-
-
+.game-mask{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+img{
+    -webkit-user-select:none;
+    user-select:none;
+    -webkit-touch-callout:none;
+    touch-callout:none;
+}
 .success-pop{
     position: fixed;
     top:5%;

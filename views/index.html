@@ -1,7 +1,7 @@
 <style type="text/css">
 
 	.game-wrap{position: relative;}
-	.planted-tree{position: absolute;width:70%;bottom:18%;left: 15%;}
+	.planted-tree{position: absolute;width:70%;bottom:15%;left: 15%;}
 	.tab-wrap{font-size: 0;}
 	.tab-wrap .tab{position: relative; line-height: 2.5rem; font-size: 1rem;-webkit-transition: all 0.2s;transition: all 0.2s;}
 	.tab-wrap .tab.active{border-bottom: 1px solid #008710;color: #008710;}
@@ -53,7 +53,7 @@
 	}
 
 	/*bottom-tool*/
-	.bottom-tool{position: absolute;right:0;bottom:0;padding: 0.5rem 1rem;}
+	.bottom-tool{position: absolute;right:0;bottom:0;padding: 1rem;}
 	.gift-box{width: 2.5rem;padding-right: 0.8rem;}
 	.bottle-box{width:5rem;}
 	.bottle-info{position: absolute;_width: 1rem;height: 1rem;padding: 0 0.3rem;line-height: 1rem;background-color: red; color:#fff;font-size: 0.6rem;border: 1px solid #fff;border-radius: 50%;right:0.8rem;top:-0.2rem;}
@@ -105,16 +105,17 @@
 <div class="none" id="app">
 	<img style="position:absolute;top:0;left:0; width:0" src="http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png">
 	<div class="game-wrap">
-
+		<img class="w-100 block" src="../public/img/main_bg.png">
+		<div class="game-mask"></div>
 		<a class="activity-rule color-fff f1" href="/rule/2">活动规则</a>
 		<span class="tips w-100 tc none">果子尚未成熟~需要继续浇水哦</span>
 		<div class="water none">
 			<img class="bottle" src="../public/img/bottle.png">
 			<img class="water-drops animated flash none" src="../public/img/water_drops.png">
 		</div>
-		<img class="w-100" src="../public/img/main_bg.png">
 		<div class="planted-tree">
 			<img class="w-100 inline-block" src="../public/img/main_tree.png">
+			<div class="game-mask"></div>
 			<img class="grap-hand animated _shake" @click="openFruit(hand_fruit.index,hand_fruit.id)" src="../public/img/grap_hand.png">
 			<div v-for="(fruit, key) in fruit_list">
 				<div class="fruit _fruit-1 _fruit-p1" v-bind:class="[fruit_class[key]]" v-show="(fruit_list[key].watered_count > 0)" @click="openFruit(fruit.index,fruit.id)">

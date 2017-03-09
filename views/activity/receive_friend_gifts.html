@@ -19,7 +19,7 @@
 		<div class="body animated bounceIn">
 			<img class="w-100" id="gift-bg" src="/public/img/achieve_invest_tips.png">
 			<div class="info">
-				<span><%= gift.info %></span>
+				<span id="gift-info"><%= gift.info %></span>
 			</div>
 			<div class="operation">
 				<img onclick="refused()" class="btn" src="/public/img/refuse_btn.png">
@@ -76,6 +76,8 @@
 		var bgs = ['','/public/img/achieve_money_tips.png','/public/img/achieve_invest_tips.png','/public/img/achieve_ticket_tips.png','/public/img/achieve_water_count.png','/public/img/achieve_virtual_tips.png'];
 
 		$('#gift-bg').attr('src',bgs['<%= gift.type_id %>']);
+
+		$('#gift-info').text($('#gift-info').text().replace('恭喜你获得','好友送您'));
 
 	});
 </script>

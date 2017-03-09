@@ -1,7 +1,7 @@
 <style type="text/css">
 	html{background-color: #fff;}
 	.game-wrap{position: relative;}
-	.planted-tree{position: absolute;width:70%;bottom:18%;left: 15%;}
+	.planted-tree{position: absolute;width:70%;bottom:15%;left: 15%;}
 	.tab-wrap{font-size: 0;}
 	.tab-wrap .tab{position: relative; line-height: 2.5rem; font-size: 1rem;}
 	.tab-wrap .tab.active{border-bottom: 1px solid #008710;color: #008710;}
@@ -45,10 +45,10 @@
 
 
 	/*bottom-tool*/
-	.bottom-tool{position: absolute;right:0;bottom:0;padding: 0.5rem 1rem;}
+	.bottom-tool{position: absolute;right:0;bottom:0;padding: 1rem;}
 	.gift-box{width: 2.5rem;padding-right: 0.8rem;}
-	.bottle-box{width:7rem;}
-	.bottle-info{position: absolute;width: 1.2rem;height: 1.2rem;line-height: 1.1rem;background-color: red; color:#fff;font-size: 0.7rem;border: 1px solid #fff;border-radius: 50%;right:0.8rem;top:-0.2rem;}
+	.bottle-box{width:6.6425rem;}
+	.bottle-info{position: absolute;width: 1.2rem;height: 1.2rem;line-height: 1.1rem;background-color: red; color:#fff;font-size: 0.7rem;border: 1px solid #fff;border-radius: 50%;right:1.7rem;top:-0.1rem;}
 
 
 	/*list*/
@@ -86,15 +86,17 @@
 </style>
 <div id="app" class="none">
 	<div class="game-wrap">
+		<img class="w-100 block" src="../public/img/main_bg.png" onload="mainTreeLoaded()">
+		<div class="game-mask"></div>
 		<a class="activity-rule color-fff f1" href="/rule/2">活动规则</a>
 		<!-- <span class="tips w-100 tc">果子尚未成熟~需要继续浇水哦</span> -->
 		<div class="water none">
 			<img class="bottle" src="../public/img/bottle.png">
 			<img class="water-drops animated flash none" src="../public/img/water_drops.png">
 		</div>
-		<img class="w-100 block" src="../public/img/main_bg.png" onload="mainTreeLoaded()">
 		<div class="planted-tree">
 			<img class="w-100 inline-block" src="../public/img/main_tree.png">
+			<div class="game-mask"></div>
 			<div class="fruit fruit-1 fruit-p1 none">
 				<!-- <div class="fruit-hp hp-1">
 					<span class="hp-value active"></span>
