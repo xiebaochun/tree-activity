@@ -39,19 +39,31 @@ exports.index = function (req, res, next) {
 
 exports.f_index = function (req, res, next) {
 	console.log('帮朋友浇水：open_id');
-	console.log(req.params.user_id);
-	if(req.params.user_id == req.session.user.user_id){
-		res.redirect('/');
-	}else{
-		api_post.post({act:'get_user_info', user_id: req.session.user.user_id}, function(ret){
-			if(ret.status == 1){
-				if(ret.user_info.has_water_guide == 0){
-					res.render('user/friend_guide', {user_info: req.session.user, open_id: req.session.user.open_id, f_user_id:req.params.user_id});	
-				}else{	
-					res.render('f_index', {user_info: req.session.user, open_id: req.session.user.open_id, f_user_id:req.params.user_id});	
-				}
+	try{
+		if(req.params && req.params.user_id){	
+			console.log(req.params.user_id);
+			if(req.params.user_id == req.session.user.user_id){
+				res.redirect('/');
+			}else{
+				api_post.post({act:'get_user_info', user_id: req.session.user.user_id}, function(ret){
+					try{		
+						if(ret.status == 1){
+							if(ret.user_info.has_water_guide == 0){
+								res.render('user/friend_guide', {user_info: req.session.user, open_id: req.session.user.open_id, f_user_id:req.params.user_id});	
+							}else{	
+								res.render('f_index', {user_info: req.session.user, open_id: req.session.user.open_id, f_user_id:req.params.user_id});	
+							}
+						}
+					}catch(e){
+						res.redirect('/');
+					}
+				});
 			}
-		});
+		}else{
+			res.redirect('/');
+		}
+	}catch(e){
+		res.redirect('/');
 	}
 };
 

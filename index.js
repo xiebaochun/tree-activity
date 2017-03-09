@@ -12,6 +12,19 @@ var app = express();
 var bodyParser = require('body-parser');
 var webRouter = require('./web_router');
 
+// 获取微信签名
+var signature = require('wx_jsapi_sign');
+var url = 'http://312activity.xiaoshushidai.com/';
+signature.getSignature(config.weixin_sign)(url, function(error, result) {
+  if(error){
+    console.log('index.js 产生的微信签名的错误：');
+    console.log(error);
+  }
+  console.log('index.js 产生的微信签名：');
+  console.log(result);
+  app.locals.signatureData = result;
+});
+
 
 app.use('/public',express.static(path.resolve(__dirname ,'public')));
 
@@ -57,16 +70,3 @@ app.listen(port);
 
 
 console.log("app is running on " + port);
-
-// 获取微信签名
-var signature = require('wx_jsapi_sign');
-var url = 'http://312activity.xiaoshushidai.com/';
-signature.getSignature(config.weixin_sign)(url, function(error, result) {
-  if(error){
-    console.log('index.js 产生的微信签名的错误：');
-    console.log(error);
-  }
-  console.log('index.js 产生的微信签名：');
-  console.log(result);
-  app.locals.signatureData = result;
-});
