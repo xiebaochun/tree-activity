@@ -154,10 +154,11 @@ exports.receive_friend_gifts = function(req, res, next) {
 	api_post.post({act:'get_gift', gift_id: gift_id}, function(ret){
 		console.log('获取礼品详情成功：');
 		console.log(ret);
-		if(ret.status == 1){
+		if(ret.status == 1 && ret.data){
 			
 			var content = '';
 			var gift = ret.data;
+
 			var pre = '恭喜你获得';
 
 			if(gift.is_received == 2){

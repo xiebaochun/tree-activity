@@ -497,13 +497,13 @@
 					}
 				}
 				if(parseInt(this.user_info.watering_able_count) < 1){
-					this.none_water_count++;
-					if(this.none_water_count > 1){
-						this.none_water_count = 0;
-						showShareTips();
-						return;
-					}
-					dialog.error('可用浇水次数不够！');
+					// this.none_water_count++;
+					// if(this.none_water_count > 1){
+					// 	this.none_water_count = 0;
+					// 	showShareTips();
+					// 	return;
+					// }
+					dialog.error('小主您的浇水次数不足啦！<br>转发让朋友送您浇水次数吧~');
 					return;
 				}
 

@@ -76,7 +76,8 @@ $(function(){
         $(self.DOM).removeClass('animated fadeIn fadeOut');
         if(this.timeout)clearTimeout(this.timeout);
         $(self.DOM).addClass('animated fadeIn').removeClass('none');
-        self.DOM.innerText = content || 'dialog';
+        //self.DOM.innerText = content || 'dialog';
+        $(self.DOM).html(content || 'dialog');
         
         this.timeout = setTimeout(function(){
             $(self.DOM).removeClass('animated fadeIn').addClass('animated fadeOut');
