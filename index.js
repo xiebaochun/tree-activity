@@ -1,4 +1,7 @@
-﻿var path = require('path');
+﻿process.on('uncaughtException', function (err) {
+    console.log('Caught exception: ', err);
+});
+var path = require('path');
 var config = require('./config');
 //var request = require('request');
 var express = require('express');
