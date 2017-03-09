@@ -780,7 +780,9 @@
 		  				if(typeof callback == 'function') callback();
 		  				//self.listGiftLog(self.gift_log_index);
 		  				//self.closePopBox();
-		  				window.location.href = '/my-gift/' + self.gift_id;
+		  				if(self.gift_type != 4){
+		  					window.location.href = '/my-gift/' + self.gift_id;
+		  				}
 		  			}
 		  		});
 		  		//this.closePopBox();
