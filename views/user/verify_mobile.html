@@ -85,8 +85,8 @@
 		    		api_post('', {act:'receive_gift', id: '<%= gift_id %>', user_id: '<%= user_info.user_id %>'}, function(ret){
 			  			log('领取礼物');
 			  			log(ret);
-			  			if(ret.status == 1){
-			  				if(ret.data.user_mark ==1){
+			  			//if(ret.status == 1){
+			  				if(bind_data.data.user_mark ==1){
 			  					window.location.href = '/none-invest-user';
 			  					return;
 			  				}
@@ -95,7 +95,8 @@
 			  					return;
 			  				}
 			  				window.location.href = '/setting-pwd';
-			  			}
+			  			//}
+			  			dialog.error(ret.show_err);
 			  		});
 		    		
 		    	}else{

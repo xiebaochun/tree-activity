@@ -778,9 +778,9 @@
 		  			if(ret.status == 1){
 		  				dialog.success(ret.show_err, 3000);
 		  				if(typeof callback == 'function') callback();
-		  				//self.listGiftLog(self.gift_log_index);
-		  				//self.closePopBox();
-		  				if(self.gift_type != 4){
+		  				self.listGiftLog(self.gift_log_index);
+		  				self.closePopBox();
+		  				if(self.gift_type_id != 4){
 		  					window.location.href = '/my-gift/' + self.gift_id;
 		  				}
 		  			}
