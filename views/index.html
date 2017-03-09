@@ -8,7 +8,7 @@
 	.nav-tips{display:block;position: absolute;right:25%;top:0.5rem; background-color: red;width: 0.5rem;height: 0.5rem;border-radius: 100%;}
 	.activity-rule{display: inline-block; position: absolute;top:0; left:0;padding: 1rem;}
 	.tips{display: block; position: absolute;top:2.2rem; left:0;padding: 0rem;}
-	.water{position: absolute;display: inline-block;left:70%;top:4rem;width:6rem;z-index: 2;0}
+	.water{position: absolute;display: inline-block;left:70%;top:4rem;width:6rem;z-index: 2;}
 	.water .bottle{position: absolute; right:0;width:3rem;}
 	.water .water-drops{position: absolute; width:2rem;top:2rem;left:1.8rem;_opacity: 0;}
 
@@ -96,8 +96,12 @@
 		-webkit-animation-duration: .3s;
 		animation-duration: .3s;
 	}
+
 </style>
 <div class="loader" v-show="loader.is_show">
+	<div class="">
+		
+	</div>
 	<div class="loader-bar">
 		<div class="loader-progress" id="loader-progress"></div>
 	</div>
@@ -712,5 +716,75 @@
 			var loader = new Loader();
 			window.loader = loader;
 		})();
+
+
+	  	wx.ready(function(){
+	  		
+	  	    wx.onMenuShareAppMessage({
+	  	        title: TITLE, // 分享标题
+	  	        desc: DESC, // 分享描述
+	  	        link: LINK, // 分享链接
+	  	        imgUrl: IMAGE_URL, // 分享图标
+	  	        type: '', // 分享类型,music、video或link，不填默认为link
+	  	        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+	  	        success: function () { 
+	  	            // 用户确认分享后执行的回调函数
+	  	           	api_post('', {act:'add_water_times', user_id: '<%= user_info.user_id %>'}, function(ret){
+	  	           		app.getUserInfo();
+	  	           	});
+	  	        },
+	  	        cancel: function () { 
+	  	            // 用户取消分享后执行的回调函数
+	  	        }
+	  	    });
+
+	  	    wx.onMenuShareTimeline({
+	  	        title: TITLE, // 分享标题
+	  	        link: LINK, // 分享链接
+	  	        imgUrl: IMAGE_URL, // 分享图标
+	  	        success: function () { 
+	  	            // 用户确认分享后执行的回调函数
+	  	            api_post('', {act:'add_water_times', user_id: '<%= user_info.user_id %>'}, function(ret){
+	  	            	app.getUserInfo();
+	  	           	});
+	  	        },
+	  	        cancel: function () { 
+	  	            // 用户取消分享后执行的回调函数
+	  	        }
+	  	    });
+
+	  	    wx.onMenuShareQQ({
+	  	        title: TITLE, // 分享标题
+	  	        link: LINK, // 分享链接
+	  	        imgUrl: IMAGE_URL, // 分享图标
+	  	        imgUrl: 'http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png', // 分享图标
+	  	        success: function () { 
+	  	           // 用户确认分享后执行的回调函数
+	  	           api_post('', {act:'add_water_times', user_id: '<%= user_info.user_id %>'}, function(ret){
+	  	           		app.getUserInfo();
+	  	           	});
+	  	        },
+	  	        cancel: function () { 
+	  	           // 用户取消分享后执行的回调函数
+	  	        }
+	  	    });
+
+	  	    wx.onMenuShareQZone({
+			    title: TITLE + '-分享QQ空间', // 分享标题
+	  	        link: LINK, // 分享链接
+	  	        imgUrl: IMAGE_URL, // 分享图标
+			    imgUrl: 'http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png', // 分享图标
+			    success: function () { 
+			       // 用户确认分享后执行的回调函数
+			       api_post('', {act:'add_water_times', user_id: '<%= user_info.user_id %>'}, function(ret){
+			       		app.getUserInfo();
+	  	           	});
+			    },
+			    cancel: function () { 
+			        // 用户取消分享后执行的回调函数
+			    }
+			});
+
+	  	});
 	});
 </script>
