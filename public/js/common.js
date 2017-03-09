@@ -1,5 +1,5 @@
 // post root url
-var API_ROOT_URL = 'http://wentest.xiaoshushidai.com/mapis/index.php?mrt=mrt3&r_type=1&i_type=4&dev_type=WAP&version=2015102015&requestData='; 
+var API_ROOT_URL = 'http://www.xiaoshushidai.com/mapis/index.php?mrt=mrt3&r_type=1&i_type=4&dev_type=WAP&version=2015102015&requestData='; 
     API_ROOT_URL = '/api/';
 function verify_mobile(str) {
     var re = /^1\d{10}$/;

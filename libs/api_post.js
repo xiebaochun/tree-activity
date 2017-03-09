@@ -1,6 +1,6 @@
 var AES_encrypt = require('./encrypt').AES_encrypt;
 var request = require('request');
-var ROOT_URL = 'http://wentest.xiaoshushidai.com/mapis/index.php?mrt=mrt3&r_type=1&i_type=4&dev_type=WAP&version=2015102015&requestData=';
+var ROOT_URL = 'http://www.xiaoshushidai.com/mapis/index.php?mrt=mrt3&r_type=1&i_type=4&dev_type=WAP&version=2015102015&requestData=';
 
 exports.post = function(data, callback) {
 	console.log('post >>>>>>');
