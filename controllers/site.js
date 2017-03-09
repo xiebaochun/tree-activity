@@ -63,6 +63,10 @@ exports.gift_none = function(req, res) {
 	res.render('activity/gift_none', {});	
 }
 
+exports.gift_error = function(req, res) {
+	res.render('activity/gift_error', {});	
+}
+
 exports.weixin_verify = function(req, res) {
 	console.log(req.query);
     if (wx.jssdk.verifySignature(req.query)) {

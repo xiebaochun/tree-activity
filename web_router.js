@@ -22,7 +22,7 @@ router.get('/get-tree',auth.auth, site.get_tree);
 router.get('/rule/:index',auth.auth, site.rule);
 router.get('/xs-ticket', auth.auth,site.xs_ticket);
 router.get('/gift-none', auth.auth,site.gift_none);
-
+router.get('/gift-error', auth.auth,site.gift_error);
 
 router.get('/get-tree',auth.auth, site.get_tree);
 router.get('/gift-rule', auth.auth,site.gift_rule);

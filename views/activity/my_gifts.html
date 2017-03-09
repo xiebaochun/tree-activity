@@ -12,6 +12,16 @@
 	<div class="tc">
 		<img class="inline-block" id="gift-bg" style="width:80%" src="/public/img/money_package.png">
 	</div>
+	<% if(gift.can_send == 0) { %>
+	<div class="tc color-666" style="padding:0.5rem 3rem;">
+		此礼品无法赠送哦~
+	</div>
+	<% } %>
+	<% if(gift.type_id == 3) { %>
+	<div class="tc color-666" style="padding:0.5rem 3rem;">
+		集齐5张小树券可以兑换发财树哦！好友可以赠送您此券哦~赶紧去收集吧~
+	</div>
+	<% } %>
 	<div style="height: 5rem;"></div>
 	<div class="bottom-nav">
 		<a class="btn inline-block" href="javascript:"><img class="w-100 help-water send-friend" id="send-friend-01" style="margin-top:3rem;" src="/public/img/send_friend_btn_02.png">
@@ -91,7 +101,7 @@
 <script type="text/javascript">
 	wx.ready(function(){
 	    wx.onMenuShareAppMessage({
-	        title: TITLE, // 分享标题
+	        title: '发财树掉红包了，送你一个！', // 分享标题
 	        desc: '朕送你一个大红包，快点击看是不是999元现金！', // 分享描述
 	        link: '312activity.xiaoshushidai.com/receive-friend-gifts/<%= user_info.user_id %>/<%= gift.gift_id %>', // 分享链接
 	        imgUrl: IMAGE_URL, // 分享图标
@@ -99,7 +109,7 @@
 	        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 	        success: function () { 
 	            // 用户确认分享后执行的回调函数
-	            api_post('', {act:'add_water_times', user_id: '<%= user_info.user_id %>'}, function(ret){
+	            api_post('', {act:'add_water_times', user_id: '<%= user_info.user_id %>',type: 0}, function(ret){
 	  	           	});
 	        },
 	        cancel: function () { 
@@ -108,12 +118,12 @@
 	    });
 
 	    wx.onMenuShareTimeline({
-  	        title: TITLE, // 分享标题
+  	        title: '发财树掉红包了，送你一个！', // 分享标题
   	        link: '312activity.xiaoshushidai.com/receive-friend-gifts/<%= user_info.user_id %>/<%= gift.gift_id %>', // 分享链接
   	        imgUrl: IMAGE_URL, // 分享图标
   	        success: function () { 
   	            // 用户确认分享后执行的回调函数
-  	            api_post('', {act:'add_water_times', user_id: '<%= user_info.user_id %>'}, function(ret){
+  	            api_post('', {act:'add_water_times', user_id: '<%= user_info.user_id %>',type:1}, function(ret){
   	           	});
   	        },
   	        cancel: function () { 
@@ -123,4 +133,42 @@
 
 	});
 </script>
+<% } %>
+
+<% if(gift.can_send == 0) { %>
+	<script type="text/javascript">
+		wx.ready(function(){
+		    wx.onMenuShareAppMessage({
+		        title: '发财树掉红包了，送你一个！', // 分享标题
+		        desc: '朕送你一个大红包，快点击看是不是999元现金！', // 分享描述
+		        link: '312activity.xiaoshushidai.com/gift-error', // 分享链接
+		        imgUrl: IMAGE_URL, // 分享图标
+		        type: '', // 分享类型,music、video或link，不填默认为link
+		        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+		        success: function () { 
+		            // 用户确认分享后执行的回调函数
+		            api_post('', {act:'add_water_times', user_id: '<%= user_info.user_id %>',type: 0}, function(ret){
+		  	           	});
+		        },
+		        cancel: function () { 
+		            // 用户取消分享后执行的回调函数
+		        }
+		    });
+
+		    wx.onMenuShareTimeline({
+	  	        title: '发财树掉红包了，送你一个！', // 分享标题
+	  	        link: '312activity.xiaoshushidai.com/gift-error', // 分享链接
+	  	        imgUrl: IMAGE_URL, // 分享图标
+	  	        success: function () { 
+	  	            // 用户确认分享后执行的回调函数
+	  	            api_post('', {act:'add_water_times', user_id: '<%= user_info.user_id %>',type:1}, function(ret){
+	  	           	});
+	  	        },
+	  	        cancel: function () { 
+	  	            // 用户取消分享后执行的回调函数
+	  	        }
+	  	    });
+
+		});
+	</script>
 <% } %>
