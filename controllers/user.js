@@ -59,9 +59,11 @@ exports.oauth = function(req, res){
 
        // 注册用户
        var share_user_id = '';
-      if(req.session.auth_redirect_url.indexOf('receive-friend-gifts') >=0 || req.session.auth_redirect_url.indexOf('f-index') >=0){
-      	 share_user_id = req.session.auth_redirect_url.split('/')[2].split('?')[0];
-      }
+       if(req.session.auth_redirect_url){
+	      if(req.session.auth_redirect_url.indexOf('receive-friend-gifts') >=0 || req.session.auth_redirect_url.indexOf('f-index') >=0){
+	      	 share_user_id = req.session.auth_redirect_url.split('/')[2].split('?')[0];
+	      }
+       }
       api_post.post({
       			act:'get_user_info', 
       			open_id: userProfile.openid, 
