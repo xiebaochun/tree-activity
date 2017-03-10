@@ -44,11 +44,11 @@ exports.auth = function(req, res, next) {
 	// 	res.redirect(config.weixin_auth_url);
 	// 	return;
 	if(user){
-		api_post.post({act:'is_user_exist', open_id: user.open_id}, function(ret){
-			if(ret.status == 1){
-				if(ret.data.is_exist == 1){
+		//api_post.post({act:'is_user_exist', open_id: user.open_id}, function(ret){
+			//if(ret.status == 1){
+				//if(ret.data.is_exist == 1){
 					//res.locals.username = user.name;
-					res.locals.user_info = user;
+					//res.locals.user_info = user;
 					
 					var signature = require('wx_jsapi_sign');
 					var url = 'http://312activity.xiaoshushidai.com/';
@@ -59,17 +59,17 @@ exports.auth = function(req, res, next) {
 					    console.log(error);
 					    next();
 					  }
-					  console.log('middleware.js 产生的微信签名：');
-					  console.log(result);
+					  //console.log('middleware.js 产生的微信签名：');
+					  //console.log(result);
 					  res.locals.signatureData = result;
 					  return next();
 					});
-				}else{
-					req.session.auth_redirect_url = req.originalUrl;
-					res.redirect(config.weixin_auth_url);
-				}
-			}
-		});
+				// }else{
+				// 	req.session.auth_redirect_url = req.originalUrl;
+				// 	res.redirect(config.weixin_auth_url);
+				// }
+			//}
+		//});
 		
 	}else{
 		req.session.auth_redirect_url = req.originalUrl;

@@ -12,16 +12,16 @@ var api_post = require('../libs/api_post');
 
 exports.index = function (req, res, next) {
 	// if(req.session.user){
-		console.log('/ controller session user:');
-		console.log(req.session.user);
+		//console.log('/ controller session user:');
+		//console.log(req.session.user);
 		var open_id = req.session.user.open_id;
 		api_post.post({act:'get_user_info', open_id: open_id}, function(ret){
 			if(ret.status == 1){
-				console.log('get user info>>>>>>>>>>>>>>>>:');
-				console.log(ret);
+				//console.log('get user info>>>>>>>>>>>>>>>>:');
+				//console.log(ret);
 
 				req.session.user = ret.user_info;
-				console.log(ret.user_info.is_received_tree == 0);
+				//console.log(ret.user_info.is_received_tree == 0);
 
 				if(ret.user_info.is_received_tree == 0){
 					res.redirect('/get-tree');
@@ -38,10 +38,10 @@ exports.index = function (req, res, next) {
 };
 
 exports.f_index = function (req, res, next) {
-	console.log('帮朋友浇水：open_id');
+	//console.log('帮朋友浇水：open_id');
 	try{
 		if(req.params && req.params.user_id){	
-			console.log(req.params.user_id);
+			//console.log(req.params.user_id);
 			if(req.params.user_id == req.session.user.user_id){
 				res.redirect('/');
 			}else{
@@ -80,7 +80,7 @@ exports.gift_error = function(req, res) {
 }
 
 exports.weixin_verify = function(req, res) {
-	console.log(req.query);
+	//console.log(req.query);
     if (wx.jssdk.verifySignature(req.query)) {
         res.send(req.query.echostr);
         return;
@@ -89,14 +89,14 @@ exports.weixin_verify = function(req, res) {
 }
 
 exports.get_tree = function(req, res, next) {
-	console.log('get_tree >>>> session:');
-	console.log(req.session.user);
+	//console.log('get_tree >>>> session:');
+	//console.log(req.session.user);
 	//var user = req.session.user;
 	api_post.post({act: 'get_user_info', open_id:req.session.user.open_id}, function(ret){
 		if(ret.status == 1){
 			var user_info = ret.user_info;
-			console.log('get_user_info >>>> user:');
-			console.log(user_info);
+			//console.log('get_user_info >>>> user:');
+			//console.log(user_info);
 			//res.render('activity/get_tree', {user_info: user_info});
 			//return;
 			if(user_info.is_received_tree == 1){
@@ -120,8 +120,8 @@ exports.my_gifts = function(req, res, next) {
 	//console.log();
 	var gift_id = req.params.gift_id;
 	api_post.post({act:'get_gift', gift_id: gift_id}, function(ret){
-		console.log('获取礼品详情成功：');
-		console.log(ret);
+		//console.log('获取礼品详情成功：');
+		//console.log(ret);
 		if(ret.status == 1){
 
 			var content = '';
@@ -158,8 +158,8 @@ exports.my_tree = function(req, res, next) {
 	res.render('activity/my_tree', {});
 }
 exports.receive_friend_gifts = function(req, res, next) {
-	console.log('领取好友礼物：');
-	console.log(req.params.f_user_id+":"+req.params.gift_id+":" + req.session.user.user_id);
+	//console.log('领取好友礼物：');
+	//console.log(req.params.f_user_id+":"+req.params.gift_id+":" + req.session.user.user_id);
 
 	if(req.params.f_user_id == req.session.user.user_id){
 		res.redirect('/');
@@ -168,8 +168,8 @@ exports.receive_friend_gifts = function(req, res, next) {
 	//res.render('activity/receive_friend_gifts', {});
 	var gift_id = req.params.gift_id;
 	api_post.post({act:'get_gift', gift_id: gift_id}, function(ret){
-		console.log('获取礼品详情成功：');
-		console.log(ret);
+		//console.log('获取礼品详情成功：');
+		//console.log(ret);
 		if(ret.status == 1 && ret.data){
 			
 			var content = '';

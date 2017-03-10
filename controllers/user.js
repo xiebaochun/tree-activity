@@ -50,7 +50,7 @@ exports.user = function(req, res, next) {
 exports.oauth = function(req, res){
 	wx.oauth.getUserInfo(req.query.code)
      .then(function(userProfile) {
-       console.log(userProfile)
+       //console.log(userProfile)
        // res.render("index", {
        //   wechatInfo: userProfile
        // });
@@ -71,7 +71,7 @@ exports.oauth = function(req, res){
       		},
        function(ret){
 			if(ret.status == 1){
-				console.log(ret);
+				//console.log(ret);
 				if(ret.status == 1){
 					if(ret.user_info){
 						ret.user_info.open_id = userProfile.openid;

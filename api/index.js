@@ -3,12 +3,18 @@ var api_post = require('../libs/api_post');
 exports.index = function(req, res, next){
 	var url = req.body.url;
 	api_post.normal_post(url,function(ret){
-		console.log(ret);
+		//console.log(ret);
 		res.send(ret);
 	});
 }
 
-
+exports.post_test = function(req, res, next){
+	var url = req.body.url;
+	api_post.test_post(url,function(ret){
+		//console.log(ret);
+		res.send(ret);
+	});
+}
 // 获取用户信息
 exports.get_user_info = function(req, res, next) {
 	// var result = {response_code: '1', show_err: "用户已存在！", user_info: {
@@ -23,7 +29,7 @@ exports.get_user_info = function(req, res, next) {
 	// //var result = {response_code: '0', show_err: "用户不存在！"};
 	req.body.act = 'get_user_info';
 	api_post.normal_post(req.body,function(ret){
-		console.log(ret);
+		//console.log(ret);
 		res.send(ret);
 	});
 }

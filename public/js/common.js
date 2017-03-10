@@ -33,13 +33,15 @@ function api_post(act, requestData, callback) {
         success: function(ret) {
             if(ret.status == 1){
                 callback(ret);
-            }else{
+            }else if(ret.status){
                 callback(ret)
-                dialog.error(ret.show_err);
+                if(ret.show_err){
+                    dialog.error(ret.show_err);
+                }
             }
         },
         error: function(error) {
-            dialog.error('api请求失败！');
+            dialog.error('服务器繁忙！');
         }
     });
 }
