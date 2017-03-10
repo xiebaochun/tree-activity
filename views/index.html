@@ -1,5 +1,4 @@
 <style type="text/css">
-
 	.game-wrap{position: relative;}
 	.planted-tree{position: absolute;width:70%;bottom:15%;left: 15%;}
 	.tab-wrap{font-size: 0;}
@@ -11,7 +10,6 @@
 	.water{position: absolute;display: inline-block;left:70%;top:4rem;width:6rem;z-index: 2;}
 	.water .bottle{position: absolute; right:0;width:3rem;}
 	.water .water-drops{position: absolute; width:2rem;top:2rem;left:1.8rem;_opacity: 0;}
-
 	.no-record{padding: 2rem 0;text-align: center;}
 
 	/*fruit*/
@@ -43,21 +41,13 @@
 	.hp-5{width: 5rem;}
 	.hp-5 span{width: 10%;}
 
-	.fruit-complete-ico{
-		display: block;
-		width:40%;
-		position: absolute;
-		right:0;
-		top:0;
-		z-index: 2;
-	}
+	.fruit-complete-ico{display: block;width:40%;position: absolute;right:0;top:0;z-index: 2;}
 
 	/*bottom-tool*/
 	.bottom-tool{position: absolute;right:0;bottom:0;padding: 1rem;}
 	.gift-box{width: 2.5rem;padding-right: 0.8rem;}
 	.bottle-box{width:5rem;}
 	.bottle-info{position: absolute;_width: 1rem;height: 1rem;padding: 0 0.3rem;line-height: 1rem;background-color: red; color:#fff;font-size: 0.6rem;border: 1px solid #fff;border-radius: 50%;right:0.8rem;top:-0.2rem;}
-
 
 	/*list*/
 	.list .item{padding: 0.5rem 0.5rem;line-height: 2.5rem;}
@@ -67,13 +57,7 @@
 	.nick-name-info{display: inline-block;max-width:17rem;margin-left:0 !important;vertical-align: middle;}
 	/*pop-box*/
 	.pop-box{position: fixed;top:0;left:0;width:100%;height:100%;background-color: rgba(0,0,0,0.7);z-index: 10;}
-	.pop-box > .body{position: relative; margin-top:5rem; text-align: center;
-		position: absolute;left:50%;top:50%;width:100%;
-		margin-left:-13.4rem;
-		margin-top:-15rem;
-		/*-webkit-transform: translateX(-50%,-50%);
-		transform: translate(-50%,-50%);*/
-	}
+	.pop-box > .body{position: relative; margin-top:5rem; text-align: center; position: absolute;left:50%;top:50%;width:100%; margin-left:-13.4rem; margin-top:-15rem;}
 
 	.pop-box > .body > img{width:80%;}
 	.pop-box > .body .info{position: absolute;bottom:4.3rem;left:0;width:100%;text-align: center;}
@@ -84,167 +68,26 @@
 
 	.loader{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#f4f4f4;z-index:100000}
 	.loader-bar{position:absolute;top:48%;left:50%;width:200px;height:6px;margin-left:-100px;background-color:#fff;border-radius:3px;overflow: hidden;}
-	.loader-progress{position:absolute;left:0;top:0;width:0;height:100%;background-color:#209f20;
-		-webkit-transition: width 1s;
-		transition: width 1s;
-		border-radius:3px;
-	}
-	.animated.bounceOut {
-	  -webkit-animation-duration: .6s;
-	  animation-duration: .6s;
-	}
-	.animated.flash{
-		-webkit-animation-duration: .3s;
-		animation-duration: .3s;
-	}
+	.loader-progress{position:absolute;left:0;top:0;width:0;height:100%;background-color:#209f20; -webkit-transition: width 1s; transition: width 1s; border-radius:3px; }
+
+	.animated.bounceOut {-webkit-animation-duration: .6s;animation-duration: .6s;}
+	.animated.flash{-webkit-animation-duration: .3s;animation-duration: .3s;}
 	/*小树飞机*/
-	.xs-loader{
-		position: absolute;
-		width:26%;
-		height: 8rem;
-		left:50%;
-		top: 50%;
-		margin-left: -12%;
-		margin-top: -26%;
-		overflow: hidden;
-	}
-	.xs-loader > .plane{
-		width: 5rem;
-		position: absolute;
-		left: 0;
-		top:50%;
-		margin-top: -2rem;
-		-webkit-animation: plane 0.5s infinite linear alternate;
-		animation: plane 0.5s infinite linear alternate;
-	}
-	.xs-loader > .plane > .plane-body{
-		position: relative;
-		width:5rem;
-		z-index: 2;
-	}
-
-	.xs-loader > .cloud-1{
-		position: absolute;
-		width:1.5rem;
-		bottom: 2rem;
-		left:1rem;
-		-webkit-animation: cloudOne 1s infinite linear;
-		animation: cloudOne 1s infinite linear;
-
-	}
-	.xs-loader > .cloud-2{
-		position: absolute;
-		width:1rem;
-		top: 2rem;
-		left:2rem;
-		-webkit-animation: cloudTwo 2s infinite linear;
-		animation: cloudTwo 2s infinite linear;
-	}
-	.plane-circle-wrap{
-		position: absolute;
-		right:-1.3rem;
-		top:0.78rem;
-		width:3rem;
-		-webkit-transform: rotateY(60deg);
-	    transform: rotateY(60deg);
-	}
-	.xs-loader .plane-circle{
-		width: 100%;
-		-webkit-animation: planeRotate .4s infinite linear;
-		animation: planeRotate .4s infinite linear;
-		z-index: 0;
-	}
-	@-webkit-keyframes planeRotate {
-	  from {
-	    -webkit-transform: rotateZ(0deg);
-	    transform: rotateZ(0deg);
-	  }
-
-	  to {
-	     -webkit-transform: rotateZ(360deg);
-	    transform: rotateZ(360deg);
-	  }
-	}
-	@keyframes planeRotate {
-	  from {
-	    -webkit-transform: rotateZ(0deg);
-	    transform: rotateZ(0deg);
-	  }
-
-	  to {
-	     -webkit-transform: rotateZ(360deg);
-	    transform: rotateZ(360deg);
-	  }
-	}
-
-	@-webkit-keyframes plane {
-	  from {
-	    -webkit-transform: translateY(-8%);
-	    transform: translateY(-8%);
-	  }
-
-	  to {
-	     -webkit-transform: translateY(8%);
-	    transform: translateY(8%);
-	  }
-	}
-	@keyframes plane {
-	  from {
-	    -webkit-transform: translateY(-8%);
-	    transform: translateY(-8%);
-	  }
-
-	  to {
-	     -webkit-transform: translateY(8%);
-	    transform: translateY(8%);
-	  }
-	}
-
-	@-webkit-keyframes cloudOne {
-	  from {
-	    -webkit-transform: translateX(4rem);
-	    transform: translateX(4rem);
-	  }
-
-	  to {
-	     -webkit-transform: translateX(-2rem);
-	    transform: translateX(-2rem);
-	  }
-	}
-	@keyframes cloudOne {
-	  from {
-	    -webkit-transform: translateX(4rem);
-	    transform: translateX(4rem);
-	  }
-
-	  to {
-	     -webkit-transform: translateX(-2rem);
-	    transform: translateX(-2rem);
-	  }
-	}
-
-	@-webkit-keyframes cloudTwo {
-	  from {
-	    -webkit-transform: translateX(8rem);
-	    transform: translateX(8rem);
-	  }
-
-	  to {
-	     -webkit-transform: translateX(-3rem);
-	    transform: translateX(-3rem);
-	  }
-	}
-	@keyframes cloudTwo {
-	  from {
-	    -webkit-transform: translateX(8rem);
-	    transform: translateX(8rem);
-	  }
-
-	  to {
-	     -webkit-transform: translateX(-3rem);
-	    transform: translateX(-3rem);
-	  }
-	}
+	.xs-loader{position: absolute;width:26%;height: 8rem;left:50%; top: 50%; margin-left: -12%; margin-top: -26%; overflow: hidden; }
+	.xs-loader > .plane{ width: 5rem; position: absolute; left: 0; top:50%; margin-top: -2rem; -webkit-animation: plane 0.5s infinite linear alternate; animation: plane 0.5s infinite linear alternate; }
+	.xs-loader > .plane > .plane-body{ position: relative; width:5rem; z-index: 2; }
+	.xs-loader > .cloud-1{ position: absolute; width:1.5rem; bottom: 2rem; left:1rem; -webkit-animation: cloudOne 1s infinite linear; animation: cloudOne 1s infinite linear; }
+	.xs-loader > .cloud-2{ position: absolute; width:1rem; top: 2rem; left:2rem; -webkit-animation: cloudTwo 2s infinite linear; animation: cloudTwo 2s infinite linear; }
+	.plane-circle-wrap{ position: absolute; right:-1.3rem; top:0.78rem; width:3rem; -webkit-transform: rotateY(60deg); transform: rotateY(60deg); }
+	.xs-loader .plane-circle{ width: 100%; -webkit-animation: planeRotate .4s infinite linear; animation: planeRotate .4s infinite linear; z-index: 0; }
+	@-webkit-keyframes planeRotate { from { -webkit-transform: rotateZ(0deg); transform: rotateZ(0deg); } to { -webkit-transform: rotateZ(360deg); transform: rotateZ(360deg); } }
+	@keyframes planeRotate { from { -webkit-transform: rotateZ(0deg); transform: rotateZ(0deg); } to { -webkit-transform: rotateZ(360deg); transform: rotateZ(360deg); } }
+	@-webkit-keyframes plane { from { -webkit-transform: translateY(-8%); transform: translateY(-8%); } to { -webkit-transform: translateY(8%); transform: translateY(8%); } }
+	@keyframes plane { from { -webkit-transform: translateY(-8%); transform: translateY(-8%); } to { -webkit-transform: translateY(8%); transform: translateY(8%); } }
+	@-webkit-keyframes cloudOne { from { -webkit-transform: translateX(4rem); transform: translateX(4rem); } to { -webkit-transform: translateX(-2rem); transform: translateX(-2rem); } }
+	@keyframes cloudOne { from { -webkit-transform: translateX(4rem); transform: translateX(4rem); } to { -webkit-transform: translateX(-2rem); transform: translateX(-2rem); } }
+	@-webkit-keyframes cloudTwo { from { -webkit-transform: translateX(8rem); transform: translateX(8rem); } to { -webkit-transform: translateX(-3rem); transform: translateX(-3rem); } }
+	@keyframes cloudTwo { from { -webkit-transform: translateX(8rem); transform: translateX(8rem); } to { -webkit-transform: translateX(-3rem); transform: translateX(-3rem); } }
 	/*小树飞机 end*/
 
 </style>
@@ -280,7 +123,7 @@
 			<div class="game-mask"></div>
 			<img class="grap-hand animated _shake" @click="openFruit(hand_fruit.index,hand_fruit.id)" src="../public/img/grap_hand.png">
 			<div v-for="(fruit, key) in fruit_list">
-				<div class="fruit _fruit-1 _fruit-p1" v-bind:class="[fruit_class[key]]" v-show="(fruit_list[key].watered_count > 0)" @click="openFruit(fruit.index,fruit.id)">
+				<div class="fruit _fruit-1 _fruit-p1" v-bind:class="[fruit_class[key],fruit_position[fruit.position]]" v-show="(fruit_list[key].watered_count > 0)" @click="openFruit(fruit.index,fruit.id)">
 					<!-- <img class="grap-hand animated _shake" v-show="(fruit_list[key].watered_count >= fruit_list[key].total_required_water_count) && (fruit_list[key].is_opened == 0)" src="../public/img/grap_hand.png"> -->
 					<div class="fruit-hp" v-bind:class="[fruit_hp_class[key]]"  v-show="!(fruit_list[key].watered_count >= fruit_list[key].total_required_water_count)">
 						<span class="hp-value active" v-for="n in (fruit_list[key].watered_count)"></span>
@@ -444,7 +287,8 @@
 					is_opened: 0, // 是否打开果子(0-未打开, 1-已打开)
 				}
 			],
-			fruit_class:['fruit-1 fruit-p1','fruit-2 fruit-p2','fruit-3 fruit-p3','fruit-4 fruit-p4', 'fruit-5 fruit-p5'],
+			fruit_class:['fruit-1','fruit-2','fruit-3','fruit-4', 'fruit-5'],
+			fruit_position: ['', 'fruit-p1', 'fruit-p2', 'fruit-p3', 'fruit-p4', 'fruit-p5'],
 			fruit_hp_class:['hp-1','hp-2','hp-3','hp-4','hp-5'],
 			nav_index: 1,
 		    growth_log: [],
