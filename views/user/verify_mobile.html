@@ -62,14 +62,14 @@
 		        validcode = $captcha.val();
 
 		    if(!verify_mobile(mobile)){
-		        //dialog.error('ÇëÊäÈëÑéÖ¤Âë£¡',2000);
-		        alert('手机号输入错误！');
+		        dialog.error('手机号输入错误！',2000);
+		        //alert('手机号输入错误！');
 		        return false;
 		    }
 
 		    if(validcode.length < 4){
-		        // dialog.error('ÃÜÂëÉÙÓÚ6Î»£¡',2000);
-		        alert('短信验证码输入错误！');
+		        dialog.error('短信验证码输入错误！',2000);
+		        //alert('短信验证码输入错误！');
 		        return false;
 		    }
 		    //alert(agree_checkbox.checked);
