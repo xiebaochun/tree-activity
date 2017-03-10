@@ -12,6 +12,8 @@ var cors = require('cors');
 var _ = require('lodash');
 var app = express();
 
+var minify = require('express-minify');
+
 var bodyParser = require('body-parser');
 var webRouter = require('./web_router');
 
@@ -28,7 +30,7 @@ signature.getSignature(config.weixin_sign)(url, function(error, result) {
   app.locals.signatureData = result;
 });
 
-
+app.use(minify());
 app.use('/public',express.static(path.resolve(__dirname ,'public')));
 
 //app.use('/',express.static(path.resolve(__dirname ,'')));

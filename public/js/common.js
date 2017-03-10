@@ -28,12 +28,12 @@ function api_post(act, requestData, callback) {
     var url = encodeURIComponent(AES_encrypt(JSON.stringify(requestData)));
     $.ajax({
         url: API_ROOT_URL + act,
-        method: 'post',
+        type: 'post',
         data: {url: url},
         success: function(ret) {
             if(ret.status == 1){
                 callback(ret);
-            }else if(ret.status){
+            }else{
                 callback(ret)
                 if(ret.show_err){
                     dialog.error(ret.show_err);

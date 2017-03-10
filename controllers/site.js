@@ -17,8 +17,8 @@ exports.index = function (req, res, next) {
 		var open_id = req.session.user.open_id;
 		api_post.post({act:'get_user_info', open_id: open_id}, function(ret){
 			if(ret.status == 1){
-				//console.log('get user info>>>>>>>>>>>>>>>>:');
-				//console.log(ret);
+				console.log('get user info>>>>>>>>>>>>>>>>:');
+				console.log(ret);
 
 				req.session.user = ret.user_info;
 				//console.log(ret.user_info.is_received_tree == 0);
