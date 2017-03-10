@@ -77,11 +77,12 @@
 		    // var query = new Object();
 		    // query.mobile = mobile;
 		    // query.captcha = captcha;
-
-		    api_post('', {act: 'bind_mobile',user_id: '<%= user_info.user_id %>', mobile: mobile, captcha: validcode}, function(ret){
+		    var post_data = {act: 'bind_mobile',user_id: '<%= user_info.user_id %>', mobile: mobile, captcha: validcode};
+		    console.log(post_data);
+		    api_post('', post_data, function(ret){
 		    	if(ret.status == 1){
 		    		var bind_data = ret;
-		    		
+		    		console.log(bind_data);
 		    		api_post('', {act:'receive_gift', id: '<%= gift_id %>', user_id: '<%= user_info.user_id %>'}, function(ret){
 			  			log('领取礼物');
 			  			log(ret);

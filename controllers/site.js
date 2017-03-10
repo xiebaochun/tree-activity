@@ -213,7 +213,7 @@ exports.verify_mobile = function(req, res, next) {
 }
 
 exports.setting_pwd = function(req, res, next) {
-	res.render('user/setting_pwd', {});
+	res.render('user/setting_pwd', {user_info: req.session.user});
 }
 
 exports.setting_pwd_success = function(req, res, next) {
