@@ -141,7 +141,7 @@
 		<span class="vm f1 color-666">已有<span id="total-count">{{ water_log.total }}</span>位好友送Ta浇水次数</span>
 		<span class="avatar-wrap vm inline-block tr" style="_height: 3rem;">
 			<span class="inline-block pr" v-for="log in water_log.log_list">
-				<span class="avatar bg-cover" v-bind:style="{backgroundImage: 'url(' + (log.avatar_url || '../public/img/fruit.png') + ')'}">	
+				<span class="avatar bg-cover" v-bind:style="{backgroundImage: 'url(' + (log.avatar_url || '../public/img/defualt_avatar.png') + ')'}">	
 				</span>
 				<img class="avatar-water" src="/public/img/bottle_ico.png">
 			</span>
