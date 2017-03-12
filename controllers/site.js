@@ -9,7 +9,9 @@ const wx = new Wechat(wechatConfig);
 
 var api_post = require('../libs/api_post');
 //console.log(wx);
-
+exports.end = function (req, res, next) {
+	res.render('user/end', {});
+};
 exports.index = function (req, res, next) {
 	// if(req.session.user){
 		//console.log('/ controller session user:');
