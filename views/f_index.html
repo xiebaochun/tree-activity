@@ -220,6 +220,9 @@
 		  		api_post('',post_data,function(ret){
 		  			console.log('>>>>>>>>>>>>>>>>');
 					console.log(ret);
+					// if(ret.user_info.user_id == 3){
+					// 	alert('hello' + ret.user_info.user_id);
+					// }
 					self.user_info = ret.user_info;
 					
 				});	
@@ -227,6 +230,10 @@
 				api_post('',{act: 'get_user_info', user_id: this.f_user_id},function(ret){
 		  			console.log('>>>>>>>>>>>>>>>>');
 					console.log(ret);
+					// if(self.user_info.user_id == 3){
+					// 	alert(ret.user_info.watering_able_count);
+					// }
+					//alert('hello share' + ret.user_info.user_id);
 					self.f_user_info = ret.user_info;
 					
 				});	
@@ -270,7 +277,7 @@
 								var html = '<span class="inline-block pr">\
 												<span class="avatar bg-cover" style="background-image: url('+ self.user_info.avatar_url +')">\
 												</span>\
-												<img class="avatar-water" src="/public/img/water_bottle.png">\
+												<img class="avatar-water" src="/public/img/bottle_ico.png">\
 											</span>';
 								$('.avatar-wrap').prepend(html);
 								$('#total-count').text(parseInt($('#total-count').text()) + 1);
