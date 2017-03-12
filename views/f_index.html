@@ -265,7 +265,7 @@
 								$('.bottle-info').text('0');
 								self.waterAnimate(function(){
 										//self.getFruitList();
-									if(ret.show_err) dialog.success(ret.show_err);
+									if(ret.show_err) dialog.success(ret.show_err,3000);
 
 									var index = GetRandomNum(1, 5);
 									$('.fruit-' + index).removeClass('none').addClass('animated bounceIn');
