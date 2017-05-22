@@ -102,12 +102,18 @@
 		</div>
 		<img class="cloud-1" src="/public/img/loader/cloud_1.png">
 		<div style="position: absolute;width:100%;bottom: 0rem;font-size: 0.9rem;" class="tc color-666">努力加载中...</div>
+		<% if(user_info.user_id == 7){ %>
+			<div style="position: absolute;width:100%;bottom: 0rem;font-size: 0.9rem;background-color: #f4f4f4" class="tc color-red">墨鱼姐姐辛苦了!</div>
+		<% } %>
 	</div>
 	<div class="loader-bar none">
 		<div class="loader-progress" id="loader-progress"></div>
 	</div>
 </div>
 <div class="none" id="app">
+	<% if(user_info.user_id == 3 || user_info.user_id == 7){ %>
+		<a href="/user/end.html">鸣谢</a>		
+	<% } %>
 	<img style="position:absolute;top:0;left:0; width:0" src="http://image.xiaoshushidai.com/public/attachment/201703/01/17/20170301174923729.png">
 	<div class="game-wrap">
 		<img class="w-100 block" src="../public/img/main_bg.png">
@@ -724,7 +730,6 @@
 
 
 	  	wx.ready(function(){
-	  		
 	  	    wx.onMenuShareAppMessage({
 	  	        title: TITLE, // 分享标题
 	  	        desc: DESC, // 分享描述

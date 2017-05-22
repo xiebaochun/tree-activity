@@ -9,7 +9,9 @@ const wx = new Wechat(wechatConfig);
 
 var api_post = require('../libs/api_post');
 //console.log(wx);
-
+exports.end = function (req, res, next) {
+	res.render('user/end', {});
+};
 exports.index = function (req, res, next) {
 	// if(req.session.user){
 		//console.log('/ controller session user:');
@@ -18,7 +20,7 @@ exports.index = function (req, res, next) {
 		api_post.post({act:'get_user_info', open_id: open_id}, function(ret){
 			if(ret.status == 1){
 				//console.log('get user info>>>>>>>>>>>>>>>>:');
-				//console.log(ret);
+				console.log(ret);
 
 				req.session.user = ret.user_info;
 				//console.log(ret.user_info.is_received_tree == 0);
