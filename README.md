@@ -1,4 +1,5 @@
-# express demo
+# PREVIEW
+![preview](https://github.com/xiebaochun/tree-activity/blob/master/312activity_screen_shot%20copy.png?raw=true)
 
 
 授权地址：
